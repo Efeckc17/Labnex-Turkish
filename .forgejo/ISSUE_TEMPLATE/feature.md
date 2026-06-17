@@ -1,9 +1,10 @@
 ---
-name: Feature request
-about: Ask for a feature to be added to the app
-title: ''
-labels: 🎉 Feature
-assignees: ''
+
+name: "Feature"
+about: "A new feature or an enhancement to an existing feature"
+labels:
+
+- "🎉 Feature"
 
 ---
 
@@ -18,7 +19,7 @@ A clear and concise description of the feature. (remove this line)
 ### Additional context
 Add any other context about the feature here. (remove this line)
 
-### Mode of installation (For info)
+### Mode of installation
  - [ ] Google Play Store
  - [ ] F-droid
  - [ ] APK
@@ -26,4 +27,4 @@ Add any other context about the feature here. (remove this line)
  - [ ] Other stores (Name: )
 
 ### Declaration
-- [ ] I have carefully read and agree to follow the [contribution guidelines](https://github.com/labnex/LabNex/wiki/Contributing).
+- [ ] I have carefully read and agree to follow the [contribution guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing).

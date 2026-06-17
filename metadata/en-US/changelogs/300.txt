@@ -14,4 +14,4 @@
 🐛 Bug Fixes 🐛
 - Fix time format for other timezone
 
-Release Notes: https://github.com/labnex/LabNex/releases
+Release Notes: https://codeberg.org/labnex/LabNex/releases

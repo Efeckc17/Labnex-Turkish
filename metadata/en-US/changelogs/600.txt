@@ -16,4 +16,4 @@
 🐛 Bug Fixes 🐛
 - Fixed crash when viewing profiles (removed Skype field)
 
-Release Notes: https://github.com/labnex/LabNex/releases
+Release Notes: https://codeberg.org/labnex/LabNex/releases

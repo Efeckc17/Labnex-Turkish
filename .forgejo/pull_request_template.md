@@ -5,6 +5,7 @@
 
 <!-- Make sure you are targeting the "main" branch, pull requests on release branches are only allowed for bug fixes. -->
 
-- [ ] I carefully read the [contribution guidelines](https://github.com/labnex/LabNex/wiki/Contributing).
+- [ ] I carefully read the [contribution guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing).
+- [ ] I carefully read the AI usage [here](https://codeberg.org/labnex/LabNex/wiki/Submissions-via-AI).
 - [ ] By submitting this pull request, I permit LabNex to license my work under
-  the [GNU General Public License v3](https://raw.githubusercontent.com/labnex/LabNex/main/LICENSE).
+  the [GNU General Public License v3](https://codeberg.org/labnex/LabNex/raw/branch/main/LICENSE).

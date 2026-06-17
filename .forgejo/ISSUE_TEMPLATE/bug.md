@@ -1,9 +1,10 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: 🐛 Bug
-assignees: ''
+
+name: "Bug"
+about: "Something isn't working"
+labels:
+
+- "🐛 Bug"
 
 ---
 
@@ -27,7 +28,7 @@ If applicable, add logs to help better debug the problem. Use code blocks to enc
 ### Screenshots
 If applicable, add screenshots to help explain your problem. (remove this line)
 
-### Versions (please complete the following information)**
+### Versions (please complete the following information)
  - LabNex:  
  - Android:  
  - GitLab:  
@@ -49,4 +50,4 @@ If applicable, add screenshots to help explain your problem. (remove this line)
 Add any other context about the problem here. (remove this line)
 
 ### Declaration
-- [ ] I have carefully read and agree to follow the [contribution guidelines](https://github.com/labnex/LabNex/wiki/Contributing).
+- [ ] I have carefully read and agree to follow the [contribution guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing).

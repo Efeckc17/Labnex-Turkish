@@ -18,4 +18,4 @@
 - Use specific errors on invalid logins
 - Fix explore results for scopes
 
-Release Notes: https://github.com/labnex/LabNex/releases
+Release Notes: https://codeberg.org/labnex/LabNex/releases

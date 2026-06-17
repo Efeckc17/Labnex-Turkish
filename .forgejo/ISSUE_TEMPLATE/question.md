@@ -1,9 +1,10 @@
 ---
-name: Question
-about: Ask a question
-title: ''
-labels: ❓ Question
-assignees: ''
+
+name: "Question"
+about: "Ask a question"
+labels:
+
+- "❓ Question"
 
 ---
 
@@ -18,12 +19,12 @@ A clear and concise description of the question. (remove this line)
 ### Additional context
 Add any other context about the question here. (remove this line)
 
-### Mode of installation (For info)
+### Mode of installation
  - [ ] Google Play Store
  - [ ] F-droid
  - [ ] APK
  - [ ] Built from source
  - [ ] Other stores (Name: )
-
+ 
 ### Declaration
-- [ ] I have carefully read and agree to follow the [contribution guidelines](https://github.com/labnex/LabNex/wiki/Contributing).
+- [ ] I have carefully read and agree to follow the [contribution guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing).

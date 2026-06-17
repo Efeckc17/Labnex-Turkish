@@ -15,4 +15,4 @@
 - New floating comment box
 - and many more...
 
-Release Notes: https://github.com/labnex/LabNex/releases
+Release Notes: https://codeberg.org/labnex/LabNex/releases

@@ -17,4 +17,4 @@
 - Fix blank activities for some users
 - Remember the last used home screen
 
-Release Notes: https://github.com/labnex/LabNex/releases
+Release Notes: https://codeberg.org/labnex/LabNex/releases

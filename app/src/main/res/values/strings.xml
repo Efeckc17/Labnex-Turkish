@@ -5,7 +5,7 @@
     <string name="support_link_patreon" translatable="false">https://www.patreon.com/mmarif</string>
     <string name="crowd_in_link" translatable="false">https://crowdin.com/project/labnex</string>
     <string name="app_website_link" translatable="false">https://labnex.app</string>
-    <string name="source_code_link" translatable="false">https://github.com/labnex/LabNex</string>
+    <string name="source_code_link" translatable="false">https://codeberg.org/labnex/LabNex</string>
     <string name="support_text_patreon" translatable="false">Patreon</string>
     <string name="crowd_in_text" translatable="false">Crowdin</string>
     <string name="gitnex" translatable="false">GitNex</string>

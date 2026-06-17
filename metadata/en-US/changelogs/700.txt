@@ -13,4 +13,4 @@
 - Self-signed certificate support (more in FAQ)
 - Scoped label support for groups and projects
 
-Release Notes: https://github.com/labnex/LabNex/releases
+Release Notes: https://codeberg.org/labnex/LabNex/releases

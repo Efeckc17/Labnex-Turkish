@@ -1,18 +1,18 @@
-[![License: GPL v3](https://raw.githubusercontent.com/labnex/LabNex/main/assets/license.svg)](https://spdx.org/licenses/GPL-3.0-only.html) [![Release](https://img.shields.io/github/v/release/labnex/LabNex?display_name=release&label=release)](https://github.com/labnex/LabNex/releases) [![Crowdin](https://badges.crowdin.net/labnex/localized.svg)](https://crowdin.com/project/labnex)
-
-[<img alt="Become a Patreon" src="https://raw.githubusercontent.com/labnex/LabNex/main/assets/patreon.png" height="80"/>](https://www.patreon.com/mmarif)
-
 # LabNex - Android app for GitLab
 
 LabNex is an open-source Android app for GitLab. You can use it with GitLab.com or your self-hosted GitLab instance. It supports multiple accounts, allowing you to add as many instances as you need.  
-LabNex is licensed under the GPLv3 License.
+LabNex is licensed under the GPLv3 License.  
+
+[![License: GPL v3](https://codeberg.org/labnex/LabNex/raw/branch/main/assets/license.svg)](https://spdx.org/licenses/GPL-3.0-only.html) [![Release](https://img.shields.io/badge/dynamic/json.svg?label=release&url=https://codeberg.org/api/v1/repos/labnex/LabNex/releases&query=$[0].tag_name)](https://codeberg.org/labnex/LabNex/releases) [![Crowdin](https://badges.crowdin.net/labnex/localized.svg)](https://crowdin.com/project/labnex)
+
+[<img alt="Become a Patreon" src="https://codeberg.org/labnex/LabNex/raw/branch/main/assets/patreon.png" height="80"/>](https://www.patreon.com/mmarif)
 
 ## Downloads
 
-[<img alt='Get it on F-Droid' src='https://raw.githubusercontent.com/labnex/LabNex/main/assets/fdroid.png' height="80"/>](https://f-droid.org/en/packages/com.labnex.app/)
-[<img alt='Get it on Google Play' src='https://raw.githubusercontent.com/labnex/LabNex/main/assets/google-play.png' height="80"/>](https://play.google.com/store/apps/details?id=com.labnex.app.premium)
-[<img alt='Download builds and releases' src='https://raw.githubusercontent.com/labnex/LabNex/main/assets/apk-badge.png' height="82"/>](https://github.com/labnex/LabNex/releases)
-[<img alt='Get it on OpenAPK' src='https://raw.githubusercontent.com/labnex/LabNex/main/assets/openapk.png' height="82"/>](https://www.openapk.net/labnex/com.labnex.app/)
+[<img alt='Get it on F-Droid' src='https://codeberg.org/labnex/LabNex/raw/branch/main/assets/fdroid.png' height="80"/>](https://f-droid.org/en/packages/com.labnex.app/)
+[<img alt='Get it on Google Play' src='https://codeberg.org/labnex/LabNex/raw/branch/main/assets/google-play.png' height="80"/>](https://play.google.com/store/apps/details?id=com.labnex.app.premium)
+[<img alt='Download builds and releases' src='https://codeberg.org/labnex/LabNex/raw/branch/main/assets/apk-badge.png' height="82"/>](https://codeberg.org/labnex/LabNex/releases)
+[<img alt='Get it on OpenAPK' src='https://codeberg.org/labnex/LabNex/raw/branch/main/assets/openapk.png' height="82"/>](https://www.openapk.net/labnex/com.labnex.app/)
 
 ## Features
 
@@ -25,14 +25,14 @@ LabNex is licensed under the GPLv3 License.
 - Diff viewer for code changes
 - Localized in multiple languages
 
-[Complete feature list →](https://github.com/labnex/LabNex/wiki/Features)
+[Complete feature list →](https://codeberg.org/labnex/LabNex/wiki/Features)
 
 ## Screenshots
 
-[<img src="https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/001.png" alt="Dashboard" width="200"/>](https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/001.png) | [<img src="https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/002.png" alt="Projects" width="200"/>](https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/002.png) | [<img src="https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/003.png" alt="Issues" width="200"/>](https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/003.png) | [<img src="https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/004.png" alt="Code" width="200"/>](https://raw.githubusercontent.com/labnex/LabNex/main/metadata/en-US/images/phoneScreenshots/004.png)
+[<img src="https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/001.png" alt="Dashboard" width="200"/>](https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/001.png) | [<img src="https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/002.png" alt="Projects" width="200"/>](https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/002.png) | [<img src="https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/003.png" alt="Issues" width="200"/>](https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/003.png) | [<img src="https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/004.png" alt="Code" width="200"/>](https://codeberg.org/labnex/LabNex/raw/branch/main/metadata/en-US/images/phoneScreenshots/004.png)
 ---|---|---|---
 
-[More screenshots →](https://github.com/labnex/LabNex/tree/main/metadata/en-US/images/phoneScreenshots)
+[More screenshots →](https://codeberg.org/labnex/LabNex/src/branch/main/metadata/en-US/images/phoneScreenshots)
 
 ## Add a Custom URL Scheme
 
@@ -57,34 +57,34 @@ JSON Configuration:
 
 ## Self-signed certificates
 
-LabNex supports self-signed certificates. You can read more [here](https://github.com/labnex/LabNex/wiki/FAQ#does-labnex-support-self-signed-certificates).
+LabNex supports self-signed certificates. You can read more [here](https://codeberg.org/labnex/LabNex/wiki/FAQ#does-labnex-support-self-signed-certificates).
 
 ## Development
 
-- [Building from source](https://github.com/labnex/LabNex/wiki/Building)
-- [Contributing guidelines](https://github.com/labnex/LabNex/wiki/Contributing)
+- [Building from source](https://codeberg.org/labnex/LabNex/wiki/Building)
+- [Contributing guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing)
 
 ## Frequently Asked Questions
 
-[View complete FAQ →](https://github.com/labnex/LabNex/wiki/FAQ)
+[View complete FAQ →](https://codeberg.org/labnex/LabNex/wiki/FAQ)
 
 ## Translation
 
-Help translate LabNex on [Crowdin](https://crowdin.com/project/labnex). Request new languages [here](https://github.com/labnex/LabNex/issues).
+Help translate LabNex on [Crowdin](https://crowdin.com/project/labnex). Request new languages [here](https://codeberg.org/labnex/LabNex/issues).
 
 ## Links
 
 - [Website](https://labnex.app/)
 - [Privacy Policy](https://labnex.app/privacy)
-- [Wiki](https://github.com/labnex/LabNex/wiki/)
-- [FAQ](https://github.com/labnex/LabNex/wiki/FAQ)
+- [Wiki](https://codeberg.org/labnex/LabNex/wiki/)
+- [FAQ](https://codeberg.org/labnex/LabNex/wiki/FAQ)
 
 ## Acknowledgments
 
 Thanks to all open-source libraries, contributors, and donors for your support.
 
-- Libraries: [Open-source libraries used](https://github.com/labnex/LabNex/wiki/Open-source-libraries)
-- Icon sets: [tabler/tabler-icons](https://github.com/tabler/tabler-icons)
+- Libraries: [Open-source libraries used](https://codeberg.org/labnex/LabNex/wiki/Open-source-libraries)
+- Icon sets: [tabler/tabler-icons](https://codeberg.org/tabler/tabler-icons)
 
 ## Social
 
@@ -96,7 +96,7 @@ Thanks to all open-source libraries, contributors, and donors for your support.
 Developing and maintaining LabNex requires significant time and effort. Help us keep the project sustainable and free:
 
 - **Donate**: Support development via [Patreon](https://www.patreon.com/mmarif) or purchase the [Play Store version](https://play.google.com/store/apps/details?id=com.labnex.app.premium)
-- **Contribute**: Help build new features - see our [Contributing Guide](https://github.com/labnex/LabNex/wiki/Contributing)
+- **Contribute**: Help build new features - see our [Contributing Guide](https://codeberg.org/labnex/LabNex/wiki/Contributing)
 - **Report Issues**: Improve the app by reporting bugs and suggestions
 
 ## Disclaimer

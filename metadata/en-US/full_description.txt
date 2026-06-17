@@ -67,6 +67,6 @@ Simplify your mobile experience with LabNex
 - Markdown preview for issue, merge request descriptions
 - Code editor
 
-Complete list of features: https://github.com/labnex/LabNex/wiki/Features
-Source code: https://github.com/labnex/LabNex
+Complete list of features: https://codeberg.org/labnex/LabNex/wiki/Features
+Source code: https://codeberg.org/labnex/LabNex
 Developer: https://mastodon.social/@mmarif
