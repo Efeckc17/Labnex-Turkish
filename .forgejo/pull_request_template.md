@@ -1,11 +1,20 @@
-### Describe what your pull request does and which issue you’re targeting
+### What does this PR do?
+<!-- Briefly describe the change. -->
 
-<!-- Create a new issue, if it doesn't exist yet -->
-<br><br>
 
-<!-- Make sure you are targeting the "main" branch, pull requests on release branches are only allowed for bug fixes. -->
+### Related Issue
+<!-- e.g., Closes #123 -->
 
-- [ ] I carefully read the [contribution guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing).
-- [ ] I carefully read the AI usage [here](https://codeberg.org/labnex/LabNex/wiki/Submissions-via-AI).
-- [ ] By submitting this pull request, I permit LabNex to license my work under
-  the [GNU General Public License v3](https://codeberg.org/labnex/LabNex/raw/branch/main/LICENSE).
+
+### Screenshots / Screen Recordings
+<!-- If the PR includes UI changes, attach them here. -->
+
+
+### Checklist
+- [ ] I read the [PR Checklist](https://codeberg.org/labnex/LabNex/wiki/PR-Checklist).
+- [ ] Tested on an emulator or real device.
+- [ ] Ran `./gradlew :app:spotlessApply`.
+- [ ] New files include the `@author` tag.
+- [ ] I read the [Contribution Guidelines](https://codeberg.org/labnex/LabNex/wiki/Contributing).
+- [ ] I read the [AI Usage Policy](https://codeberg.org/labnex/LabNex/wiki/Submissions-via-AI).
+- [ ] I license this work under [GNU GPL v3](https://codeberg.org/labnex/LabNex/src/branch/main/LICENSE).
