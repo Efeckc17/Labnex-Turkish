@@ -108,6 +108,7 @@
                 android:checkable="false"
                 android:text="@string/personal_access_token_helper"
                 android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 app:chipBackgroundColor="?attr/colorPrimaryContainer"
                 app:chipIcon="@drawable/ic_info"
                 app:chipIconSize="@dimen/dimen18dp"

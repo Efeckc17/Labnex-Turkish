@@ -19,8 +19,10 @@ public class BadgeHelper {
 		if (count > 0) {
 			if (badge == null) {
 				badge = BadgeDrawable.create(context);
-				badge.setBackgroundColor(getThemeColor(context, R.attr.primaryTextColor));
-				badge.setBadgeTextColor(getThemeColor(context, R.attr.materialCardBackgroundColor));
+				badge.setBackgroundColor(
+						getThemeColor(context, com.google.android.material.R.attr.colorOnSurface));
+				badge.setBadgeTextColor(
+						getThemeColor(context, com.google.android.material.R.attr.colorSurface));
 
 				badge.setMaxCharacterCount(4);
 

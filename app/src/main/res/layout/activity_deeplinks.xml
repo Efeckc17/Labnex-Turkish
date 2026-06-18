@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/account_does_not_exist"
-                    android:textColor="?attr/primaryTextColor"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/dimen18sp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -51,7 +51,6 @@
                     android:layout_height="@dimen/dimen54dp"
                     android:layout_marginTop="@dimen/dimen24dp"
                     android:text="@string/add_new_account"
-                    android:textColor="?attr/materialCardBackgroundColor"
                     android:textSize="@dimen/dimen16sp"
                     android:textStyle="bold" />
 
@@ -61,7 +60,6 @@
                     android:layout_height="@dimen/dimen54dp"
                     android:layout_marginTop="@dimen/dimen12dp"
                     android:text="@string/go_to_app"
-                    android:textColor="?attr/materialCardBackgroundColor"
                     android:textSize="@dimen/dimen16sp"
                     android:visibility="gone"
                     android:textStyle="bold" />
@@ -82,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/no_action_text"
-                    android:textColor="?attr/primaryTextColor"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/dimen18sp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -91,7 +89,6 @@
                     android:layout_height="@dimen/dimen54dp"
                     android:layout_marginTop="@dimen/dimen24dp"
                     android:text="@string/home"
-                    android:textColor="?attr/materialCardBackgroundColor"
                     android:textSize="@dimen/dimen16sp"
                     android:textStyle="bold" />
 
@@ -101,7 +98,6 @@
                     android:layout_height="@dimen/dimen54dp"
                     android:layout_marginTop="@dimen/dimen12dp"
                     android:text="@string/activities"
-                    android:textColor="?attr/materialCardBackgroundColor"
                     android:textSize="@dimen/dimen16sp"
                     android:textStyle="bold" />
 
@@ -111,7 +107,6 @@
                     android:layout_height="@dimen/dimen54dp"
                     android:layout_marginTop="@dimen/dimen12dp"
                     android:text="@string/explore"
-                    android:textColor="?attr/materialCardBackgroundColor"
                     android:textSize="@dimen/dimen16sp"
                     android:textStyle="bold" />
 
