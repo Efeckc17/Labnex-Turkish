@@ -102,24 +102,23 @@ public class MergeRequestDetailActivity extends BaseActivity {
 
 		binding.getRoot()
 				.getViewTreeObserver()
-				.addOnGlobalLayoutListener(
-						() -> {
-							Rect r = new Rect();
-							binding.getRoot().getWindowVisibleDisplayFrame(r);
-							int screenHeight = binding.getRoot().getRootView().getHeight();
-							int keypadHeight = screenHeight - r.bottom;
+				.addOnGlobalLayoutListener(() -> {
+					Rect r = new Rect();
+					binding.getRoot().getWindowVisibleDisplayFrame(r);
+					int screenHeight = binding.getRoot().getRootView().getHeight();
+					int keypadHeight = screenHeight - r.bottom;
 
-							ViewGroup.MarginLayoutParams params =
-									(ViewGroup.MarginLayoutParams)
-											binding.commentBox.getRoot().getLayoutParams();
-							if (keypadHeight > screenHeight * 0.15) {
-								params.bottomMargin = keypadHeight;
-							} else {
-								params.bottomMargin =
-										(int) (36 * getResources().getDisplayMetrics().density);
-							}
-							binding.commentBox.getRoot().setLayoutParams(params);
-						});
+					ViewGroup.MarginLayoutParams params =
+							(ViewGroup.MarginLayoutParams)
+									binding.commentBox.getRoot().getLayoutParams();
+					if (keypadHeight > screenHeight * 0.15) {
+						params.bottomMargin = keypadHeight;
+					} else {
+						params.bottomMargin =
+								(int) (36 * getResources().getDisplayMetrics().density);
+					}
+					binding.commentBox.getRoot().setLayoutParams(params);
+				});
 
 		viewModel.loadMergeRequest(ctx, projectId, mrIid);
 	}
@@ -268,70 +267,66 @@ public class MergeRequestDetailActivity extends BaseActivity {
 
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(mrData.getTitle(), "!" + mrIid, items);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "merge":
-							MergeMrBottomSheet.newInstance(projectId, mrIid, viewModel)
-									.show(getSupportFragmentManager(), "mergeMrSheet");
-							break;
-						case "commits":
-							Intent commitsIntent =
-									mrContext.getProjects().getIntent(ctx, CommitsActivity.class);
-							commitsIntent.putExtra("source", "mr");
-							commitsIntent.putExtra("mergeRequestIid", mrIid);
-							commitsIntent.putExtra("projectId", projectId);
-							startActivity(commitsIntent);
-							break;
-						case "files":
-							Bundle bundle = new Bundle();
-							bundle.putString("source", "mr");
-							bundle.putLong("projectId", projectId);
-							bundle.putLong("mrIid", mrIid);
-							CommitDiffsBottomSheet bottomSheet = new CommitDiffsBottomSheet();
-							bottomSheet.setArguments(bundle);
-							bottomSheet.show(
-									((FragmentActivity) ctx).getSupportFragmentManager(),
-									"mrDiffsBottomSheet");
-							break;
-						case "close":
-							new MaterialAlertDialogBuilder(ctx)
-									.setTitle(R.string.close_mr)
-									.setMessage(R.string.close_mr_confirmation)
-									.setPositiveButton(
-											R.string.close,
-											(d, w) ->
-													viewModel.toggleMrState(
-															ctx, projectId, mrIid, "close"))
-									.setNegativeButton(R.string.cancel, null)
-									.show();
-							break;
-						case "reopen":
-							viewModel.toggleMrState(ctx, projectId, mrIid, "reopen");
-							break;
-						case "lock":
-							viewModel.toggleDiscussionLock(ctx, projectId, mrIid, true);
-							break;
-						case "unlock":
-							viewModel.toggleDiscussionLock(ctx, projectId, mrIid, false);
-							break;
-						case "mark_ready":
-							viewModel.toggleDraft(ctx, projectId, mrIid, mrData.getTitle(), false);
-							break;
-						case "mark_draft":
-							viewModel.toggleDraft(ctx, projectId, mrIid, mrData.getTitle(), true);
-							break;
-						case "copy_url":
-							Utils.copyToClipboard(
-									ctx,
-									mrData.getWebUrl(),
-									getString(R.string.copied_to_clipboard));
-							break;
-						case "open_browser":
-							Utils.openUrlInBrowser(this, mrData.getWebUrl());
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "merge":
+					MergeMrBottomSheet.newInstance(projectId, mrIid, viewModel)
+							.show(getSupportFragmentManager(), "mergeMrSheet");
+					break;
+				case "commits":
+					Intent commitsIntent =
+							mrContext.getProjects().getIntent(ctx, CommitsActivity.class);
+					commitsIntent.putExtra("source", "mr");
+					commitsIntent.putExtra("mergeRequestIid", mrIid);
+					commitsIntent.putExtra("projectId", projectId);
+					startActivity(commitsIntent);
+					break;
+				case "files":
+					Bundle bundle = new Bundle();
+					bundle.putString("source", "mr");
+					bundle.putLong("projectId", projectId);
+					bundle.putLong("mrIid", mrIid);
+					CommitDiffsBottomSheet bottomSheet = new CommitDiffsBottomSheet();
+					bottomSheet.setArguments(bundle);
+					bottomSheet.show(
+							((FragmentActivity) ctx).getSupportFragmentManager(),
+							"mrDiffsBottomSheet");
+					break;
+				case "close":
+					new MaterialAlertDialogBuilder(ctx)
+							.setTitle(R.string.close_mr)
+							.setMessage(R.string.close_mr_confirmation)
+							.setPositiveButton(
+									R.string.close,
+									(d, w) ->
+											viewModel.toggleMrState(ctx, projectId, mrIid, "close"))
+							.setNegativeButton(R.string.cancel, null)
+							.show();
+					break;
+				case "reopen":
+					viewModel.toggleMrState(ctx, projectId, mrIid, "reopen");
+					break;
+				case "lock":
+					viewModel.toggleDiscussionLock(ctx, projectId, mrIid, true);
+					break;
+				case "unlock":
+					viewModel.toggleDiscussionLock(ctx, projectId, mrIid, false);
+					break;
+				case "mark_ready":
+					viewModel.toggleDraft(ctx, projectId, mrIid, mrData.getTitle(), false);
+					break;
+				case "mark_draft":
+					viewModel.toggleDraft(ctx, projectId, mrIid, mrData.getTitle(), true);
+					break;
+				case "copy_url":
+					Utils.copyToClipboard(
+							ctx, mrData.getWebUrl(), getString(R.string.copied_to_clipboard));
+					break;
+				case "open_browser":
+					Utils.openUrlInBrowser(this, mrData.getWebUrl());
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "mrMenuSheet");
 	}
 
@@ -368,13 +363,11 @@ public class MergeRequestDetailActivity extends BaseActivity {
 		boolean canModify = accessLevel >= AccessLevel.MAINTAINER;
 		boolean isMerged = "merged".equalsIgnoreCase(state);
 		binding.btnEdit.setVisibility(canModify && !isMerged ? View.VISIBLE : View.GONE);
-		binding.btnEdit.setOnClickListener(
-				v -> {
-					CreateMergeRequestBottomSheet.newInstance(
-									"project", projectId, canModify, false, null, null, mrData,
-									null)
-							.show(getSupportFragmentManager(), "editMrSheet");
-				});
+		binding.btnEdit.setOnClickListener(v -> {
+			CreateMergeRequestBottomSheet.newInstance(
+							"project", projectId, canModify, false, null, null, mrData, null)
+					.show(getSupportFragmentManager(), "editMrSheet");
+		});
 
 		setupMrHeaderTitle(mrData.getTitle(), mrIid);
 
@@ -505,14 +498,13 @@ public class MergeRequestDetailActivity extends BaseActivity {
 							binding.btnApprove.setEnabled(!isMerged);
 							binding.btnApprove.setText(
 									hasUserApproved ? R.string.revoke_approval : R.string.approve);
-							binding.btnApprove.setOnClickListener(
-									v -> {
-										if (hasUserApproved) {
-											viewModel.revokeApproval(ctx, projectId, mrIid);
-										} else {
-											viewModel.approveMr(ctx, projectId, mrIid);
-										}
-									});
+							binding.btnApprove.setOnClickListener(v -> {
+								if (hasUserApproved) {
+									viewModel.revokeApproval(ctx, projectId, mrIid);
+								} else {
+									viewModel.approveMr(ctx, projectId, mrIid);
+								}
+							});
 						});
 	}
 
@@ -740,12 +732,10 @@ public class MergeRequestDetailActivity extends BaseActivity {
 		ValueAnimator animator =
 				ValueAnimator.ofInt(binding.scrollSpacer.getLayoutParams().height, targetHeight);
 		animator.setDuration(300);
-		animator.addUpdateListener(
-				animation -> {
-					binding.scrollSpacer.getLayoutParams().height =
-							(int) animation.getAnimatedValue();
-					binding.scrollSpacer.requestLayout();
-				});
+		animator.addUpdateListener(animation -> {
+			binding.scrollSpacer.getLayoutParams().height = (int) animation.getAnimatedValue();
+			binding.scrollSpacer.requestLayout();
+		});
 		animator.start();
 	}
 
@@ -796,23 +786,21 @@ public class MergeRequestDetailActivity extends BaseActivity {
 	}
 
 	private void setupCommentBox() {
-		binding.commentBox.etQuickComment.setOnFocusChangeListener(
-				(v, hasFocus) -> {
-					if (hasFocus) Utils.showKeyboard(this, binding.commentBox.etQuickComment);
-				});
+		binding.commentBox.etQuickComment.setOnFocusChangeListener((v, hasFocus) -> {
+			if (hasFocus) Utils.showKeyboard(this, binding.commentBox.etQuickComment);
+		});
 		binding.commentBox.btnCloseReply.setOnClickListener(v -> hideCommentBox());
 		binding.commentBox.btnQuickSend.setOnClickListener(v -> submitComment());
-		binding.commentBox.etQuickComment.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.commentBox.etQuickComment.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 	}
 
 	private void submitComment() {
@@ -825,10 +813,8 @@ public class MergeRequestDetailActivity extends BaseActivity {
 	}
 
 	private void scrollTimelineToBottom() {
-		binding.scrollView.post(
-				() ->
-						binding.scrollView.smoothScrollTo(
-								0, binding.scrollView.getChildAt(0).getHeight()));
+		binding.scrollView.post(() ->
+				binding.scrollView.smoothScrollTo(0, binding.scrollView.getChildAt(0).getHeight()));
 	}
 
 	private void setupReactions() {

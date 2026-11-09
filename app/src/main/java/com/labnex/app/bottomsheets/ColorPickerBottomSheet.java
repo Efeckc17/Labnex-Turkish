@@ -79,24 +79,22 @@ public class ColorPickerBottomSheet extends BottomSheetDialogFragment {
 	private void setupUI() {
 		binding.hexInput.setText(selectedColor.replace("#", ""));
 
-		binding.hexInputLayout.setEndIconOnClickListener(
-				v -> {
-					String input =
-							Objects.requireNonNull(binding.hexInput.getText()).toString().trim();
-					String cleanHex = input.replaceAll("^#+", "");
+		binding.hexInputLayout.setEndIconOnClickListener(v -> {
+			String input = Objects.requireNonNull(binding.hexInput.getText()).toString().trim();
+			String cleanHex = input.replaceAll("^#+", "");
 
-					if (cleanHex.length() == 6) {
-						try {
-							String finalColor = "#" + cleanHex;
-							Color.parseColor(finalColor);
-							applyAndDismiss(finalColor);
-						} catch (Exception e) {
-							Toasty.show(requireContext(), getString(R.string.invalid_color));
-						}
-					} else {
-						Toasty.show(requireContext(), getString(R.string.invalid_length));
-					}
-				});
+			if (cleanHex.length() == 6) {
+				try {
+					String finalColor = "#" + cleanHex;
+					Color.parseColor(finalColor);
+					applyAndDismiss(finalColor);
+				} catch (Exception e) {
+					Toasty.show(requireContext(), getString(R.string.invalid_color));
+				}
+			} else {
+				Toasty.show(requireContext(), getString(R.string.invalid_length));
+			}
+		});
 	}
 
 	private void setupGrid() {

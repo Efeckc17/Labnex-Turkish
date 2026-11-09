@@ -79,13 +79,12 @@ public class NotesPickerBottomSheet extends BottomSheetDialogFragment {
 
 		adapter = new NotesAdapter(requireContext(), notesList, null);
 		adapter.setSheetStyle(true);
-		adapter.setOnNoteInsertListener(
-				noteContent -> {
-					if (listener != null) {
-						listener.onNoteSelected(noteContent);
-					}
-					dismiss();
-				});
+		adapter.setOnNoteInsertListener(noteContent -> {
+			if (listener != null) {
+				listener.onNoteSelected(noteContent);
+			}
+			dismiss();
+		});
 		binding.recyclerView.setAdapter(adapter);
 	}
 

@@ -45,63 +45,59 @@ public class CreateProjectBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
-		binding.btnCreate.setOnClickListener(
-				v -> {
-					String name =
-							binding.nameInput.getText() != null
-									? binding.nameInput.getText().toString().trim()
-									: "";
-					if (name.isEmpty()) {
-						Toasty.show(requireContext(), getString(R.string.project_name_required));
-						return;
-					}
+		binding.btnCreate.setOnClickListener(v -> {
+			String name =
+					binding.nameInput.getText() != null
+							? binding.nameInput.getText().toString().trim()
+							: "";
+			if (name.isEmpty()) {
+				Toasty.show(requireContext(), getString(R.string.project_name_required));
+				return;
+			}
 
-					String description =
-							binding.descriptionInput.getText() != null
-									? binding.descriptionInput.getText().toString().trim()
-									: "";
-					String defaultBranch =
-							binding.branchInput.getText() != null
-									? binding.branchInput.getText().toString().trim()
-									: "main";
-					String visibility = binding.chipPublic.isChecked() ? "public" : "private";
-					boolean initWithReadme = binding.switchReadme.isChecked();
-					boolean lfsEnabled = binding.switchLfs.isChecked();
-					boolean emailsEnabled = binding.switchEmails.isChecked();
+			String description =
+					binding.descriptionInput.getText() != null
+							? binding.descriptionInput.getText().toString().trim()
+							: "";
+			String defaultBranch =
+					binding.branchInput.getText() != null
+							? binding.branchInput.getText().toString().trim()
+							: "main";
+			String visibility = binding.chipPublic.isChecked() ? "public" : "private";
+			boolean initWithReadme = binding.switchReadme.isChecked();
+			boolean lfsEnabled = binding.switchLfs.isChecked();
+			boolean emailsEnabled = binding.switchEmails.isChecked();
 
-					CreateProjectViewModel.NamespaceItem selectedNs = null;
-					int nsPos = binding.namespaceInput.getListSelection();
-					if (nsPos >= 0 && namespaceAdapter != null) {
-						selectedNs = namespaceAdapter.getItem(nsPos);
-					}
-					long namespaceId =
-							(selectedNs != null && "group".equals(selectedNs.kind))
-									? selectedNs.id
-									: -1;
+			CreateProjectViewModel.NamespaceItem selectedNs = null;
+			int nsPos = binding.namespaceInput.getListSelection();
+			if (nsPos >= 0 && namespaceAdapter != null) {
+				selectedNs = namespaceAdapter.getItem(nsPos);
+			}
+			long namespaceId =
+					(selectedNs != null && "group".equals(selectedNs.kind)) ? selectedNs.id : -1;
 
-					viewModel.createProject(
-							requireContext(),
-							name,
-							description,
-							visibility,
-							initWithReadme,
-							defaultBranch,
-							lfsEnabled,
-							emailsEnabled,
-							namespaceId);
-				});
+			viewModel.createProject(
+					requireContext(),
+					name,
+					description,
+					visibility,
+					initWithReadme,
+					defaultBranch,
+					lfsEnabled,
+					emailsEnabled,
+					namespaceId);
+		});
 
 		observeViewModel();
 

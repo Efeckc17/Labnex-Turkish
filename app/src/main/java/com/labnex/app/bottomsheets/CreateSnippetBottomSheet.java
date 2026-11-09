@@ -112,17 +112,16 @@ public class CreateSnippetBottomSheet extends BottomSheetDialogFragment {
 		binding.btnSubmit.setOnClickListener(v -> submitSnippet());
 		observeViewModel();
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (isEditMode && getArguments() != null) {
 			Bundle args = getArguments();
@@ -249,17 +248,16 @@ public class CreateSnippetBottomSheet extends BottomSheetDialogFragment {
 		binding.filenameInput.setText(entry.fileName);
 		binding.contentInput.setText(entry.content != null ? entry.content : "");
 
-		binding.contentInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.contentInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		for (int i = 0; i < binding.fileChipsGroup.getChildCount(); i++) {
 			((Chip) binding.fileChipsGroup.getChildAt(i)).setChecked(i == index);
@@ -306,11 +304,10 @@ public class CreateSnippetBottomSheet extends BottomSheetDialogFragment {
 		}
 
 		EditorBottomSheet editor = EditorBottomSheet.newInstance(entry.content, null, mode, ext);
-		editor.setEditorListener(
-				newContent -> {
-					files.get(selectedFileIndex).content = newContent;
-					binding.contentInput.setText(newContent);
-				});
+		editor.setEditorListener(newContent -> {
+			files.get(selectedFileIndex).content = newContent;
+			binding.contentInput.setText(newContent);
+		});
 		editor.show(getChildFragmentManager(), "fullscreenEditor");
 	}
 

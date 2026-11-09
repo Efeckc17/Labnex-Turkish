@@ -37,25 +37,22 @@ public class MostVisitedProjectsActivity extends BaseActivity {
 
 		binding.btnBack.setOnClickListener(v -> finish());
 
-		binding.btnDeleteAll.setOnClickListener(
-				v ->
-						new MaterialAlertDialogBuilder(ctx)
-								.setTitle(R.string.remove_all_projects)
-								.setMessage(R.string.remove_all_projects_message)
-								.setNeutralButton(R.string.cancel, null)
-								.setPositiveButton(
-										R.string.remove,
-										(dialog, which) -> {
-											if (projectsApi != null) {
-												projectsApi.deleteProjectsByAccount(accountId);
-												adapter.updateList(new ArrayList<>());
-												showEmptyState();
-												Toasty.show(
-														ctx,
-														getString(R.string.all_projects_removed));
-											}
-										})
-								.show());
+		binding.btnDeleteAll.setOnClickListener(v ->
+				new MaterialAlertDialogBuilder(ctx)
+						.setTitle(R.string.remove_all_projects)
+						.setMessage(R.string.remove_all_projects_message)
+						.setNeutralButton(R.string.cancel, null)
+						.setPositiveButton(
+								R.string.remove,
+								(dialog, which) -> {
+									if (projectsApi != null) {
+										projectsApi.deleteProjectsByAccount(accountId);
+										adapter.updateList(new ArrayList<>());
+										showEmptyState();
+										Toasty.show(ctx, getString(R.string.all_projects_removed));
+									}
+								})
+						.show());
 
 		adapter =
 				new MostVisitedAdapter(

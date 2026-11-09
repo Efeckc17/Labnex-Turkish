@@ -159,30 +159,29 @@ public class CreateMergeRequestBottomSheet extends BottomSheetDialogFragment {
 
 			binding.cardUpstream
 					.getRoot()
-					.setOnClickListener(
-							v -> {
-								createUpstreamMr = !createUpstreamMr;
-								upstreamCard.cardSubtitle.setText(
+					.setOnClickListener(v -> {
+						createUpstreamMr = !createUpstreamMr;
+						upstreamCard.cardSubtitle.setText(
+								createUpstreamMr
+										? upstreamProject.getNameWithNamespace()
+										: getString(R.string.tap_to_enable));
+
+						targetCard.cardSubtitle.setText(R.string.tap_to_select_branch);
+						targetCard.cardClear.setVisibility(View.GONE);
+
+						binding.cardLabels
+								.getRoot()
+								.setVisibility(
 										createUpstreamMr
-												? upstreamProject.getNameWithNamespace()
-												: getString(R.string.tap_to_enable));
-
-								targetCard.cardSubtitle.setText(R.string.tap_to_select_branch);
-								targetCard.cardClear.setVisibility(View.GONE);
-
-								binding.cardLabels
-										.getRoot()
-										.setVisibility(
-												createUpstreamMr
-														? View.GONE
-														: (canModify ? View.VISIBLE : View.GONE));
-								binding.cardMilestone
-										.getRoot()
-										.setVisibility(
-												createUpstreamMr
-														? View.GONE
-														: (canModify ? View.VISIBLE : View.GONE));
-							});
+												? View.GONE
+												: (canModify ? View.VISIBLE : View.GONE));
+						binding.cardMilestone
+								.getRoot()
+								.setVisibility(
+										createUpstreamMr
+												? View.GONE
+												: (canModify ? View.VISIBLE : View.GONE));
+					});
 		}
 	}
 
@@ -203,17 +202,16 @@ public class CreateMergeRequestBottomSheet extends BottomSheetDialogFragment {
 			binding.titleInput.setText(preTitle);
 		}
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 	}
 
 	private void setupEditMode() {
@@ -247,105 +245,86 @@ public class CreateMergeRequestBottomSheet extends BottomSheetDialogFragment {
 	private void setupCardListeners() {
 		binding.cardSourceBranch
 				.getRoot()
-				.setOnClickListener(
-						v ->
-								BranchesBottomSheet.newPickerInstance(
-												projectId,
-												branch -> {
-													sourceCard.cardSubtitle.setText(branch);
-													sourceCard.cardClear.setVisibility(
-															View.VISIBLE);
-													checkBranchesSame(
-															branch,
-															targetCard
-																	.cardSubtitle
-																	.getText()
-																	.toString());
-												})
-										.show(getParentFragmentManager(), "sourceBranchPicker"));
+				.setOnClickListener(v ->
+						BranchesBottomSheet.newPickerInstance(
+										projectId,
+										branch -> {
+											sourceCard.cardSubtitle.setText(branch);
+											sourceCard.cardClear.setVisibility(View.VISIBLE);
+											checkBranchesSame(
+													branch,
+													targetCard.cardSubtitle.getText().toString());
+										})
+								.show(getParentFragmentManager(), "sourceBranchPicker"));
 
-		sourceCard.cardClear.setOnClickListener(
-				v -> {
-					sourceCard.cardSubtitle.setText(R.string.tap_to_select_branch);
-					sourceCard.cardClear.setVisibility(View.GONE);
-				});
+		sourceCard.cardClear.setOnClickListener(v -> {
+			sourceCard.cardSubtitle.setText(R.string.tap_to_select_branch);
+			sourceCard.cardClear.setVisibility(View.GONE);
+		});
 
 		binding.cardTargetBranch
 				.getRoot()
-				.setOnClickListener(
-						v -> {
-							long branchProjectId =
-									createUpstreamMr ? upstreamProject.getId() : projectId;
-							BranchesBottomSheet.newPickerInstance(
-											branchProjectId,
-											branch -> {
-												targetCard.cardSubtitle.setText(branch);
-												targetCard.cardClear.setVisibility(View.VISIBLE);
-												checkBranchesSame(
-														sourceCard
-																.cardSubtitle
-																.getText()
-																.toString(),
-														branch);
-											})
-									.show(getParentFragmentManager(), "targetBranchPicker");
-						});
-
-		targetCard.cardClear.setOnClickListener(
-				v -> {
-					targetCard.cardSubtitle.setText(R.string.tap_to_select_branch);
-					targetCard.cardClear.setVisibility(View.GONE);
+				.setOnClickListener(v -> {
+					long branchProjectId = createUpstreamMr ? upstreamProject.getId() : projectId;
+					BranchesBottomSheet.newPickerInstance(
+									branchProjectId,
+									branch -> {
+										targetCard.cardSubtitle.setText(branch);
+										targetCard.cardClear.setVisibility(View.VISIBLE);
+										checkBranchesSame(
+												sourceCard.cardSubtitle.getText().toString(),
+												branch);
+									})
+							.show(getParentFragmentManager(), "targetBranchPicker");
 				});
+
+		targetCard.cardClear.setOnClickListener(v -> {
+			targetCard.cardSubtitle.setText(R.string.tap_to_select_branch);
+			targetCard.cardClear.setVisibility(View.GONE);
+		});
 
 		binding.cardLabels
 				.getRoot()
-				.setOnClickListener(
-						v -> {
-							LabelsPickerBottomSheet picker =
-									LabelsPickerBottomSheet.newInstance(
-											type, projectId, selectedLabels);
-							picker.setOnLabelsSelectedListener(
-									labels -> {
-										selectedLabels = labels;
-										labelsCard.cardSubtitle.setText(
-												labels.isEmpty()
-														? getString(R.string.tap_to_select_labels)
-														: String.join(", ", labels));
-										labelsCard.cardClear.setVisibility(
-												labels.isEmpty() ? View.GONE : View.VISIBLE);
-									});
-							picker.show(getParentFragmentManager(), "labelsPicker");
-						});
-
-		labelsCard.cardClear.setOnClickListener(
-				v -> {
-					selectedLabels.clear();
-					labelsCard.cardSubtitle.setText(R.string.tap_to_select_labels);
-					labelsCard.cardClear.setVisibility(View.GONE);
+				.setOnClickListener(v -> {
+					LabelsPickerBottomSheet picker =
+							LabelsPickerBottomSheet.newInstance(type, projectId, selectedLabels);
+					picker.setOnLabelsSelectedListener(labels -> {
+						selectedLabels = labels;
+						labelsCard.cardSubtitle.setText(
+								labels.isEmpty()
+										? getString(R.string.tap_to_select_labels)
+										: String.join(", ", labels));
+						labelsCard.cardClear.setVisibility(
+								labels.isEmpty() ? View.GONE : View.VISIBLE);
+					});
+					picker.show(getParentFragmentManager(), "labelsPicker");
 				});
+
+		labelsCard.cardClear.setOnClickListener(v -> {
+			selectedLabels.clear();
+			labelsCard.cardSubtitle.setText(R.string.tap_to_select_labels);
+			labelsCard.cardClear.setVisibility(View.GONE);
+		});
 
 		binding.cardMilestone
 				.getRoot()
-				.setOnClickListener(
-						v -> {
-							MilestonesPickerBottomSheet picker =
-									MilestonesPickerBottomSheet.newInstance(
-											type, projectId, selectedMilestone);
-							picker.setOnMilestoneSelectedListener(
-									milestone -> {
-										selectedMilestone = milestone;
-										milestoneCard.cardSubtitle.setText(milestone.getTitle());
-										milestoneCard.cardClear.setVisibility(View.VISIBLE);
-									});
-							picker.show(getParentFragmentManager(), "milestonePicker");
-						});
-
-		milestoneCard.cardClear.setOnClickListener(
-				v -> {
-					selectedMilestone = null;
-					milestoneCard.cardSubtitle.setText(R.string.tap_to_select_milestone);
-					milestoneCard.cardClear.setVisibility(View.GONE);
+				.setOnClickListener(v -> {
+					MilestonesPickerBottomSheet picker =
+							MilestonesPickerBottomSheet.newInstance(
+									type, projectId, selectedMilestone);
+					picker.setOnMilestoneSelectedListener(milestone -> {
+						selectedMilestone = milestone;
+						milestoneCard.cardSubtitle.setText(milestone.getTitle());
+						milestoneCard.cardClear.setVisibility(View.VISIBLE);
+					});
+					picker.show(getParentFragmentManager(), "milestonePicker");
 				});
+
+		milestoneCard.cardClear.setOnClickListener(v -> {
+			selectedMilestone = null;
+			milestoneCard.cardSubtitle.setText(R.string.tap_to_select_milestone);
+			milestoneCard.cardClear.setVisibility(View.GONE);
+		});
 	}
 
 	private void checkBranchesSame(String source, String target) {
@@ -400,19 +379,17 @@ public class CreateMergeRequestBottomSheet extends BottomSheetDialogFragment {
 	}
 
 	private void setupEditorExpand() {
-		binding.btnExpand.setOnClickListener(
-				v -> {
-					String content =
-							binding.descriptionInput.getText() != null
-									? binding.descriptionInput.getText().toString()
-									: "";
-					EditorBottomSheet editor =
-							EditorBottomSheet.newInstance(
-									content, null, EditorBottomSheet.EditorMode.MARKDOWN, null);
-					editor.setEditorListener(
-							newContent -> binding.descriptionInput.setText(newContent));
-					editor.show(getChildFragmentManager(), "fullscreenEditor");
-				});
+		binding.btnExpand.setOnClickListener(v -> {
+			String content =
+					binding.descriptionInput.getText() != null
+							? binding.descriptionInput.getText().toString()
+							: "";
+			EditorBottomSheet editor =
+					EditorBottomSheet.newInstance(
+							content, null, EditorBottomSheet.EditorMode.MARKDOWN, null);
+			editor.setEditorListener(newContent -> binding.descriptionInput.setText(newContent));
+			editor.show(getChildFragmentManager(), "fullscreenEditor");
+		});
 	}
 
 	private void submitMr() {

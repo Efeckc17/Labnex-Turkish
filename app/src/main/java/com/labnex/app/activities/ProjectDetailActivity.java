@@ -360,61 +360,54 @@ public class ProjectDetailActivity extends BaseActivity
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(
 						project.getName(), project.getNameWithNamespace(), menuItems);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "create_issue":
-							CreateIssueBottomSheet.newInstance(
-											"project", projectId, canModify, null)
-									.show(getSupportFragmentManager(), "createIssueSheet");
-							break;
-						case "create_mr":
-							CreateMergeRequestBottomSheet.newInstance(
-											"project", projectId, canModify, false, null, null,
-											null, upstream)
-									.show(getSupportFragmentManager(), "createMrSheet");
-							break;
-						case "create_file":
-							CreateFileBottomSheet.newInstance(
-											projectId,
-											branch,
-											"create",
-											null,
-											projectsContext,
-											upstream)
-									.show(getSupportFragmentManager(), "createFileSheet");
-							break;
-						case "create_release":
-							CreateReleaseBottomSheet.newInstance(projectId, null)
-									.show(getSupportFragmentManager(), "createReleaseSheet");
-							break;
-						case "create_tag":
-							CreateTagBottomSheet.newInstance(projectId)
-									.show(getSupportFragmentManager(), "createTagSheet");
-							break;
-						case "create_branch":
-							CreateBranchBottomSheet.newInstance(projectId, branch)
-									.show(getSupportFragmentManager(), "createBranchSheet");
-							break;
-						case "create_milestone":
-							CreateMilestoneBottomSheet.newInstance("project", projectId, null)
-									.show(getSupportFragmentManager(), "milestonesSheet");
-							break;
-						case "create_label":
-							CreateLabelBottomSheet.newInstance("project", projectId, null)
-									.show(getSupportFragmentManager(), "createLabelSheet");
-							break;
-						case "create_wiki":
-							CreateWikiBottomSheet.newInstance("project", projectId, null)
-									.show(getSupportFragmentManager(), "createWikiSheet");
-							break;
-						case "fork_project":
-							ForkProjectBottomSheet.newInstance(
-											projectId, project.getName(), project.getPath())
-									.show(getSupportFragmentManager(), "forkProjectSheet");
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "create_issue":
+					CreateIssueBottomSheet.newInstance("project", projectId, canModify, null)
+							.show(getSupportFragmentManager(), "createIssueSheet");
+					break;
+				case "create_mr":
+					CreateMergeRequestBottomSheet.newInstance(
+									"project", projectId, canModify, false, null, null, null,
+									upstream)
+							.show(getSupportFragmentManager(), "createMrSheet");
+					break;
+				case "create_file":
+					CreateFileBottomSheet.newInstance(
+									projectId, branch, "create", null, projectsContext, upstream)
+							.show(getSupportFragmentManager(), "createFileSheet");
+					break;
+				case "create_release":
+					CreateReleaseBottomSheet.newInstance(projectId, null)
+							.show(getSupportFragmentManager(), "createReleaseSheet");
+					break;
+				case "create_tag":
+					CreateTagBottomSheet.newInstance(projectId)
+							.show(getSupportFragmentManager(), "createTagSheet");
+					break;
+				case "create_branch":
+					CreateBranchBottomSheet.newInstance(projectId, branch)
+							.show(getSupportFragmentManager(), "createBranchSheet");
+					break;
+				case "create_milestone":
+					CreateMilestoneBottomSheet.newInstance("project", projectId, null)
+							.show(getSupportFragmentManager(), "milestonesSheet");
+					break;
+				case "create_label":
+					CreateLabelBottomSheet.newInstance("project", projectId, null)
+							.show(getSupportFragmentManager(), "createLabelSheet");
+					break;
+				case "create_wiki":
+					CreateWikiBottomSheet.newInstance("project", projectId, null)
+							.show(getSupportFragmentManager(), "createWikiSheet");
+					break;
+				case "fork_project":
+					ForkProjectBottomSheet.newInstance(
+									projectId, project.getName(), project.getPath())
+							.show(getSupportFragmentManager(), "forkProjectSheet");
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "projectMenuSheet");
 	}
 
@@ -454,35 +447,32 @@ public class ProjectDetailActivity extends BaseActivity
 
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(getString(R.string.copy_info), null, items);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "copy_id":
-							Utils.copyToClipboard(
-									ctx,
-									String.valueOf(project.getId()),
-									getString(R.string.copied_to_clipboard));
-							break;
-						case "copy_url":
-							Utils.copyToClipboard(
-									ctx,
-									project.getWebUrl(),
-									getString(R.string.copied_to_clipboard));
-							break;
-						case "copy_https":
-							Utils.copyToClipboard(
-									ctx,
-									project.getHttpUrlToRepo(),
-									getString(R.string.copied_to_clipboard));
-							break;
-						case "copy_ssh":
-							Utils.copyToClipboard(
-									ctx,
-									project.getSshUrlToRepo(),
-									getString(R.string.copied_to_clipboard));
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "copy_id":
+					Utils.copyToClipboard(
+							ctx,
+							String.valueOf(project.getId()),
+							getString(R.string.copied_to_clipboard));
+					break;
+				case "copy_url":
+					Utils.copyToClipboard(
+							ctx, project.getWebUrl(), getString(R.string.copied_to_clipboard));
+					break;
+				case "copy_https":
+					Utils.copyToClipboard(
+							ctx,
+							project.getHttpUrlToRepo(),
+							getString(R.string.copied_to_clipboard));
+					break;
+				case "copy_ssh":
+					Utils.copyToClipboard(
+							ctx,
+							project.getSshUrlToRepo(),
+							getString(R.string.copied_to_clipboard));
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "copyInfoSheet");
 	}
 
@@ -677,20 +667,18 @@ public class ProjectDetailActivity extends BaseActivity
 			binding.sectionHeader.projectDescription.setText(project.getDescription());
 		}
 
-		binding.sectionHeader.statsStars.setOnClickListener(
-				v -> {
-					MembersBottomSheet.newInstance("starrers", projectId)
-							.show(getSupportFragmentManager(), "membersSheet");
-				});
+		binding.sectionHeader.statsStars.setOnClickListener(v -> {
+			MembersBottomSheet.newInstance("starrers", projectId)
+					.show(getSupportFragmentManager(), "membersSheet");
+		});
 
-		binding.sectionHeader.statsForks.setOnClickListener(
-				v -> {
-					ProjectsContext pc = new ProjectsContext(projectsContext.getProject(), ctx);
-					Intent intent = pc.getIntent(ctx, ProjectsActivity.class);
-					intent.putExtra("source", "forks");
-					intent.putExtra("projectId", projectId);
-					startActivity(intent);
-				});
+		binding.sectionHeader.statsForks.setOnClickListener(v -> {
+			ProjectsContext pc = new ProjectsContext(projectsContext.getProject(), ctx);
+			Intent intent = pc.getIntent(ctx, ProjectsActivity.class);
+			intent.putExtra("source", "forks");
+			intent.putExtra("projectId", projectId);
+			startActivity(intent);
+		});
 
 		binding.sectionHeader.projectStars.setText(Utils.numberFormatter(project.getStarCount()));
 		binding.sectionHeader.projectForks.setText(Utils.numberFormatter(project.getForksCount()));
@@ -728,45 +716,42 @@ public class ProjectDetailActivity extends BaseActivity
 		}
 		binding.sectionHeader.languageLabel.setText(label.toString());
 
-		binding.sectionHeader.languageBarContainer.post(
-				() -> {
-					float dp8 =
-							TypedValue.applyDimension(
-									TypedValue.COMPLEX_UNIT_DIP,
-									8,
-									getResources().getDisplayMetrics());
-					int totalWidth = binding.sectionHeader.languageBarContainer.getWidth();
-					if (totalWidth <= 0) return;
-					float total = 0;
-					for (int i = 0; i < maxDisplay; i++) total += sorted.get(i).getValue();
-					for (int i = 0; i < maxDisplay; i++) {
-						float pct = sorted.get(i).getValue() / total;
-						int color = getLanguageColor(sorted.get(i).getKey());
+		binding.sectionHeader.languageBarContainer.post(() -> {
+			float dp8 =
+					TypedValue.applyDimension(
+							TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+			int totalWidth = binding.sectionHeader.languageBarContainer.getWidth();
+			if (totalWidth <= 0) return;
+			float total = 0;
+			for (int i = 0; i < maxDisplay; i++) total += sorted.get(i).getValue();
+			for (int i = 0; i < maxDisplay; i++) {
+				float pct = sorted.get(i).getValue() / total;
+				int color = getLanguageColor(sorted.get(i).getKey());
 
-						View bar = new View(this);
-						int width = (int) (totalWidth * pct);
-						int height = getResources().getDimensionPixelSize(R.dimen.dimen8dp);
+				View bar = new View(this);
+				int width = (int) (totalWidth * pct);
+				int height = getResources().getDimensionPixelSize(R.dimen.dimen8dp);
 
-						float[] radii;
-						if (maxDisplay == 1) {
-							radii = new float[] {dp8, dp8, dp8, dp8, dp8, dp8, dp8, dp8};
-						} else if (i == 0) {
-							radii = new float[] {dp8, dp8, 0, 0, 0, 0, dp8, dp8};
-						} else if (i == maxDisplay - 1) {
-							radii = new float[] {0, 0, dp8, dp8, dp8, dp8, 0, 0};
-						} else {
-							radii = new float[] {0, 0, 0, 0, 0, 0, 0, 0};
-						}
+				float[] radii;
+				if (maxDisplay == 1) {
+					radii = new float[] {dp8, dp8, dp8, dp8, dp8, dp8, dp8, dp8};
+				} else if (i == 0) {
+					radii = new float[] {dp8, dp8, 0, 0, 0, 0, dp8, dp8};
+				} else if (i == maxDisplay - 1) {
+					radii = new float[] {0, 0, dp8, dp8, dp8, dp8, 0, 0};
+				} else {
+					radii = new float[] {0, 0, 0, 0, 0, 0, 0, 0};
+				}
 
-						GradientDrawable drawable = new GradientDrawable();
-						drawable.setColor(color);
-						drawable.setCornerRadii(radii);
+				GradientDrawable drawable = new GradientDrawable();
+				drawable.setColor(color);
+				drawable.setCornerRadii(radii);
 
-						bar.setBackground(drawable);
-						bar.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-						binding.sectionHeader.languageBarContainer.addView(bar);
-					}
-				});
+				bar.setBackground(drawable);
+				bar.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+				binding.sectionHeader.languageBarContainer.addView(bar);
+			}
+		});
 	}
 
 	private void loadLanguageColors() {

@@ -288,26 +288,23 @@ public class ExploreFragment extends Fragment {
 		sheetBinding.chipUsers.setChecked(ExploreViewModel.SCOPE_USERS.equals(currentScope));
 		sheetBinding.chipProjects.setChecked(ExploreViewModel.SCOPE_PROJECTS.equals(currentScope));
 
-		sheetBinding.btnSearch.setOnClickListener(
-				v -> {
-					String query =
-							Objects.requireNonNull(sheetBinding.searchQueryInput.getText())
-									.toString()
-									.trim();
-					if (!query.isEmpty()) {
-						String scope = ExploreViewModel.SCOPE_PROJECTS;
-						if (sheetBinding.chipIssues.isChecked())
-							scope = ExploreViewModel.SCOPE_ISSUES;
-						else if (sheetBinding.chipMr.isChecked())
-							scope = ExploreViewModel.SCOPE_MERGE_REQUESTS;
-						else if (sheetBinding.chipUsers.isChecked())
-							scope = ExploreViewModel.SCOPE_USERS;
+		sheetBinding.btnSearch.setOnClickListener(v -> {
+			String query =
+					Objects.requireNonNull(sheetBinding.searchQueryInput.getText())
+							.toString()
+							.trim();
+			if (!query.isEmpty()) {
+				String scope = ExploreViewModel.SCOPE_PROJECTS;
+				if (sheetBinding.chipIssues.isChecked()) scope = ExploreViewModel.SCOPE_ISSUES;
+				else if (sheetBinding.chipMr.isChecked())
+					scope = ExploreViewModel.SCOPE_MERGE_REQUESTS;
+				else if (sheetBinding.chipUsers.isChecked()) scope = ExploreViewModel.SCOPE_USERS;
 
-						viewModel.setScope(scope);
-						viewModel.search(ctx, query);
-						dialog.dismiss();
-					}
-				});
+				viewModel.setScope(scope);
+				viewModel.search(ctx, query);
+				dialog.dismiss();
+			}
+		});
 
 		dialog.show();
 	}

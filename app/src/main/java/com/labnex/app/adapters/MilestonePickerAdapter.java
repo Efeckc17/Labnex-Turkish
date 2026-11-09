@@ -78,15 +78,14 @@ public class MilestonePickerAdapter extends RecyclerView.Adapter<MilestonePicker
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							selected = list.get(pos);
-							listener.onPick(selected);
-							notifyDataSetChanged();
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					selected = list.get(pos);
+					listener.onPick(selected);
+					notifyDataSetChanged();
+				}
+			});
 		}
 
 		void bind(Milestones milestone) {

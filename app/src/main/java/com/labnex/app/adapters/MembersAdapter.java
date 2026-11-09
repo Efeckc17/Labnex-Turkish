@@ -68,13 +68,12 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersH
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onMemberClick(list.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onMemberClick(list.get(pos));
+				}
+			});
 		}
 
 		@SuppressLint("SetTextI18n")

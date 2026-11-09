@@ -75,13 +75,12 @@ public class LabelPickerAdapter extends RecyclerView.Adapter<LabelPickerAdapter.
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onToggle(list.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onToggle(list.get(pos));
+				}
+			});
 		}
 
 		void bind(Labels label) {

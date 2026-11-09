@@ -89,17 +89,16 @@ public class CreateIssueBottomSheet extends BottomSheetDialogFragment {
 		templatesViewModel.loadTemplates(requireContext(), projectId, "issues");
 		templateObserver();
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
-							|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
+					|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
@@ -159,85 +158,72 @@ public class CreateIssueBottomSheet extends BottomSheetDialogFragment {
 
 		binding.cardDueDate
 				.getRoot()
-				.setOnClickListener(
-						v ->
-								showDatePicker(
-										date -> {
-											dueDateCard.cardSubtitle.setText(date);
-											dueDateCard.cardClear.setVisibility(View.VISIBLE);
-											dueDateSet = true;
-										}));
-		dueDateCard.cardClear.setOnClickListener(
-				v -> {
-					dueDateCard.cardSubtitle.setText(R.string.tap_to_select_date);
-					dueDateCard.cardClear.setVisibility(View.GONE);
-					dueDateSet = false;
-				});
+				.setOnClickListener(v ->
+						showDatePicker(date -> {
+							dueDateCard.cardSubtitle.setText(date);
+							dueDateCard.cardClear.setVisibility(View.VISIBLE);
+							dueDateSet = true;
+						}));
+		dueDateCard.cardClear.setOnClickListener(v -> {
+			dueDateCard.cardSubtitle.setText(R.string.tap_to_select_date);
+			dueDateCard.cardClear.setVisibility(View.GONE);
+			dueDateSet = false;
+		});
 
 		binding.cardLabels
 				.getRoot()
-				.setOnClickListener(
-						v -> {
-							LabelsPickerBottomSheet picker =
-									LabelsPickerBottomSheet.newInstance(
-											type, projectId, selectedLabels);
-							picker.setOnLabelsSelectedListener(
-									labels -> {
-										selectedLabels = labels;
-										if (labels.isEmpty()) {
-											labelsCard.cardSubtitle.setText(
-													R.string.tap_to_select_labels);
-											labelsCard.cardClear.setVisibility(View.GONE);
-										} else {
-											String text = String.join(", ", labels);
-											labelsCard.cardSubtitle.setText(text);
-											labelsCard.cardClear.setVisibility(View.VISIBLE);
-										}
-									});
-							picker.show(getParentFragmentManager(), "labelsPicker");
-						});
-		labelsCard.cardClear.setOnClickListener(
-				v -> {
-					selectedLabels.clear();
-					labelsCard.cardSubtitle.setText(R.string.tap_to_select_labels);
-					labelsCard.cardClear.setVisibility(View.GONE);
+				.setOnClickListener(v -> {
+					LabelsPickerBottomSheet picker =
+							LabelsPickerBottomSheet.newInstance(type, projectId, selectedLabels);
+					picker.setOnLabelsSelectedListener(labels -> {
+						selectedLabels = labels;
+						if (labels.isEmpty()) {
+							labelsCard.cardSubtitle.setText(R.string.tap_to_select_labels);
+							labelsCard.cardClear.setVisibility(View.GONE);
+						} else {
+							String text = String.join(", ", labels);
+							labelsCard.cardSubtitle.setText(text);
+							labelsCard.cardClear.setVisibility(View.VISIBLE);
+						}
+					});
+					picker.show(getParentFragmentManager(), "labelsPicker");
 				});
+		labelsCard.cardClear.setOnClickListener(v -> {
+			selectedLabels.clear();
+			labelsCard.cardSubtitle.setText(R.string.tap_to_select_labels);
+			labelsCard.cardClear.setVisibility(View.GONE);
+		});
 
 		binding.cardMilestone
 				.getRoot()
-				.setOnClickListener(
-						v -> {
-							MilestonesPickerBottomSheet picker =
-									MilestonesPickerBottomSheet.newInstance(
-											type, projectId, selectedMilestone);
-							picker.setOnMilestoneSelectedListener(
-									milestone -> {
-										selectedMilestone = milestone;
-										milestoneCard.cardSubtitle.setText(milestone.getTitle());
-										milestoneCard.cardClear.setVisibility(View.VISIBLE);
-									});
-							picker.show(getParentFragmentManager(), "milestonePicker");
-						});
-		milestoneCard.cardClear.setOnClickListener(
-				v -> {
-					selectedMilestone = null;
-					milestoneCard.cardSubtitle.setText(R.string.tap_to_select_milestone);
-					milestoneCard.cardClear.setVisibility(View.GONE);
+				.setOnClickListener(v -> {
+					MilestonesPickerBottomSheet picker =
+							MilestonesPickerBottomSheet.newInstance(
+									type, projectId, selectedMilestone);
+					picker.setOnMilestoneSelectedListener(milestone -> {
+						selectedMilestone = milestone;
+						milestoneCard.cardSubtitle.setText(milestone.getTitle());
+						milestoneCard.cardClear.setVisibility(View.VISIBLE);
+					});
+					picker.show(getParentFragmentManager(), "milestonePicker");
 				});
+		milestoneCard.cardClear.setOnClickListener(v -> {
+			selectedMilestone = null;
+			milestoneCard.cardSubtitle.setText(R.string.tap_to_select_milestone);
+			milestoneCard.cardClear.setVisibility(View.GONE);
+		});
 
-		binding.btnExpand.setOnClickListener(
-				v -> {
-					String content =
-							binding.descriptionInput.getText() != null
-									? binding.descriptionInput.getText().toString()
-									: "";
-					EditorBottomSheet editor =
-							EditorBottomSheet.newInstance(
-									content, null, EditorBottomSheet.EditorMode.MARKDOWN, null);
-					editor.setEditorListener(
-							newContent -> binding.descriptionInput.setText(newContent));
-					editor.show(getChildFragmentManager(), "fullscreenEditor");
-				});
+		binding.btnExpand.setOnClickListener(v -> {
+			String content =
+					binding.descriptionInput.getText() != null
+							? binding.descriptionInput.getText().toString()
+							: "";
+			EditorBottomSheet editor =
+					EditorBottomSheet.newInstance(
+							content, null, EditorBottomSheet.EditorMode.MARKDOWN, null);
+			editor.setEditorListener(newContent -> binding.descriptionInput.setText(newContent));
+			editor.show(getChildFragmentManager(), "fullscreenEditor");
+		});
 
 		binding.btnSubmit.setOnClickListener(v -> submitIssue());
 		observeViewModel();
@@ -310,18 +296,17 @@ public class CreateIssueBottomSheet extends BottomSheetDialogFragment {
 						.setTitleText(getString(R.string.select_date))
 						.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
 						.build();
-		picker.addOnPositiveButtonClickListener(
-				selection -> {
-					Calendar cal = Calendar.getInstance();
-					cal.setTimeInMillis(selection);
-					listener.onDateSelected(
-							String.format(
-									Locale.US,
-									"%d-%02d-%02d",
-									cal.get(Calendar.YEAR),
-									cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
-				});
+		picker.addOnPositiveButtonClickListener(selection -> {
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(selection);
+			listener.onDateSelected(
+					String.format(
+							Locale.US,
+							"%d-%02d-%02d",
+							cal.get(Calendar.YEAR),
+							cal.get(Calendar.MONTH) + 1,
+							cal.get(Calendar.DAY_OF_MONTH)));
+		});
 		picker.show(getParentFragmentManager(), "datePicker");
 	}
 

@@ -175,46 +175,42 @@ public class TodoFragment extends Fragment {
 		fb.chipBuildFailed.setChecked("build_failed".equals(action));
 		fb.chipApprovalRequired.setChecked("approval_required".equals(action));
 
-		fb.btnMarkAllDone.setOnClickListener(
-				v -> {
-					new MaterialAlertDialogBuilder(ctx)
-							.setTitle(R.string.mark_all_as_done)
-							.setMessage(R.string.mark_all_as_done_confirm)
-							.setPositiveButton(
-									R.string.confirm,
-									(dialog1, which) -> {
-										viewModel.markAllAsDone(ctx);
-										dialog.dismiss();
-									})
-							.setNegativeButton(R.string.cancel, null)
-							.show();
-				});
+		fb.btnMarkAllDone.setOnClickListener(v -> {
+			new MaterialAlertDialogBuilder(ctx)
+					.setTitle(R.string.mark_all_as_done)
+					.setMessage(R.string.mark_all_as_done_confirm)
+					.setPositiveButton(
+							R.string.confirm,
+							(dialog1, which) -> {
+								viewModel.markAllAsDone(ctx);
+								dialog.dismiss();
+							})
+					.setNegativeButton(R.string.cancel, null)
+					.show();
+		});
 
-		fb.btnApply.setOnClickListener(
-				v -> {
-					if (fb.chipIssues.isChecked())
-						viewModel.setCurrentType(TodoViewModel.FILTER_ISSUES);
-					else if (fb.chipMr.isChecked())
-						viewModel.setCurrentType(TodoViewModel.FILTER_MERGE_REQUESTS);
-					else viewModel.setCurrentType(TodoViewModel.FILTER_ALL);
+		fb.btnApply.setOnClickListener(v -> {
+			if (fb.chipIssues.isChecked()) viewModel.setCurrentType(TodoViewModel.FILTER_ISSUES);
+			else if (fb.chipMr.isChecked())
+				viewModel.setCurrentType(TodoViewModel.FILTER_MERGE_REQUESTS);
+			else viewModel.setCurrentType(TodoViewModel.FILTER_ALL);
 
-					viewModel.setCurrentState(
-							fb.chipDone.isChecked()
-									? TodoViewModel.STATE_DONE
-									: TodoViewModel.STATE_PENDING);
+			viewModel.setCurrentState(
+					fb.chipDone.isChecked()
+							? TodoViewModel.STATE_DONE
+							: TodoViewModel.STATE_PENDING);
 
-					String selectedAction = null;
-					if (fb.chipAssigned.isChecked()) selectedAction = "assigned";
-					else if (fb.chipMentioned.isChecked()) selectedAction = "mentioned";
-					else if (fb.chipMarked.isChecked()) selectedAction = "marked";
-					else if (fb.chipBuildFailed.isChecked()) selectedAction = "build_failed";
-					else if (fb.chipApprovalRequired.isChecked())
-						selectedAction = "approval_required";
-					viewModel.setCurrentAction(selectedAction);
+			String selectedAction = null;
+			if (fb.chipAssigned.isChecked()) selectedAction = "assigned";
+			else if (fb.chipMentioned.isChecked()) selectedAction = "mentioned";
+			else if (fb.chipMarked.isChecked()) selectedAction = "marked";
+			else if (fb.chipBuildFailed.isChecked()) selectedAction = "build_failed";
+			else if (fb.chipApprovalRequired.isChecked()) selectedAction = "approval_required";
+			viewModel.setCurrentAction(selectedAction);
 
-					viewModel.loadTodos(ctx);
-					dialog.dismiss();
-				});
+			viewModel.loadTodos(ctx);
+			dialog.dismiss();
+		});
 
 		dialog.show();
 	}

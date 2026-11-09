@@ -119,11 +119,10 @@ public class FilesBrowserActivity extends BaseActivity
 				};
 		binding.recyclerView.addOnScrollListener(scrollListener);
 
-		binding.pullToRefresh.setOnRefreshListener(
-				() -> {
-					binding.pullToRefresh.setRefreshing(false);
-					viewModel.loadFiles(ctx, projectId, branch, currentPath);
-				});
+		binding.pullToRefresh.setOnRefreshListener(() -> {
+			binding.pullToRefresh.setRefreshing(false);
+			viewModel.loadFiles(ctx, projectId, branch, currentPath);
+		});
 	}
 
 	private void setupDockListeners() {
@@ -154,29 +153,23 @@ public class FilesBrowserActivity extends BaseActivity
 
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(projectName, branch, items);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "switch_branch":
-							BranchesBottomSheet.newPickerInstance(projectId, this)
-									.show(getSupportFragmentManager(), "branchesSheet");
-							break;
-						case "add_file":
-							ForkedFromProject upstream =
-									projectsContext.getProject() != null
-											? projectsContext.getProject().getForkedFromProject()
-											: null;
-							CreateFileBottomSheet.newInstance(
-											projectId,
-											branch,
-											"create",
-											null,
-											projectsContext,
-											upstream)
-									.show(getSupportFragmentManager(), "createFileSheet");
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "switch_branch":
+					BranchesBottomSheet.newPickerInstance(projectId, this)
+							.show(getSupportFragmentManager(), "branchesSheet");
+					break;
+				case "add_file":
+					ForkedFromProject upstream =
+							projectsContext.getProject() != null
+									? projectsContext.getProject().getForkedFromProject()
+									: null;
+					CreateFileBottomSheet.newInstance(
+									projectId, branch, "create", null, projectsContext, upstream)
+							.show(getSupportFragmentManager(), "createFileSheet");
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "filesMenuSheet");
 	}
 
@@ -219,34 +212,33 @@ public class FilesBrowserActivity extends BaseActivity
 
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(tree.getName(), currentPath, items);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "edit_file":
-							CreateFileBottomSheet.newInstance(
-											projectId,
-											branch,
-											"edit",
-											tree.getPath(),
-											projectsContext,
-											upstream)
-									.show(getSupportFragmentManager(), "createFileSheet");
-							break;
-						case "download_file":
-							downloadFile(tree);
-							break;
-						case "delete_file":
-							CreateFileBottomSheet.newInstance(
-											projectId,
-											branch,
-											"delete",
-											tree.getPath(),
-											projectsContext,
-											upstream)
-									.show(getSupportFragmentManager(), "createFileSheet");
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "edit_file":
+					CreateFileBottomSheet.newInstance(
+									projectId,
+									branch,
+									"edit",
+									tree.getPath(),
+									projectsContext,
+									upstream)
+							.show(getSupportFragmentManager(), "createFileSheet");
+					break;
+				case "download_file":
+					downloadFile(tree);
+					break;
+				case "delete_file":
+					CreateFileBottomSheet.newInstance(
+									projectId,
+									branch,
+									"delete",
+									tree.getPath(),
+									projectsContext,
+									upstream)
+							.show(getSupportFragmentManager(), "createFileSheet");
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "fileMenuSheet");
 	}
 

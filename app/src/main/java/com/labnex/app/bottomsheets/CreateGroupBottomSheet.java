@@ -69,17 +69,16 @@ public class CreateGroupBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (isEditMode) {
 			binding.switchSubgroup.setVisibility(View.GONE);
@@ -104,10 +103,9 @@ public class CreateGroupBottomSheet extends BottomSheetDialogFragment {
 			}
 		}
 
-		binding.switchSubgroup.setOnCheckedChangeListener(
-				(btn, checked) -> {
-					binding.parentGroupLayout.setVisibility(checked ? View.VISIBLE : View.GONE);
-				});
+		binding.switchSubgroup.setOnCheckedChangeListener((btn, checked) -> {
+			binding.parentGroupLayout.setVisibility(checked ? View.VISIBLE : View.GONE);
+		});
 
 		binding.btnSubmit.setOnClickListener(v -> submitGroup());
 		observeViewModel();

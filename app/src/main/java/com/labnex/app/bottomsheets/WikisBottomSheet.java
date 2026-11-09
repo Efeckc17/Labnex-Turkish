@@ -132,39 +132,34 @@ public class WikisBottomSheet extends BottomSheetDialogFragment {
 								GenericMenuBottomSheet sheet =
 										GenericMenuBottomSheet.newInstance(
 												wiki.getTitle(), null, items);
-								sheet.setOnMenuItemClickListener(
-										menuId -> {
-											switch (menuId) {
-												case "edit":
-													CreateWikiBottomSheet.newInstance(
-																	type, id, wiki)
-															.show(
-																	getParentFragmentManager(),
-																	"editWikiSheet");
-													break;
-												case "delete":
-													new MaterialAlertDialogBuilder(requireContext())
-															.setTitle(
-																	getString(
-																			R.string
-																					.delete_dialog_title,
-																			wiki.getTitle()))
-															.setMessage(
-																	R.string
-																			.delete_wiki_dialog_message)
-															.setPositiveButton(
-																	R.string.delete,
-																	(dialog, which) ->
-																			viewModel.deleteWiki(
-																					requireContext(),
-																					type,
-																					id,
-																					wiki.getSlug()))
-															.setNeutralButton(R.string.cancel, null)
-															.show();
-													break;
-											}
-										});
+								sheet.setOnMenuItemClickListener(menuId -> {
+									switch (menuId) {
+										case "edit":
+											CreateWikiBottomSheet.newInstance(type, id, wiki)
+													.show(
+															getParentFragmentManager(),
+															"editWikiSheet");
+											break;
+										case "delete":
+											new MaterialAlertDialogBuilder(requireContext())
+													.setTitle(
+															getString(
+																	R.string.delete_dialog_title,
+																	wiki.getTitle()))
+													.setMessage(R.string.delete_wiki_dialog_message)
+													.setPositiveButton(
+															R.string.delete,
+															(dialog, which) ->
+																	viewModel.deleteWiki(
+																			requireContext(),
+																			type,
+																			id,
+																			wiki.getSlug()))
+													.setNeutralButton(R.string.cancel, null)
+													.show();
+											break;
+									}
+								});
 								sheet.show(getParentFragmentManager(), "wikiMenuSheet");
 							}
 						});

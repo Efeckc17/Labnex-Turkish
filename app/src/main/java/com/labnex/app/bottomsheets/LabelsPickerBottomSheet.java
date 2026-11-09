@@ -90,13 +90,12 @@ public class LabelsPickerBottomSheet extends BottomSheetDialogFragment {
 		binding.labelsList.setLayoutManager(new LinearLayoutManager(requireContext()));
 		binding.labelsList.setAdapter(adapter);
 
-		binding.btnDone.setOnClickListener(
-				v -> {
-					if (listener != null) {
-						listener.onLabelsSelected(new ArrayList<>(selectedLabels));
-					}
-					dismiss();
-				});
+		binding.btnDone.setOnClickListener(v -> {
+			if (listener != null) {
+				listener.onLabelsSelected(new ArrayList<>(selectedLabels));
+			}
+			dismiss();
+		});
 
 		viewModel
 				.getIsLoading()

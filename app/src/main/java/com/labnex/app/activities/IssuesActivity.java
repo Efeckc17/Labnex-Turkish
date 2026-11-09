@@ -75,12 +75,11 @@ public class IssuesActivity extends BaseActivity implements IssuesAdapter.OnIssu
 				&& projectsContext != null
 				&& !projectsContext.getProject().isArchived()) {
 			binding.dockContainer.addView(binding.btnNewIssue, 1);
-			binding.btnNewIssue.setOnClickListener(
-					v -> {
-						CreateIssueBottomSheet.newInstance(
-										"project", projectsContext.getProjectId(), canModify, null)
-								.show(getSupportFragmentManager(), "createIssueSheet");
-					});
+			binding.btnNewIssue.setOnClickListener(v -> {
+				CreateIssueBottomSheet.newInstance(
+								"project", projectsContext.getProjectId(), canModify, null)
+						.show(getSupportFragmentManager(), "createIssueSheet");
+			});
 		}
 
 		setupRecyclerView();
@@ -116,10 +115,9 @@ public class IssuesActivity extends BaseActivity implements IssuesAdapter.OnIssu
 	}
 
 	private void setupPullToRefresh() {
-		binding.pullToRefresh.setOnRefreshListener(
-				() ->
-						viewModel.loadIssues(
-								ctx, source, id, viewModel.getCurrentScope(), filter, searchQuery));
+		binding.pullToRefresh.setOnRefreshListener(() ->
+				viewModel.loadIssues(
+						ctx, source, id, viewModel.getCurrentScope(), filter, searchQuery));
 	}
 
 	private void showFilterBottomSheet() {
@@ -143,26 +141,22 @@ public class IssuesActivity extends BaseActivity implements IssuesAdapter.OnIssu
 		fb.chipDesc.setChecked("desc".equals(viewModel.getCurrentSort()));
 		fb.chipAsc.setChecked("asc".equals(viewModel.getCurrentSort()));
 
-		fb.btnApply.setOnClickListener(
-				v -> {
-					searchQuery =
-							Objects.requireNonNull(fb.searchQueryInput.getText()).toString().trim();
+		fb.btnApply.setOnClickListener(v -> {
+			searchQuery = Objects.requireNonNull(fb.searchQueryInput.getText()).toString().trim();
 
-					filter = fb.chipOpened.isChecked() ? "opened" : "closed";
+			filter = fb.chipOpened.isChecked() ? "opened" : "closed";
 
-					if (fb.chipScopeCreated.isChecked()) viewModel.setCurrentScope("created_by_me");
-					else if (fb.chipScopeAssigned.isChecked())
-						viewModel.setCurrentScope("assigned_to_me");
-					else viewModel.setCurrentScope("all");
+			if (fb.chipScopeCreated.isChecked()) viewModel.setCurrentScope("created_by_me");
+			else if (fb.chipScopeAssigned.isChecked()) viewModel.setCurrentScope("assigned_to_me");
+			else viewModel.setCurrentScope("all");
 
-					viewModel.setCurrentOrderBy(
-							fb.chipOrderCreated.isChecked() ? "created_at" : "updated_at");
-					viewModel.setCurrentSort(fb.chipDesc.isChecked() ? "desc" : "asc");
+			viewModel.setCurrentOrderBy(
+					fb.chipOrderCreated.isChecked() ? "created_at" : "updated_at");
+			viewModel.setCurrentSort(fb.chipDesc.isChecked() ? "desc" : "asc");
 
-					viewModel.loadIssues(
-							ctx, source, id, viewModel.getCurrentScope(), filter, searchQuery);
-					dialog.dismiss();
-				});
+			viewModel.loadIssues(ctx, source, id, viewModel.getCurrentScope(), filter, searchQuery);
+			dialog.dismiss();
+		});
 
 		dialog.show();
 	}

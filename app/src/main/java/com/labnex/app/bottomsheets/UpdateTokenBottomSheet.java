@@ -53,19 +53,18 @@ public class UpdateTokenBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.btnUpdate.setOnClickListener(
-				v -> {
-					String token =
-							binding.tokenInput.getText() != null
-									? binding.tokenInput.getText().toString().trim()
-									: "";
-					if (token.isEmpty()) {
-						Toasty.show(requireContext(), getString(R.string.token_empty_error));
-						return;
-					}
-					binding.tokenInputLayout.setError(null);
-					updateToken(token);
-				});
+		binding.btnUpdate.setOnClickListener(v -> {
+			String token =
+					binding.tokenInput.getText() != null
+							? binding.tokenInput.getText().toString().trim()
+							: "";
+			if (token.isEmpty()) {
+				Toasty.show(requireContext(), getString(R.string.token_empty_error));
+				return;
+			}
+			binding.tokenInputLayout.setError(null);
+			updateToken(token);
+		});
 
 		return binding.getRoot();
 	}

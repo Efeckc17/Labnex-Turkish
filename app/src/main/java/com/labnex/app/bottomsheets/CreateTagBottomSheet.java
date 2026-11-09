@@ -51,37 +51,32 @@ public class CreateTagBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.btnSubmit.setOnClickListener(
-				v -> {
-					String tagName =
-							binding.tagNameInput.getText() != null
-									? binding.tagNameInput.getText().toString().trim()
-									: "";
-					String ref =
-							binding.refInput.getText() != null
-									? binding.refInput.getText().toString().trim()
-									: "";
-					String message =
-							binding.messageInput.getText() != null
-									? binding.messageInput.getText().toString().trim()
-									: "";
+		binding.btnSubmit.setOnClickListener(v -> {
+			String tagName =
+					binding.tagNameInput.getText() != null
+							? binding.tagNameInput.getText().toString().trim()
+							: "";
+			String ref =
+					binding.refInput.getText() != null
+							? binding.refInput.getText().toString().trim()
+							: "";
+			String message =
+					binding.messageInput.getText() != null
+							? binding.messageInput.getText().toString().trim()
+							: "";
 
-					if (tagName.isEmpty()) {
-						Toasty.show(requireContext(), getString(R.string.tag_name_empty));
-						return;
-					}
-					if (ref.isEmpty()) {
-						Toasty.show(requireContext(), getString(R.string.ref_empty));
-						return;
-					}
+			if (tagName.isEmpty()) {
+				Toasty.show(requireContext(), getString(R.string.tag_name_empty));
+				return;
+			}
+			if (ref.isEmpty()) {
+				Toasty.show(requireContext(), getString(R.string.ref_empty));
+				return;
+			}
 
-					viewModel.createTag(
-							requireContext(),
-							projectId,
-							tagName,
-							ref,
-							message.isEmpty() ? null : message);
-				});
+			viewModel.createTag(
+					requireContext(), projectId, tagName, ref, message.isEmpty() ? null : message);
+		});
 
 		observeViewModel();
 

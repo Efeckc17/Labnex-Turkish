@@ -99,38 +99,35 @@ public class MilestonesBottomSheet extends BottomSheetDialogFragment {
 							GenericMenuBottomSheet sheet =
 									GenericMenuBottomSheet.newInstance(
 											milestone.getTitle(), null, items);
-							sheet.setOnMenuItemClickListener(
-									menuId -> {
-										switch (menuId) {
-											case "edit":
-												CreateMilestoneBottomSheet.newInstance(
-																type, this.id, milestone)
-														.show(
-																getParentFragmentManager(),
-																"editMilestoneSheet");
-												break;
-											case "delete":
-												new MaterialAlertDialogBuilder(requireContext())
-														.setTitle(
-																getString(
-																		R.string
-																				.delete_dialog_title,
-																		milestone.getTitle()))
-														.setMessage(
-																R.string.delete_milestone_message)
-														.setPositiveButton(
-																R.string.delete,
-																(dialog, which) ->
-																		viewModel.deleteMilestone(
-																				requireContext(),
-																				type,
-																				this.id,
-																				milestone.getId()))
-														.setNeutralButton(R.string.cancel, null)
-														.show();
-												break;
-										}
-									});
+							sheet.setOnMenuItemClickListener(menuId -> {
+								switch (menuId) {
+									case "edit":
+										CreateMilestoneBottomSheet.newInstance(
+														type, this.id, milestone)
+												.show(
+														getParentFragmentManager(),
+														"editMilestoneSheet");
+										break;
+									case "delete":
+										new MaterialAlertDialogBuilder(requireContext())
+												.setTitle(
+														getString(
+																R.string.delete_dialog_title,
+																milestone.getTitle()))
+												.setMessage(R.string.delete_milestone_message)
+												.setPositiveButton(
+														R.string.delete,
+														(dialog, which) ->
+																viewModel.deleteMilestone(
+																		requireContext(),
+																		type,
+																		this.id,
+																		milestone.getId()))
+												.setNeutralButton(R.string.cancel, null)
+												.show();
+										break;
+								}
+							});
 							sheet.show(getParentFragmentManager(), "milestoneMenuSheet");
 						});
 

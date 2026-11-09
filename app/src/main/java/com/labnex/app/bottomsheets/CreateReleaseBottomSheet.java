@@ -72,24 +72,22 @@ public class CreateReleaseBottomSheet extends BottomSheetDialogFragment {
 		releasedAtCard.cardSubtitle.setText(R.string.released_at_hint);
 		releasedAtCard.cardIcon.setImageResource(R.drawable.ic_calendar);
 
-		releasedAtCard.cardClear.setOnClickListener(
-				v -> {
-					releasedAtCard.cardSubtitle.setText(R.string.released_at_hint);
-					releasedAtCard.cardClear.setVisibility(View.GONE);
-					releasedAtSet = false;
-				});
+		releasedAtCard.cardClear.setOnClickListener(v -> {
+			releasedAtCard.cardSubtitle.setText(R.string.released_at_hint);
+			releasedAtCard.cardClear.setVisibility(View.GONE);
+			releasedAtSet = false;
+		});
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
-							|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
+					|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (isEditMode && getArguments() != null) {
 			Releases r = (Releases) getArguments().getSerializable("release");
@@ -115,14 +113,12 @@ public class CreateReleaseBottomSheet extends BottomSheetDialogFragment {
 
 		binding.cardReleasedAt
 				.getRoot()
-				.setOnClickListener(
-						v ->
-								showDatePicker(
-										date -> {
-											releasedAtCard.cardSubtitle.setText(date);
-											releasedAtCard.cardClear.setVisibility(View.VISIBLE);
-											releasedAtSet = true;
-										}));
+				.setOnClickListener(v ->
+						showDatePicker(date -> {
+							releasedAtCard.cardSubtitle.setText(date);
+							releasedAtCard.cardClear.setVisibility(View.VISIBLE);
+							releasedAtSet = true;
+						}));
 
 		binding.btnSubmit.setOnClickListener(v -> submitRelease());
 		observeViewModel();
@@ -149,19 +145,18 @@ public class CreateReleaseBottomSheet extends BottomSheetDialogFragment {
 						.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
 						.build();
 
-		picker.addOnPositiveButtonClickListener(
-				selection -> {
-					Calendar cal = Calendar.getInstance();
-					cal.setTimeInMillis(selection);
-					String date =
-							String.format(
-									Locale.US,
-									"%d-%02d-%02dT00:00:00Z",
-									cal.get(Calendar.YEAR),
-									cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH));
-					listener.onDateSelected(date);
-				});
+		picker.addOnPositiveButtonClickListener(selection -> {
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(selection);
+			String date =
+					String.format(
+							Locale.US,
+							"%d-%02d-%02dT00:00:00Z",
+							cal.get(Calendar.YEAR),
+							cal.get(Calendar.MONTH) + 1,
+							cal.get(Calendar.DAY_OF_MONTH));
+			listener.onDateSelected(date);
+		});
 
 		picker.show(getParentFragmentManager(), "datePicker");
 	}

@@ -67,13 +67,12 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onActivityClick(list.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onActivityClick(list.get(pos));
+				}
+			});
 		}
 
 		void bind(Events events) {
@@ -92,11 +91,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
 			if (events.getCreatedAt() != null) {
 				Date date = TimeHelper.parseIso8601(events.getCreatedAt());
 				binding.time.setText(TimeHelper.formatTime(date));
-				binding.time.setOnClickListener(
-						v ->
-								Toasty.show(
-										context,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				binding.time.setOnClickListener(v ->
+						Toasty.show(
+								context, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 
 			bindActionText(events);

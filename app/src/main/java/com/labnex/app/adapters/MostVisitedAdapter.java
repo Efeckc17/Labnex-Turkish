@@ -76,27 +76,25 @@ public class MostVisitedAdapter
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						if (current == null) return;
-						ProjectsContext pc =
-								new ProjectsContext(
-										current.getProjectName(),
-										current.getProjectPath(),
-										current.getProjectId(),
-										ctx);
-						Intent intent = pc.getIntent(ctx, ProjectDetailActivity.class);
-						intent.putExtra("source", "most_visited");
-						ctx.startActivity(intent);
-					});
+			itemView.setOnClickListener(v -> {
+				if (current == null) return;
+				ProjectsContext pc =
+						new ProjectsContext(
+								current.getProjectName(),
+								current.getProjectPath(),
+								current.getProjectId(),
+								ctx);
+				Intent intent = pc.getIntent(ctx, ProjectDetailActivity.class);
+				intent.putExtra("source", "most_visited");
+				ctx.startActivity(intent);
+			});
 
-			binding.btnRemove.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && removeListener != null) {
-							removeListener.onRemove(current, pos);
-						}
-					});
+			binding.btnRemove.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && removeListener != null) {
+					removeListener.onRemove(current, pos);
+				}
+			});
 		}
 
 		void bind(Projects project) {

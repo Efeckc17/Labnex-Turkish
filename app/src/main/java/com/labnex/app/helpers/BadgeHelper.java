@@ -31,10 +31,9 @@ public class BadgeHelper {
 				badge.setVerticalOffset(offset);
 
 				final BadgeDrawable finalBadge = badge;
-				anchor.post(
-						() ->
-								com.google.android.material.badge.BadgeUtils.attachBadgeDrawable(
-										finalBadge, anchor, null));
+				anchor.post(() ->
+						com.google.android.material.badge.BadgeUtils.attachBadgeDrawable(
+								finalBadge, anchor, null));
 			}
 
 			badge.setNumber(count);

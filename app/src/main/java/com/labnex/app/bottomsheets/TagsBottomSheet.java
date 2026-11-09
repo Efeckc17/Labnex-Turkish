@@ -86,27 +86,25 @@ public class TagsBottomSheet extends BottomSheetDialogFragment {
 
 							GenericMenuBottomSheet sheet =
 									GenericMenuBottomSheet.newInstance(tag.getName(), null, items);
-							sheet.setOnMenuItemClickListener(
-									menuId -> {
-										if ("delete".equals(menuId)) {
-											new MaterialAlertDialogBuilder(requireContext())
-													.setTitle(R.string.delete_tag)
-													.setMessage(
-															getString(
-																	R.string
-																			.delete_tag_confirmation,
+							sheet.setOnMenuItemClickListener(menuId -> {
+								if ("delete".equals(menuId)) {
+									new MaterialAlertDialogBuilder(requireContext())
+											.setTitle(R.string.delete_tag)
+											.setMessage(
+													getString(
+															R.string.delete_tag_confirmation,
+															tag.getName()))
+											.setPositiveButton(
+													R.string.delete,
+													(dialog, which) ->
+															viewModel.deleteTag(
+																	requireContext(),
+																	projectId,
 																	tag.getName()))
-													.setPositiveButton(
-															R.string.delete,
-															(dialog, which) ->
-																	viewModel.deleteTag(
-																			requireContext(),
-																			projectId,
-																			tag.getName()))
-													.setNegativeButton(R.string.cancel, null)
-													.show();
-										}
-									});
+											.setNegativeButton(R.string.cancel, null)
+											.show();
+								}
+							});
 							sheet.show(getParentFragmentManager(), "tagMenuSheet");
 						});
 

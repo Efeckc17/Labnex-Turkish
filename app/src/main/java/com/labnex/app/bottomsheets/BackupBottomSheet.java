@@ -42,41 +42,39 @@ public class BackupBottomSheet extends BottomSheetDialogFragment {
 			@Nullable Bundle savedInstanceState) {
 		binding = BottomsheetBackupBinding.inflate(inflater, container, false);
 
-		binding.exportButton.setOnClickListener(
-				v ->
-						new MaterialAlertDialogBuilder(requireContext())
-								.setTitle(R.string.backup_dialog_title)
-								.setMessage(R.string.backup_dialog_message)
-								.setPositiveButton(
-										R.string.export_button,
-										(dialog, which) -> {
-											if (callback != null) callback.onExport();
-											else
-												Toasty.show(
-														requireContext(),
-														getString(R.string.backup_failed));
-											dismiss();
-										})
-								.setNeutralButton(R.string.cancel, (dialog, which) -> dismiss())
-								.show());
+		binding.exportButton.setOnClickListener(v ->
+				new MaterialAlertDialogBuilder(requireContext())
+						.setTitle(R.string.backup_dialog_title)
+						.setMessage(R.string.backup_dialog_message)
+						.setPositiveButton(
+								R.string.export_button,
+								(dialog, which) -> {
+									if (callback != null) callback.onExport();
+									else
+										Toasty.show(
+												requireContext(),
+												getString(R.string.backup_failed));
+									dismiss();
+								})
+						.setNeutralButton(R.string.cancel, (dialog, which) -> dismiss())
+						.show());
 
-		binding.importButton.setOnClickListener(
-				v ->
-						new MaterialAlertDialogBuilder(requireContext())
-								.setTitle(R.string.import_dialog_title)
-								.setMessage(R.string.import_dialog_message)
-								.setPositiveButton(
-										R.string.import_button,
-										(dialog, which) -> {
-											if (callback != null) callback.onImport();
-											else
-												Toasty.show(
-														requireContext(),
-														getString(R.string.import_failed));
-											dismiss();
-										})
-								.setNeutralButton(R.string.cancel, (dialog, which) -> dismiss())
-								.show());
+		binding.importButton.setOnClickListener(v ->
+				new MaterialAlertDialogBuilder(requireContext())
+						.setTitle(R.string.import_dialog_title)
+						.setMessage(R.string.import_dialog_message)
+						.setPositiveButton(
+								R.string.import_button,
+								(dialog, which) -> {
+									if (callback != null) callback.onImport();
+									else
+										Toasty.show(
+												requireContext(),
+												getString(R.string.import_failed));
+									dismiss();
+								})
+						.setNeutralButton(R.string.cancel, (dialog, which) -> dismiss())
+						.show());
 
 		return binding.getRoot();
 	}

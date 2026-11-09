@@ -114,14 +114,12 @@ public class AppSettingsActivity extends BaseActivity
 						.centerCrop()
 						.into(binding.userAvatar);
 
-				binding.userAvatar.setOnClickListener(
-						v -> {
-							Intent intent = new Intent(this, ProfileActivity.class);
-							intent.putExtra("source", "app_settings");
-							intent.putExtra(
-									"userId", String.valueOf(getAccount().getUserInfo().getId()));
-							startActivity(intent);
-						});
+				binding.userAvatar.setOnClickListener(v -> {
+					Intent intent = new Intent(this, ProfileActivity.class);
+					intent.putExtra("source", "app_settings");
+					intent.putExtra("userId", String.valueOf(getAccount().getUserInfo().getId()));
+					startActivity(intent);
+				});
 			}
 		}
 
@@ -186,28 +184,22 @@ public class AppSettingsActivity extends BaseActivity
 						AppSettingsInit.getSettingsValue(
 								ctx, AppSettingsInit.APP_SHOW_LABELS_IN_LISTS_KEY)));
 
-		binding.sectionAll.switchShowLabels.setOnCheckedChangeListener(
-				(bv, isChecked) -> {
-					AppSettingsInit.updateSettingsValue(
-							ctx,
-							String.valueOf(isChecked),
-							AppSettingsInit.APP_SHOW_LABELS_IN_LISTS_KEY);
-					Toasty.show(this, getString(R.string.settings_saved));
-				});
+		binding.sectionAll.switchShowLabels.setOnCheckedChangeListener((bv, isChecked) -> {
+			AppSettingsInit.updateSettingsValue(
+					ctx, String.valueOf(isChecked), AppSettingsInit.APP_SHOW_LABELS_IN_LISTS_KEY);
+			Toasty.show(this, getString(R.string.settings_saved));
+		});
 
 		binding.sectionAll.switchLabelsColors.setChecked(
 				Boolean.parseBoolean(
 						AppSettingsInit.getSettingsValue(
 								ctx, AppSettingsInit.APP_SHOW_LABELS_COLORS_KEY)));
 
-		binding.sectionAll.switchLabelsColors.setOnCheckedChangeListener(
-				(bv, isChecked) -> {
-					AppSettingsInit.updateSettingsValue(
-							ctx,
-							String.valueOf(isChecked),
-							AppSettingsInit.APP_SHOW_LABELS_COLORS_KEY);
-					Toasty.show(this, getString(R.string.settings_saved));
-				});
+		binding.sectionAll.switchLabelsColors.setOnCheckedChangeListener((bv, isChecked) -> {
+			AppSettingsInit.updateSettingsValue(
+					ctx, String.valueOf(isChecked), AppSettingsInit.APP_SHOW_LABELS_COLORS_KEY);
+			Toasty.show(this, getString(R.string.settings_saved));
+		});
 	}
 
 	private void setupSecuritySection() {
@@ -218,11 +210,10 @@ public class AppSettingsActivity extends BaseActivity
 		binding.sectionAll.switchBiometric.setOnCheckedChangeListener(
 				(bv, isChecked) -> handleBiometricToggle(isChecked));
 
-		binding.sectionAll.backupFrameSelection.setOnClickListener(
-				v -> {
-					BackupBottomSheet bottomSheet = BackupBottomSheet.newInstance(this);
-					bottomSheet.show(getSupportFragmentManager(), "BackupBottomSheet");
-				});
+		binding.sectionAll.backupFrameSelection.setOnClickListener(v -> {
+			BackupBottomSheet bottomSheet = BackupBottomSheet.newInstance(this);
+			bottomSheet.show(getSupportFragmentManager(), "BackupBottomSheet");
+		});
 	}
 
 	private void setupDynamicSections() {
@@ -342,26 +333,25 @@ public class AppSettingsActivity extends BaseActivity
 		binding.sectionAll.languageSelected.setText(
 				langMap.get(langMap.keySet().toArray(new String[0])[langSelectedChoice]));
 
-		binding.sectionAll.languageSelectionFrame.setOnClickListener(
-				v -> {
-					new MaterialAlertDialogBuilder(this)
-							.setTitle(R.string.settings_language_selector_dialog_title)
-							.setSingleChoiceItems(
-									langMap.values().toArray(new String[0]),
-									langSelectedChoice,
-									(dialog, i) -> {
-										String selectedLanguage =
-												langMap.keySet().toArray(new String[0])[i];
-										AppSettingsInit.updateSettingsValue(
-												ctx,
-												i + "|" + selectedLanguage,
-												AppSettingsInit.APP_LOCALE_KEY);
-										Utils.setLocale(this, selectedLanguage.split("-")[0]);
-										dialog.dismiss();
-										recreateWithAnimation();
-									})
-							.show();
-				});
+		binding.sectionAll.languageSelectionFrame.setOnClickListener(v -> {
+			new MaterialAlertDialogBuilder(this)
+					.setTitle(R.string.settings_language_selector_dialog_title)
+					.setSingleChoiceItems(
+							langMap.values().toArray(new String[0]),
+							langSelectedChoice,
+							(dialog, i) -> {
+								String selectedLanguage =
+										langMap.keySet().toArray(new String[0])[i];
+								AppSettingsInit.updateSettingsValue(
+										ctx,
+										i + "|" + selectedLanguage,
+										AppSettingsInit.APP_LOCALE_KEY);
+								Utils.setLocale(this, selectedLanguage.split("-")[0]);
+								dialog.dismiss();
+								recreateWithAnimation();
+							})
+					.show();
+		});
 	}
 
 	private void initHomeScreenSelector() {
@@ -371,26 +361,24 @@ public class AppSettingsActivity extends BaseActivity
 						AppSettingsInit.getSettingsValue(ctx, AppSettingsInit.APP_HOME_SCREEN_KEY));
 		binding.sectionAll.homeScreenSelected.setText(homeScreenList[homeScreenSelectedChoice]);
 
-		binding.sectionAll.homeScreenSelectionFrame.setOnClickListener(
-				v -> {
-					new MaterialAlertDialogBuilder(this)
-							.setTitle(R.string.home_screen_dialog_title)
-							.setSingleChoiceItems(
-									homeScreenList,
-									homeScreenSelectedChoice,
-									(dialog, i) -> {
-										homeScreenSelectedChoice = i;
-										binding.sectionAll.homeScreenSelected.setText(
-												homeScreenList[i]);
-										AppSettingsInit.updateSettingsValue(
-												ctx,
-												String.valueOf(i),
-												AppSettingsInit.APP_HOME_SCREEN_KEY);
-										dialog.dismiss();
-										Toasty.show(this, getString(R.string.settings_saved));
-									})
-							.show();
-				});
+		binding.sectionAll.homeScreenSelectionFrame.setOnClickListener(v -> {
+			new MaterialAlertDialogBuilder(this)
+					.setTitle(R.string.home_screen_dialog_title)
+					.setSingleChoiceItems(
+							homeScreenList,
+							homeScreenSelectedChoice,
+							(dialog, i) -> {
+								homeScreenSelectedChoice = i;
+								binding.sectionAll.homeScreenSelected.setText(homeScreenList[i]);
+								AppSettingsInit.updateSettingsValue(
+										ctx,
+										String.valueOf(i),
+										AppSettingsInit.APP_HOME_SCREEN_KEY);
+								dialog.dismiss();
+								Toasty.show(this, getString(R.string.settings_saved));
+							})
+					.show();
+		});
 	}
 
 	private void handleBiometricToggle(boolean isChecked) {
@@ -515,76 +503,70 @@ public class AppSettingsActivity extends BaseActivity
 
 	public void exportDatabaseToUri(Uri uri) {
 		Thread exportThread =
-				new Thread(
-						() -> {
-							try {
-								LabNexDatabase db = LabNexDatabase.getDatabaseInstance(this);
-								db.close();
+				new Thread(() -> {
+					try {
+						LabNexDatabase db = LabNexDatabase.getDatabaseInstance(this);
+						db.close();
 
-								boolean isWalEnabled = false;
-								try (Cursor cursor =
-										db.getOpenHelper()
-												.getWritableDatabase()
-												.query("PRAGMA journal_mode", new String[0])) {
-									if (cursor.moveToFirst()) {
-										isWalEnabled = "wal".equalsIgnoreCase(cursor.getString(0));
-									}
-								}
-								if (isWalEnabled) {
-									try (Cursor cursor =
-											db.getOpenHelper()
-													.getWritableDatabase()
-													.query(
-															"PRAGMA wal_checkpoint(FULL)",
-															new String[0])) {
-										cursor.moveToFirst();
-									} catch (SQLiteException ignored) {
-									}
-								}
-
-								File dbFile = getDatabasePath("labnex");
-								if (!dbFile.exists()) {
-									throw new IOException("Database file does not exist");
-								}
-
-								File tempDir = getCacheDir();
-								File tempDbFile = new File(tempDir, "labnex_temp");
-								try (FileInputStream fis = new FileInputStream(dbFile);
-										FileOutputStream fos = new FileOutputStream(tempDbFile)) {
-									FileChannel src = fis.getChannel();
-									FileChannel dst = fos.getChannel();
-									dst.transferFrom(src, 0, src.size());
-								}
-
-								try (InputStream inputStream = new FileInputStream(tempDbFile);
-										OutputStream outputStream =
-												getContentResolver().openOutputStream(uri)) {
-									if (outputStream == null) {
-										throw new IOException(
-												"Failed to open output stream for URI: " + uri);
-									}
-									byte[] buffer = new byte[8192];
-									int bytesRead;
-									while ((bytesRead = inputStream.read(buffer)) != -1) {
-										outputStream.write(buffer, 0, bytesRead);
-									}
-								} finally {
-									if (tempDbFile.exists()) {
-										boolean ignored = tempDbFile.delete();
-									}
-								}
-
-								runOnUiThread(
-										() -> {
-											Toasty.show(this, getString(R.string.backup_success));
-											new Handler(Looper.getMainLooper())
-													.postDelayed(this::restartApp, 1500);
-										});
-							} catch (IOException | SQLiteException e) {
-								runOnUiThread(
-										() -> Toasty.show(this, getString(R.string.backup_failed)));
+						boolean isWalEnabled = false;
+						try (Cursor cursor =
+								db.getOpenHelper()
+										.getWritableDatabase()
+										.query("PRAGMA journal_mode", new String[0])) {
+							if (cursor.moveToFirst()) {
+								isWalEnabled = "wal".equalsIgnoreCase(cursor.getString(0));
 							}
+						}
+						if (isWalEnabled) {
+							try (Cursor cursor =
+									db.getOpenHelper()
+											.getWritableDatabase()
+											.query("PRAGMA wal_checkpoint(FULL)", new String[0])) {
+								cursor.moveToFirst();
+							} catch (SQLiteException ignored) {
+							}
+						}
+
+						File dbFile = getDatabasePath("labnex");
+						if (!dbFile.exists()) {
+							throw new IOException("Database file does not exist");
+						}
+
+						File tempDir = getCacheDir();
+						File tempDbFile = new File(tempDir, "labnex_temp");
+						try (FileInputStream fis = new FileInputStream(dbFile);
+								FileOutputStream fos = new FileOutputStream(tempDbFile)) {
+							FileChannel src = fis.getChannel();
+							FileChannel dst = fos.getChannel();
+							dst.transferFrom(src, 0, src.size());
+						}
+
+						try (InputStream inputStream = new FileInputStream(tempDbFile);
+								OutputStream outputStream =
+										getContentResolver().openOutputStream(uri)) {
+							if (outputStream == null) {
+								throw new IOException(
+										"Failed to open output stream for URI: " + uri);
+							}
+							byte[] buffer = new byte[8192];
+							int bytesRead;
+							while ((bytesRead = inputStream.read(buffer)) != -1) {
+								outputStream.write(buffer, 0, bytesRead);
+							}
+						} finally {
+							if (tempDbFile.exists()) {
+								boolean ignored = tempDbFile.delete();
+							}
+						}
+
+						runOnUiThread(() -> {
+							Toasty.show(this, getString(R.string.backup_success));
+							new Handler(Looper.getMainLooper()).postDelayed(this::restartApp, 1500);
 						});
+					} catch (IOException | SQLiteException e) {
+						runOnUiThread(() -> Toasty.show(this, getString(R.string.backup_failed)));
+					}
+				});
 		exportThread.setDaemon(false);
 		exportThread.start();
 	}

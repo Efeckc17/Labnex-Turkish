@@ -105,24 +105,23 @@ public class IssueDetailActivity extends BaseActivity {
 
 		binding.getRoot()
 				.getViewTreeObserver()
-				.addOnGlobalLayoutListener(
-						() -> {
-							Rect r = new Rect();
-							binding.getRoot().getWindowVisibleDisplayFrame(r);
-							int screenHeight = binding.getRoot().getRootView().getHeight();
-							int keypadHeight = screenHeight - r.bottom;
+				.addOnGlobalLayoutListener(() -> {
+					Rect r = new Rect();
+					binding.getRoot().getWindowVisibleDisplayFrame(r);
+					int screenHeight = binding.getRoot().getRootView().getHeight();
+					int keypadHeight = screenHeight - r.bottom;
 
-							ViewGroup.MarginLayoutParams params =
-									(ViewGroup.MarginLayoutParams)
-											binding.commentBox.getRoot().getLayoutParams();
-							if (keypadHeight > screenHeight * 0.15) {
-								params.bottomMargin = keypadHeight;
-							} else {
-								params.bottomMargin =
-										(int) (36 * getResources().getDisplayMetrics().density);
-							}
-							binding.commentBox.getRoot().setLayoutParams(params);
-						});
+					ViewGroup.MarginLayoutParams params =
+							(ViewGroup.MarginLayoutParams)
+									binding.commentBox.getRoot().getLayoutParams();
+					if (keypadHeight > screenHeight * 0.15) {
+						params.bottomMargin = keypadHeight;
+					} else {
+						params.bottomMargin =
+								(int) (36 * getResources().getDisplayMetrics().density);
+					}
+					binding.commentBox.getRoot().setLayoutParams(params);
+				});
 
 		viewModel.loadIssue(ctx, projectId, issueIid);
 	}
@@ -160,12 +159,10 @@ public class IssueDetailActivity extends BaseActivity {
 		ValueAnimator animator =
 				ValueAnimator.ofInt(binding.scrollSpacer.getLayoutParams().height, targetHeight);
 		animator.setDuration(300);
-		animator.addUpdateListener(
-				animation -> {
-					binding.scrollSpacer.getLayoutParams().height =
-							(int) animation.getAnimatedValue();
-					binding.scrollSpacer.requestLayout();
-				});
+		animator.addUpdateListener(animation -> {
+			binding.scrollSpacer.getLayoutParams().height = (int) animation.getAnimatedValue();
+			binding.scrollSpacer.requestLayout();
+		});
 		animator.start();
 	}
 
@@ -219,26 +216,24 @@ public class IssueDetailActivity extends BaseActivity {
 	}
 
 	private void setupCommentBox() {
-		binding.commentBox.etQuickComment.setOnFocusChangeListener(
-				(v, hasFocus) -> {
-					if (hasFocus) {
-						Utils.showKeyboard(this, binding.commentBox.etQuickComment);
-					}
-				});
+		binding.commentBox.etQuickComment.setOnFocusChangeListener((v, hasFocus) -> {
+			if (hasFocus) {
+				Utils.showKeyboard(this, binding.commentBox.etQuickComment);
+			}
+		});
 
 		binding.commentBox.btnCloseReply.setOnClickListener(v -> hideCommentBox());
 		binding.commentBox.btnQuickSend.setOnClickListener(v -> submitComment());
-		binding.commentBox.etQuickComment.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.commentBox.etQuickComment.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 	}
 
 	private void submitComment() {
@@ -252,10 +247,8 @@ public class IssueDetailActivity extends BaseActivity {
 	}
 
 	private void scrollTimelineToBottom() {
-		binding.scrollView.post(
-				() ->
-						binding.scrollView.smoothScrollTo(
-								0, binding.scrollView.getChildAt(0).getHeight()));
+		binding.scrollView.post(() ->
+				binding.scrollView.smoothScrollTo(0, binding.scrollView.getChildAt(0).getHeight()));
 	}
 
 	private void showIssueMenu() {
@@ -323,41 +316,38 @@ public class IssueDetailActivity extends BaseActivity {
 
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(issueData.getTitle(), "#" + issueIid, items);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "close":
-							new MaterialAlertDialogBuilder(ctx)
-									.setTitle(R.string.close_issue)
-									.setMessage(R.string.close_issue_confirmation)
-									.setPositiveButton(
-											R.string.close,
-											(d, w) ->
-													viewModel.toggleIssueState(
-															ctx, projectId, issueIid, "close"))
-									.setNegativeButton(R.string.cancel, null)
-									.show();
-							break;
-						case "reopen":
-							viewModel.toggleIssueState(ctx, projectId, issueIid, "reopen");
-							break;
-						case "lock":
-							viewModel.toggleDiscussionLock(ctx, projectId, issueIid, true);
-							break;
-						case "unlock":
-							viewModel.toggleDiscussionLock(ctx, projectId, issueIid, false);
-							break;
-						case "copy_url":
-							Utils.copyToClipboard(
-									ctx,
-									issueData.getWebUrl(),
-									getString(R.string.copied_to_clipboard));
-							break;
-						case "open_browser":
-							Utils.openUrlInBrowser(this, issueData.getWebUrl());
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "close":
+					new MaterialAlertDialogBuilder(ctx)
+							.setTitle(R.string.close_issue)
+							.setMessage(R.string.close_issue_confirmation)
+							.setPositiveButton(
+									R.string.close,
+									(d, w) ->
+											viewModel.toggleIssueState(
+													ctx, projectId, issueIid, "close"))
+							.setNegativeButton(R.string.cancel, null)
+							.show();
+					break;
+				case "reopen":
+					viewModel.toggleIssueState(ctx, projectId, issueIid, "reopen");
+					break;
+				case "lock":
+					viewModel.toggleDiscussionLock(ctx, projectId, issueIid, true);
+					break;
+				case "unlock":
+					viewModel.toggleDiscussionLock(ctx, projectId, issueIid, false);
+					break;
+				case "copy_url":
+					Utils.copyToClipboard(
+							ctx, issueData.getWebUrl(), getString(R.string.copied_to_clipboard));
+					break;
+				case "open_browser":
+					Utils.openUrlInBrowser(this, issueData.getWebUrl());
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "issueMenuSheet");
 	}
 
@@ -397,11 +387,10 @@ public class IssueDetailActivity extends BaseActivity {
 		int accessLevel = AccessLevel.getUserAccessLevel(issue.getProjects().getProject());
 		boolean canModify = accessLevel >= AccessLevel.MAINTAINER;
 		binding.btnEdit.setVisibility(canModify ? View.VISIBLE : View.GONE);
-		binding.btnEdit.setOnClickListener(
-				v -> {
-					CreateIssueBottomSheet.newInstance("project", projectId, canModify, issueData)
-							.show(getSupportFragmentManager(), "editIssueSheet");
-				});
+		binding.btnEdit.setOnClickListener(v -> {
+			CreateIssueBottomSheet.newInstance("project", projectId, canModify, issueData)
+					.show(getSupportFragmentManager(), "editIssueSheet");
+		});
 
 		setupIssueHeaderTitle(issueData.getTitle(), issueIid);
 

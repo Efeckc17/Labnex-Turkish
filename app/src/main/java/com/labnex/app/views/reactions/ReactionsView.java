@@ -166,46 +166,45 @@ public class ReactionsView extends LinearLayout {
 		params.setMargins(0, 0, margin, 0);
 		chip.setLayoutParams(params);
 
-		chip.setOnClickListener(
-				v -> {
-					if (isUserReaction && userEntry != null) {
-						viewModel.deleteReaction(
-								ctx,
-								projectId,
-								type,
-								iid,
-								noteId,
-								userEntry.getId(),
-								currentUserId,
-								(callbackNoteId, reactions2, userReactions2) -> {
-									boolean same =
-											(boundNoteId == null && callbackNoteId == null)
-													|| (boundNoteId != null
-															&& boundNoteId.equals(callbackNoteId));
-									if (same) {
-										post(() -> renderReactions(reactions2, userReactions2));
-									}
-								});
-					} else {
-						viewModel.addReaction(
-								ctx,
-								projectId,
-								type,
-								iid,
-								noteId,
-								name,
-								currentUserId,
-								(callbackNoteId, reactions2, userReactions2) -> {
-									boolean same =
-											(boundNoteId == null && callbackNoteId == null)
-													|| (boundNoteId != null
-															&& boundNoteId.equals(callbackNoteId));
-									if (same) {
-										post(() -> renderReactions(reactions2, userReactions2));
-									}
-								});
-					}
-				});
+		chip.setOnClickListener(v -> {
+			if (isUserReaction && userEntry != null) {
+				viewModel.deleteReaction(
+						ctx,
+						projectId,
+						type,
+						iid,
+						noteId,
+						userEntry.getId(),
+						currentUserId,
+						(callbackNoteId, reactions2, userReactions2) -> {
+							boolean same =
+									(boundNoteId == null && callbackNoteId == null)
+											|| (boundNoteId != null
+													&& boundNoteId.equals(callbackNoteId));
+							if (same) {
+								post(() -> renderReactions(reactions2, userReactions2));
+							}
+						});
+			} else {
+				viewModel.addReaction(
+						ctx,
+						projectId,
+						type,
+						iid,
+						noteId,
+						name,
+						currentUserId,
+						(callbackNoteId, reactions2, userReactions2) -> {
+							boolean same =
+									(boundNoteId == null && callbackNoteId == null)
+											|| (boundNoteId != null
+													&& boundNoteId.equals(callbackNoteId));
+							if (same) {
+								post(() -> renderReactions(reactions2, userReactions2));
+							}
+						});
+			}
+		});
 
 		chipsContainer.addView(chip);
 	}
@@ -225,36 +224,28 @@ public class ReactionsView extends LinearLayout {
 		btn.setPadding(padding, padding, padding, padding);
 		btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-		btn.setOnClickListener(
-				v -> {
-					EmojiPickerSheet sheet = EmojiPickerSheet.newInstance();
-					sheet.setOnEmojiPicked(
-							name ->
-									viewModel.addReaction(
-											ctx,
-											projectId,
-											type,
-											iid,
-											noteId,
-											name,
-											currentUserId,
-											(callbackNoteId, reactions, userReactions) -> {
-												boolean same =
-														(boundNoteId == null
-																		&& callbackNoteId == null)
-																|| (boundNoteId != null
-																		&& boundNoteId.equals(
-																				callbackNoteId));
-												if (same) {
-													post(
-															() ->
-																	renderReactions(
-																			reactions,
-																			userReactions));
-												}
-											}));
-					sheet.show(fragmentManager, "emojiPicker");
-				});
+		btn.setOnClickListener(v -> {
+			EmojiPickerSheet sheet = EmojiPickerSheet.newInstance();
+			sheet.setOnEmojiPicked(name ->
+					viewModel.addReaction(
+							ctx,
+							projectId,
+							type,
+							iid,
+							noteId,
+							name,
+							currentUserId,
+							(callbackNoteId, reactions, userReactions) -> {
+								boolean same =
+										(boundNoteId == null && callbackNoteId == null)
+												|| (boundNoteId != null
+														&& boundNoteId.equals(callbackNoteId));
+								if (same) {
+									post(() -> renderReactions(reactions, userReactions));
+								}
+							}));
+			sheet.show(fragmentManager, "emojiPicker");
+		});
 
 		addView(btn);
 	}

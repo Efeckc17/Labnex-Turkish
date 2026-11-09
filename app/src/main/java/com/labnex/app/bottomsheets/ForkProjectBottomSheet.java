@@ -55,17 +55,16 @@ public class ForkProjectBottomSheet extends BottomSheetDialogFragment {
 		CreateProjectViewModel createProjectViewModel =
 				new ViewModelProvider(this).get(CreateProjectViewModel.class);
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
-							|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
+					|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (getArguments() != null) {
 			projectId = getArguments().getLong("projectId");
@@ -119,41 +118,40 @@ public class ForkProjectBottomSheet extends BottomSheetDialogFragment {
 							}
 						});
 
-		binding.btnFork.setOnClickListener(
-				v -> {
-					String forkName =
-							binding.nameInput.getText() != null
-									? binding.nameInput.getText().toString().trim()
-									: name;
-					String forkPath =
-							binding.pathInput.getText() != null
-									? binding.pathInput.getText().toString().trim()
-									: path;
-					String description =
-							binding.descriptionInput.getText() != null
-									? binding.descriptionInput.getText().toString().trim()
-									: "";
-					String visibility = binding.chipPublic.isChecked() ? "public" : "private";
+		binding.btnFork.setOnClickListener(v -> {
+			String forkName =
+					binding.nameInput.getText() != null
+							? binding.nameInput.getText().toString().trim()
+							: name;
+			String forkPath =
+					binding.pathInput.getText() != null
+							? binding.pathInput.getText().toString().trim()
+							: path;
+			String description =
+					binding.descriptionInput.getText() != null
+							? binding.descriptionInput.getText().toString().trim()
+							: "";
+			String visibility = binding.chipPublic.isChecked() ? "public" : "private";
 
-					Long namespaceId = null;
-					if (namespaceItems != null) {
-						int pos = binding.namespaceInput.getListSelection();
-						if (pos >= 0
-								&& pos < namespaceItems.size()
-								&& "group".equals(namespaceItems.get(pos).kind)) {
-							namespaceId = (long) namespaceItems.get(pos).id;
-						}
-					}
+			Long namespaceId = null;
+			if (namespaceItems != null) {
+				int pos = binding.namespaceInput.getListSelection();
+				if (pos >= 0
+						&& pos < namespaceItems.size()
+						&& "group".equals(namespaceItems.get(pos).kind)) {
+					namespaceId = (long) namespaceItems.get(pos).id;
+				}
+			}
 
-					projectViewModel.forkProject(
-							requireContext(),
-							projectId,
-							forkName,
-							forkPath,
-							description,
-							visibility,
-							namespaceId);
-				});
+			projectViewModel.forkProject(
+					requireContext(),
+					projectId,
+					forkName,
+					forkPath,
+					description,
+					visibility,
+					namespaceId);
+		});
 
 		observeViewModel();
 		return binding.getRoot();

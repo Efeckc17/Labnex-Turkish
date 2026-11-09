@@ -116,45 +116,39 @@ public class SyntaxHighlightedArea extends LinearLayout {
 		if (!source.isEmpty()) {
 
 			Thread highlightingThread =
-					new Thread(
-							() -> {
-								try {
+					new Thread(() -> {
+						try {
 
-									CharSequence highlightedSource =
-											SyntaxHighlighter.create(
-															getContext(),
-															theme,
-															MainGrammarLocator
-																	.DEFAULT_FALLBACK_LANGUAGE)
-													.highlight(
-															MainGrammarLocator.fromExtension(
-																			extension)
-																	.toUpperCase(),
-															source);
+							CharSequence highlightedSource =
+									SyntaxHighlighter.create(
+													getContext(),
+													theme,
+													MainGrammarLocator.DEFAULT_FALLBACK_LANGUAGE)
+											.highlight(
+													MainGrammarLocator.fromExtension(extension)
+															.toUpperCase(),
+													source);
 
-									getActivity()
-											.runOnUiThread(
-													() -> sourceView.setText(highlightedSource));
+							getActivity()
+									.runOnUiThread(() -> sourceView.setText(highlightedSource));
 
-								} catch (Throwable ignored) {
-									// Fall back to plaintext if something fails
-									getActivity().runOnUiThread(() -> sourceView.setText(source));
-								}
-							});
+						} catch (Throwable ignored) {
+							// Fall back to plaintext if something fails
+							getActivity().runOnUiThread(() -> sourceView.setText(source));
+						}
+					});
 
 			Thread lineCountingThread =
-					new Thread(
-							() -> {
-								long lineCount = Utils.getLineCount(source);
+					new Thread(() -> {
+						long lineCount = Utils.getLineCount(source);
 
-								try {
-									highlightingThread.join();
-								} catch (InterruptedException ignored) {
-								}
+						try {
+							highlightingThread.join();
+						} catch (InterruptedException ignored) {
+						}
 
-								getActivity()
-										.runOnUiThread(() -> linesView.setLineCount(lineCount));
-							});
+						getActivity().runOnUiThread(() -> linesView.setLineCount(lineCount));
+					});
 
 			highlightingThread.start();
 			lineCountingThread.start();

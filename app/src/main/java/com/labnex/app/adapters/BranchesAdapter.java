@@ -64,13 +64,12 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onBranchClick(list.get(pos).getName());
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onBranchClick(list.get(pos).getName());
+				}
+			});
 		}
 
 		void bind(Branches branch) {

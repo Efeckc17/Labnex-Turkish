@@ -193,60 +193,51 @@ public class ActivitiesFragment extends Fragment {
 		fb.chipEpic.setChecked(ActivitiesViewModel.FILTER_EPIC.equals(current));
 		fb.chipUser.setChecked(ActivitiesViewModel.FILTER_USER.equals(current));
 
-		fb.chipAll.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_ALL);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipIssue.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_ISSUE);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipNote.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_NOTE);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipProject.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_PROJECT);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipMr.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_MERGE_REQUEST);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipMilestone.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_MILESTONE);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipSnippet.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_SNIPPET);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipEpic.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_EPIC);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
-		fb.chipUser.setOnClickListener(
-				v -> {
-					viewModel.setFilter(ActivitiesViewModel.FILTER_USER);
-					viewModel.loadEvents(ctx);
-					dialog.dismiss();
-				});
+		fb.chipAll.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_ALL);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipIssue.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_ISSUE);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipNote.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_NOTE);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipProject.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_PROJECT);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipMr.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_MERGE_REQUEST);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipMilestone.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_MILESTONE);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipSnippet.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_SNIPPET);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipEpic.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_EPIC);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
+		fb.chipUser.setOnClickListener(v -> {
+			viewModel.setFilter(ActivitiesViewModel.FILTER_USER);
+			viewModel.loadEvents(ctx);
+			dialog.dismiss();
+		});
 
 		dialog.show();
 	}

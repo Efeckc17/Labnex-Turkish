@@ -210,16 +210,15 @@ public class MainActivity extends BaseActivity {
 		binding.btnNavActivities.setOnClickListener(
 				v -> switchTab(activitiesFrag, R.id.btn_nav_activities));
 
-		binding.btnDockMenu.setOnClickListener(
-				v -> {
-					if (activeFragment instanceof ExploreFragment) {
-						((ExploreFragment) activeFragment).openContextMenu();
-					} else if (activeFragment instanceof TodoFragment) {
-						((TodoFragment) activeFragment).openContextMenu();
-					} else if (activeFragment instanceof ActivitiesFragment) {
-						((ActivitiesFragment) activeFragment).openContextMenu();
-					}
-				});
+		binding.btnDockMenu.setOnClickListener(v -> {
+			if (activeFragment instanceof ExploreFragment) {
+				((ExploreFragment) activeFragment).openContextMenu();
+			} else if (activeFragment instanceof TodoFragment) {
+				((TodoFragment) activeFragment).openContextMenu();
+			} else if (activeFragment instanceof ActivitiesFragment) {
+				((ActivitiesFragment) activeFragment).openContextMenu();
+			}
+		});
 	}
 
 	private void prepareNavButton(MaterialButton btn) {
@@ -284,17 +283,14 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void updateTodoBadge(int count) {
-		runOnUiThread(
-				() -> {
-					todoBadge = BadgeHelper.updateBadge(this, binding.btnNavTodo, todoBadge, count);
+		runOnUiThread(() -> {
+			todoBadge = BadgeHelper.updateBadge(this, binding.btnNavTodo, todoBadge, count);
 
-					if (activeFragment == todoFrag || activeFragment == exploreFrag) {
-						updateContextualDockActions(
-								activeFragment == todoFrag
-										? R.id.btn_nav_todo
-										: R.id.btn_nav_explore);
-					}
-				});
+			if (activeFragment == todoFrag || activeFragment == exploreFrag) {
+				updateContextualDockActions(
+						activeFragment == todoFrag ? R.id.btn_nav_todo : R.id.btn_nav_explore);
+			}
+		});
 	}
 
 	public void refreshTodoBadge() {

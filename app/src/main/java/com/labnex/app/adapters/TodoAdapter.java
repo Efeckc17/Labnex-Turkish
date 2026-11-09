@@ -80,19 +80,17 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						if (listener != null && currentTodo != null) {
-							listener.onTodoClick(currentTodo);
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				if (listener != null && currentTodo != null) {
+					listener.onTodoClick(currentTodo);
+				}
+			});
 
-			binding.todoCheck.setOnClickListener(
-					v -> {
-						if (listener != null && currentTodo != null) {
-							listener.onTodoMarkAsDone(currentTodo);
-						}
-					});
+			binding.todoCheck.setOnClickListener(v -> {
+				if (listener != null && currentTodo != null) {
+					listener.onTodoMarkAsDone(currentTodo);
+				}
+			});
 		}
 
 		void bind(ToDoItem todo, String state) {
@@ -113,11 +111,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 			if (todo.getCreatedAt() != null) {
 				Date date = TimeHelper.parseIso8601(todo.getCreatedAt());
 				sb.append(TimeHelper.formatTime(date));
-				binding.todoTimeAction.setOnClickListener(
-						v ->
-								Toasty.show(
-										context,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				binding.todoTimeAction.setOnClickListener(v ->
+						Toasty.show(
+								context, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 			if (todo.getActionName() != null) {
 				if (sb.length() > 0) sb.append(" • ");
