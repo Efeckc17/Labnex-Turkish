@@ -80,13 +80,12 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagsHolder> {
 				binding.btnMenu.setVisibility(View.GONE);
 			}
 
-			binding.btnMenu.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onMenuClick(list.get(pos));
-						}
-					});
+			binding.btnMenu.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onMenuClick(list.get(pos));
+				}
+			});
 		}
 
 		void bind(TagsItem tag) {
@@ -106,11 +105,10 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagsHolder> {
 				if (dateSource != null) {
 					Date date = TimeHelper.parseIso8601(dateSource);
 					timeStr = TimeHelper.formatTime(date);
-					binding.authorCommitterInfo.setOnClickListener(
-							v ->
-									Toasty.show(
-											context,
-											TimeHelper.getFullDateTime(date, Locale.getDefault())));
+					binding.authorCommitterInfo.setOnClickListener(v ->
+							Toasty.show(
+									context,
+									TimeHelper.getFullDateTime(date, Locale.getDefault())));
 				}
 				info = context.getString(R.string.tag_info, author, timeStr);
 			} else {
@@ -121,12 +119,11 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagsHolder> {
 			if (tag.getCommit() != null && tag.getCommit().getId() != null) {
 				binding.commitId.setText(tag.getCommit().getShortId());
 				binding.copyCommitId.setVisibility(View.VISIBLE);
-				binding.copyCommitId.setOnClickListener(
-						v ->
-								Utils.copyToClipboard(
-										context,
-										tag.getCommit().getId(),
-										context.getString(R.string.commit_id_copied)));
+				binding.copyCommitId.setOnClickListener(v ->
+						Utils.copyToClipboard(
+								context,
+								tag.getCommit().getId(),
+								context.getString(R.string.commit_id_copied)));
 			} else {
 				binding.commitId.setText(R.string.no_commit);
 				binding.copyCommitId.setVisibility(View.GONE);

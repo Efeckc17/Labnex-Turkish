@@ -57,11 +57,10 @@ public class SnippetsActivity extends BaseActivity
 		long userId = getAccount().getUserId();
 
 		binding.btnBack.setOnClickListener(v -> finish());
-		binding.newSnippet.setOnClickListener(
-				v -> {
-					CreateSnippetBottomSheet sheet = CreateSnippetBottomSheet.newInstance();
-					sheet.show(getSupportFragmentManager(), "createSnippetSheet");
-				});
+		binding.newSnippet.setOnClickListener(v -> {
+			CreateSnippetBottomSheet sheet = CreateSnippetBottomSheet.newInstance();
+			sheet.show(getSupportFragmentManager(), "createSnippetSheet");
+		});
 
 		setupRecyclerView(userId);
 		setupPullToRefresh();
@@ -260,17 +259,16 @@ public class SnippetsActivity extends BaseActivity
 		GenericMenuBottomSheet sheet =
 				GenericMenuBottomSheet.newInstance(
 						snippet.getTitle(), getString(R.string.snippet), items);
-		sheet.setOnMenuItemClickListener(
-				id -> {
-					switch (id) {
-						case "edit":
-							openEditSnippet(snippet);
-							break;
-						case "delete":
-							onSnippetDelete(snippet, position);
-							break;
-					}
-				});
+		sheet.setOnMenuItemClickListener(id -> {
+			switch (id) {
+				case "edit":
+					openEditSnippet(snippet);
+					break;
+				case "delete":
+					onSnippetDelete(snippet, position);
+					break;
+			}
+		});
 		sheet.show(getSupportFragmentManager(), "snippetMenuSheet");
 	}
 

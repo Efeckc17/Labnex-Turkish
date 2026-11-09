@@ -180,31 +180,29 @@ public class CommitDiffsBottomSheet extends BottomSheetDialogFragment {
 			}
 		}
 
-		diffProcessingExecutor.execute(
-				() -> {
-					List<Pair<Diff, Pair<SpannableStringBuilder, SpannableStringBuilder>>>
-							processedBatch = new ArrayList<>();
+		diffProcessingExecutor.execute(() -> {
+			List<Pair<Diff, Pair<SpannableStringBuilder, SpannableStringBuilder>>> processedBatch =
+					new ArrayList<>();
 
-					for (Diff rawItem : newElementsToProcess) {
-						Pair<SpannableStringBuilder, SpannableStringBuilder> parsedSpans =
-								DiffParser.parseInBackground(
-										requireContext(), rawItem.getDiff(), textPixelSize);
+			for (Diff rawItem : newElementsToProcess) {
+				Pair<SpannableStringBuilder, SpannableStringBuilder> parsedSpans =
+						DiffParser.parseInBackground(
+								requireContext(), rawItem.getDiff(), textPixelSize);
 
-						processedBatch.add(new Pair<>(rawItem, parsedSpans));
-					}
+				processedBatch.add(new Pair<>(rawItem, parsedSpans));
+			}
 
-					if (getActivity() != null) {
-						getActivity()
-								.runOnUiThread(
-										() -> {
-											if (binding != null) {
-												masterAdapterList.addAll(processedBatch);
-												binding.progressBar.setVisibility(View.GONE);
-												adapter.updateList(masterAdapterList);
-											}
-										});
-					}
-				});
+			if (getActivity() != null) {
+				getActivity()
+						.runOnUiThread(() -> {
+							if (binding != null) {
+								masterAdapterList.addAll(processedBatch);
+								binding.progressBar.setVisibility(View.GONE);
+								adapter.updateList(masterAdapterList);
+							}
+						});
+			}
+		});
 	}
 
 	@Override

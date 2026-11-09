@@ -119,11 +119,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			if (note.getCreatedAt() != null) {
 				Date date = TimeHelper.parseIso8601(note.getCreatedAt());
 				b.createdTime.setText(TimeHelper.formatTime(date));
-				b.createdTime.setOnClickListener(
-						v ->
-								Toasty.show(
-										ctx,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				b.createdTime.setOnClickListener(v ->
+						Toasty.show(ctx, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 
 			String body = note.getBody() != null ? displayName + " " + note.getBody() : "";
@@ -150,11 +147,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			if (note.getCreatedAt() != null) {
 				Date date = TimeHelper.parseIso8601(note.getCreatedAt());
 				b.createdTime.setText(TimeHelper.formatTime(date));
-				b.createdTime.setOnClickListener(
-						v ->
-								Toasty.show(
-										ctx,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				b.createdTime.setOnClickListener(v ->
+						Toasty.show(ctx, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 
 			String body = note.getBody() != null ? note.getBody() : "";

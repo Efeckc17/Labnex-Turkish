@@ -112,15 +112,14 @@ public class GenericMenuBottomSheet extends BottomSheetDialogFragment {
 			cardBinding.menuText.setText(item.getLabelRes());
 			cardBinding.menuText.setTextColor(contentColor);
 
-			cardBinding.menuCard.setOnClickListener(
-					v -> {
-						if (externalListener != null) {
-							externalListener.onMenuItemClick(item.getId());
-						} else if (listener != null) {
-							listener.onMenuItemClick(item.getId());
-						}
-						dismiss();
-					});
+			cardBinding.menuCard.setOnClickListener(v -> {
+				if (externalListener != null) {
+					externalListener.onMenuItemClick(item.getId());
+				} else if (listener != null) {
+					listener.onMenuItemClick(item.getId());
+				}
+				dismiss();
+			});
 
 			binding.menuGrid.addView(cardBinding.getRoot());
 		}

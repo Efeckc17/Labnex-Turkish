@@ -6,17 +6,16 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.util.Base64;
 import android.util.TypedValue;
@@ -34,9 +33,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -203,8 +200,16 @@ public class Utils {
 
 		ConnectivityManager cm =
 				(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+		if (cm == null) return false;
+
+		Network network = cm.getActiveNetwork();
+		if (network == null) return false;
+
+		NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+		if (capabilities == null) return false;
+
+		return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+				&& capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
 	}
 
 	public static boolean switchToAccount(Context context, UserAccount userAccount) {
@@ -216,70 +221,22 @@ public class Utils {
 		((CoreApplication) context.getApplicationContext()).switchToAccount(userAccount, tmp);
 	}
 
-	private static Intent wrapBrowserIntent(Context context, Intent intent) {
-
-		final PackageManager pm = context.getPackageManager();
-		final List<ResolveInfo> activities =
-				pm.queryIntentActivities(
-						new Intent(intent)
-								.setData(
-										Objects.requireNonNull(intent.getData())
-												.buildUpon()
-												.authority("example.com")
-												.scheme("https")
-												.build()),
-						PackageManager.MATCH_ALL);
-		final ArrayList<Intent> chooserIntents = new ArrayList<>();
-		final String ourPackageName = context.getPackageName();
-
-		activities.sort(new ResolveInfo.DisplayNameComparator(pm));
-
-		for (ResolveInfo resInfo : activities) {
-			ActivityInfo info = resInfo.activityInfo;
-			if (!info.enabled || !info.exported) {
-				continue;
-			}
-			if (info.packageName.equals(ourPackageName)) {
-				continue;
-			}
-
-			Intent targetIntent = new Intent(intent);
-			targetIntent.setPackage(info.packageName);
-			targetIntent.setDataAndType(intent.getData(), intent.getType());
-			chooserIntents.add(targetIntent);
-		}
-
-		if (chooserIntents.isEmpty()) {
-			return null;
-		}
-
-		final Intent lastIntent = chooserIntents.remove(chooserIntents.size() - 1);
-		if (chooserIntents.isEmpty()) {
-			return lastIntent;
-		}
-
-		Intent chooserIntent = Intent.createChooser(lastIntent, null);
-		String extraName = Intent.EXTRA_ALTERNATE_INTENTS;
-		chooserIntent.putExtra(extraName, chooserIntents.toArray(new Intent[0]));
-		return chooserIntent;
-	}
-
-	public static void openUrlInBrowser(Context ctx, String url) {
-
-		Intent i;
-		i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-		i.addCategory(Intent.CATEGORY_BROWSABLE);
+	public static void openUrlInBrowser(Context context, String url) {
+		Intent intent;
+		intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
 		try {
-			Intent browserIntent = wrapBrowserIntent(ctx, i);
-			if (browserIntent == null) {
-				Toasty.show(ctx, ctx.getString(R.string.generic_error));
-			}
-			ctx.startActivity(browserIntent);
+			context.startActivity(intent);
 		} catch (ActivityNotFoundException e) {
-			Toasty.show(ctx, ctx.getString(R.string.browserOpenFailed));
+			try {
+				Intent chooserIntent = Intent.createChooser(intent, null);
+				context.startActivity(chooserIntent);
+			} catch (Exception ex) {
+				Toasty.show(context, context.getString(R.string.browserOpenFailed));
+			}
 		} catch (Exception e) {
-			Toasty.show(ctx, ctx.getString(R.string.generic_error));
+			Toasty.show(context, context.getString(R.string.generic_error));
 		}
 	}
 
@@ -311,7 +268,7 @@ public class Utils {
 
 	public static Context setLocale(Context context, String languageCode) {
 
-		Locale locale = new Locale(languageCode);
+		Locale locale = new Locale.Builder().setLanguage(languageCode).build();
 		Locale.setDefault(locale);
 
 		Resources resources = context.getResources();
@@ -398,7 +355,9 @@ public class Utils {
 	}
 
 	public static int getPixelsFromScaledDensity(Context context, int sp) {
-		return (int) (context.getResources().getDisplayMetrics().scaledDensity * sp);
+		return (int)
+				TypedValue.applyDimension(
+						TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
 	}
 
 	public static int calculateLabelWidth(String text, int textSize, int paddingLeftRight) {
@@ -505,7 +464,9 @@ public class Utils {
 			view.requestFocus();
 			InputMethodManager imm =
 					(InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+			if (imm != null) {
+				imm.showSoftInput(view, 0);
+			}
 		}
 	}
 

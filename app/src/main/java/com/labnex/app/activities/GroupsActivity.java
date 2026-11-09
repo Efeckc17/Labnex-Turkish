@@ -43,22 +43,21 @@ public class GroupsActivity extends BaseActivity {
 
 		binding.btnBack.setOnClickListener(v -> finish());
 
-		binding.newGroup.setOnClickListener(
-				v -> {
-					if (getAccount().getAccount().getInstanceUrl().contains("gitlab.com")) {
-						new com.google.android.material.dialog.MaterialAlertDialogBuilder(ctx)
-								.setTitle(getString(R.string.gitlab_saas))
-								.setMessage(
-										getString(R.string.gitlab_saas_message)
-												+ "\n\n"
-												+ getString(R.string.gitlab_saas_message_extra))
-								.setNegativeButton(getString(R.string.close), null)
-								.show();
-					} else {
-						CreateGroupBottomSheet.newInstance()
-								.show(getSupportFragmentManager(), "createGroupSheet");
-					}
-				});
+		binding.newGroup.setOnClickListener(v -> {
+			if (getAccount().getAccount().getInstanceUrl().contains("gitlab.com")) {
+				new com.google.android.material.dialog.MaterialAlertDialogBuilder(ctx)
+						.setTitle(getString(R.string.gitlab_saas))
+						.setMessage(
+								getString(R.string.gitlab_saas_message)
+										+ "\n\n"
+										+ getString(R.string.gitlab_saas_message_extra))
+						.setNegativeButton(getString(R.string.close), null)
+						.show();
+			} else {
+				CreateGroupBottomSheet.newInstance()
+						.show(getSupportFragmentManager(), "createGroupSheet");
+			}
+		});
 
 		setupRecyclerView();
 		setupPullToRefresh();
@@ -100,15 +99,14 @@ public class GroupsActivity extends BaseActivity {
 								GenericMenuBottomSheet sheet =
 										GenericMenuBottomSheet.newInstance(
 												group.getName(), null, items);
-								sheet.setOnMenuItemClickListener(
-										id -> {
-											if ("edit".equals(id)) {
-												CreateGroupBottomSheet.newInstance(group)
-														.show(
-																getSupportFragmentManager(),
-																"editGroupSheet");
-											}
-										});
+								sheet.setOnMenuItemClickListener(id -> {
+									if ("edit".equals(id)) {
+										CreateGroupBottomSheet.newInstance(group)
+												.show(
+														getSupportFragmentManager(),
+														"editGroupSheet");
+									}
+								});
 								sheet.show(getSupportFragmentManager(), "groupMenuSheet");
 							}
 						});

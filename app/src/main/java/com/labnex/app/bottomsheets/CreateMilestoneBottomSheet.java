@@ -82,17 +82,16 @@ public class CreateMilestoneBottomSheet extends BottomSheetDialogFragment {
 		startCard.cardSubtitle.setText(R.string.tap_to_select_date);
 		dueCard.cardSubtitle.setText(R.string.tap_to_select_date);
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (isEditMode && getArguments() != null) {
 			Milestones m = (Milestones) getArguments().getSerializable("milestone");
@@ -117,39 +116,33 @@ public class CreateMilestoneBottomSheet extends BottomSheetDialogFragment {
 
 		binding.cardStartDate
 				.getRoot()
-				.setOnClickListener(
-						v ->
-								showDatePicker(
-										date -> {
-											startCard.cardSubtitle.setText(date);
-											startCard.cardClear.setVisibility(View.VISIBLE);
-											startDateSet = true;
-										}));
+				.setOnClickListener(v ->
+						showDatePicker(date -> {
+							startCard.cardSubtitle.setText(date);
+							startCard.cardClear.setVisibility(View.VISIBLE);
+							startDateSet = true;
+						}));
 
 		binding.cardDueDate
 				.getRoot()
-				.setOnClickListener(
-						v ->
-								showDatePicker(
-										date -> {
-											dueCard.cardSubtitle.setText(date);
-											dueCard.cardClear.setVisibility(View.VISIBLE);
-											dueDateSet = true;
-										}));
+				.setOnClickListener(v ->
+						showDatePicker(date -> {
+							dueCard.cardSubtitle.setText(date);
+							dueCard.cardClear.setVisibility(View.VISIBLE);
+							dueDateSet = true;
+						}));
 
-		startCard.cardClear.setOnClickListener(
-				v -> {
-					startCard.cardSubtitle.setText(R.string.tap_to_select_date);
-					startCard.cardClear.setVisibility(View.GONE);
-					startDateSet = false;
-				});
+		startCard.cardClear.setOnClickListener(v -> {
+			startCard.cardSubtitle.setText(R.string.tap_to_select_date);
+			startCard.cardClear.setVisibility(View.GONE);
+			startDateSet = false;
+		});
 
-		dueCard.cardClear.setOnClickListener(
-				v -> {
-					dueCard.cardSubtitle.setText(R.string.tap_to_select_date);
-					dueCard.cardClear.setVisibility(View.GONE);
-					dueDateSet = false;
-				});
+		dueCard.cardClear.setOnClickListener(v -> {
+			dueCard.cardSubtitle.setText(R.string.tap_to_select_date);
+			dueCard.cardClear.setVisibility(View.GONE);
+			dueDateSet = false;
+		});
 
 		binding.btnSubmit.setOnClickListener(v -> submitMilestone());
 		observeViewModel();
@@ -164,19 +157,18 @@ public class CreateMilestoneBottomSheet extends BottomSheetDialogFragment {
 						.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
 						.build();
 
-		picker.addOnPositiveButtonClickListener(
-				selection -> {
-					Calendar cal = Calendar.getInstance();
-					cal.setTimeInMillis(selection);
-					String date =
-							String.format(
-									Locale.US,
-									"%d-%02d-%02d",
-									cal.get(Calendar.YEAR),
-									cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH));
-					listener.onDateSelected(date);
-				});
+		picker.addOnPositiveButtonClickListener(selection -> {
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(selection);
+			String date =
+					String.format(
+							Locale.US,
+							"%d-%02d-%02d",
+							cal.get(Calendar.YEAR),
+							cal.get(Calendar.MONTH) + 1,
+							cal.get(Calendar.DAY_OF_MONTH));
+			listener.onDateSelected(date);
+		});
 
 		picker.show(getParentFragmentManager(), "datePicker");
 	}

@@ -60,31 +60,27 @@ public class GroupDetailActivity extends BaseActivity {
 		observeGroups();
 		observeProjects();
 
-		binding.groupActions.issuesFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, IssuesActivity.class);
-					intent.putExtra("source", "group");
-					intent.putExtra("id", groupId);
-					startActivity(intent);
-				});
+		binding.groupActions.issuesFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, IssuesActivity.class);
+			intent.putExtra("source", "group");
+			intent.putExtra("id", groupId);
+			startActivity(intent);
+		});
 
-		binding.groupActions.mergeRequestsFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, MergeRequestsActivity.class);
-					intent.putExtra("source", "group");
-					intent.putExtra("id", groupId);
-					startActivity(intent);
-				});
+		binding.groupActions.mergeRequestsFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, MergeRequestsActivity.class);
+			intent.putExtra("source", "group");
+			intent.putExtra("id", groupId);
+			startActivity(intent);
+		});
 
-		binding.groupActions.labelsFrame.setOnClickListener(
-				v ->
-						LabelsBottomSheet.newInstance("group", groupId, canModify)
-								.show(getSupportFragmentManager(), "labelsSheet"));
+		binding.groupActions.labelsFrame.setOnClickListener(v ->
+				LabelsBottomSheet.newInstance("group", groupId, canModify)
+						.show(getSupportFragmentManager(), "labelsSheet"));
 
-		binding.groupActions.membersFrame.setOnClickListener(
-				v ->
-						MembersBottomSheet.newInstance("group", groupId)
-								.show(getSupportFragmentManager(), "membersSheet"));
+		binding.groupActions.membersFrame.setOnClickListener(v ->
+				MembersBottomSheet.newInstance("group", groupId)
+						.show(getSupportFragmentManager(), "membersSheet"));
 
 		groupsViewModel.loadGroupDetail(ctx, groupId);
 		projectsViewModel.loadProjects(ctx, type, groupId);
@@ -215,49 +211,43 @@ public class GroupDetailActivity extends BaseActivity {
 	}
 
 	private void showGroupMenu() {
-		binding.btnMenu.setOnClickListener(
-				v -> {
-					List<GenericMenuItemModel> items = new ArrayList<>();
-					items.add(
-							new GenericMenuItemModel(
-									"create_label",
-									R.string.create_new_label,
-									R.drawable.ic_add,
-									com.google.android.material.R.attr.colorPrimaryContainer,
-									com.google.android.material.R.attr.colorOnPrimaryContainer));
-					items.add(
-							new GenericMenuItemModel(
-									"edit_group",
-									R.string.edit_group,
-									R.drawable.ic_edit,
-									com.google.android.material.R.attr.colorSecondaryContainer,
-									com.google.android.material.R.attr.colorOnSecondaryContainer));
+		binding.btnMenu.setOnClickListener(v -> {
+			List<GenericMenuItemModel> items = new ArrayList<>();
+			items.add(
+					new GenericMenuItemModel(
+							"create_label",
+							R.string.create_new_label,
+							R.drawable.ic_add,
+							com.google.android.material.R.attr.colorPrimaryContainer,
+							com.google.android.material.R.attr.colorOnPrimaryContainer));
+			items.add(
+					new GenericMenuItemModel(
+							"edit_group",
+							R.string.edit_group,
+							R.drawable.ic_edit,
+							com.google.android.material.R.attr.colorSecondaryContainer,
+							com.google.android.material.R.attr.colorOnSecondaryContainer));
 
-					GenericMenuBottomSheet sheet =
-							GenericMenuBottomSheet.newInstance(
-									groupsItem.getName(), getString(R.string.group), items);
-					sheet.setOnMenuItemClickListener(
-							id -> {
-								switch (id) {
-									case "create_label":
-										CreateLabelBottomSheet.newInstance("group", groupId, null)
-												.show(
-														getSupportFragmentManager(),
-														"createLabelSheet");
-										break;
-									case "edit_group":
-										if (groupsItem != null) {
-											groupsViewModel.clearActionSuccess();
-											CreateGroupBottomSheet.newInstance(groupsItem)
-													.show(
-															getSupportFragmentManager(),
-															"editGroupSheet");
-										}
-										break;
-								}
-							});
-					sheet.show(getSupportFragmentManager(), "groupMenuSheet");
-				});
+			GenericMenuBottomSheet sheet =
+					GenericMenuBottomSheet.newInstance(
+							groupsItem.getName(), getString(R.string.group), items);
+			sheet.setOnMenuItemClickListener(id -> {
+				switch (id) {
+					case "create_label":
+						CreateLabelBottomSheet.newInstance("group", groupId, null)
+								.show(getSupportFragmentManager(), "createLabelSheet");
+						break;
+					case "edit_group":
+						if (groupsItem != null) {
+							groupsViewModel.clearActionSuccess();
+							CreateGroupBottomSheet.newInstance(groupsItem)
+									.show(getSupportFragmentManager(), "editGroupSheet");
+						}
+						break;
+				}
+			});
+			sheet.show(getSupportFragmentManager(), "groupMenuSheet");
+		});
 	}
 
 	@Override

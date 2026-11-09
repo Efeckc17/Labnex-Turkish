@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.labnex.app.R;
-import com.labnex.app.bottomsheets.TokenHelpBottomSheet;
 import com.labnex.app.clients.RetrofitClient;
 import com.labnex.app.database.api.BaseApi;
 import com.labnex.app.database.api.UserAccountsApi;
@@ -56,6 +55,7 @@ public class SignInActivity extends BaseActivity {
 	private String tokenExpiry;
 	private ActivityResultLauncher<Intent> importFileLauncher;
 	private boolean isSigningIn = false;
+	private boolean isAddAccountMode = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,7 @@ public class SignInActivity extends BaseActivity {
 
 		if (intent.hasExtra("source")) {
 			if ("add_account".equalsIgnoreCase(intent.getStringExtra("source"))) {
+				isAddAccountMode = true;
 				binding.signIn.setText(R.string.add_new_account);
 				binding.restore.setVisibility(View.GONE);
 				intent.removeExtra("source");
@@ -97,7 +98,9 @@ public class SignInActivity extends BaseActivity {
 			intent.removeExtra("instanceUrl");
 		}
 
-		binding.personalTokenHelper.setOnClickListener(token -> showTokenHelpBottomSheet());
+		binding.personalTokenHelper.setOnClickListener(token ->
+				Utils.openUrlInBrowser(
+						ctx, "https://codeberg.org/labnex/LabNex/wiki/Token-Permissions"));
 		binding.signIn.setOnClickListener(checkUser -> checkUserInput());
 		binding.restore.setOnClickListener(checkUser -> launchImportFilePicker());
 	}
@@ -226,11 +229,6 @@ public class SignInActivity extends BaseActivity {
 			Toasty.show(ctx, getString(R.string.gitlab_url_invalid_format));
 			hideLoading();
 		}
-	}
-
-	private void showTokenHelpBottomSheet() {
-		TokenHelpBottomSheet sheet = TokenHelpBottomSheet.newInstance();
-		sheet.show(getSupportFragmentManager(), "tokenHelpSheet");
 	}
 
 	private void versionCheck(String token) {
@@ -424,10 +422,7 @@ public class SignInActivity extends BaseActivity {
 		isSigningIn = false;
 		binding.loadingIndicator.setVisibility(View.GONE);
 		binding.signIn.setText(
-				getIntent().hasExtra("source")
-								&& "add_account".equals(getIntent().getStringExtra("source"))
-						? R.string.add_new_account
-						: R.string.action_sign_in);
+				isAddAccountMode ? R.string.add_new_account : R.string.action_sign_in);
 		binding.signIn.setEnabled(true);
 		binding.restore.setEnabled(true);
 		binding.restore.setAlpha(1f);

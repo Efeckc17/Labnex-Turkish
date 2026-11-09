@@ -16,7 +16,6 @@
     <string name="remove_account_from_app_title">Rimuovi account</string>
     <string name="remove_account_from_app_message">Vuoi davvero rimuovere questo account dall\'app?\n\nQuesto rimuoverà tutti i dati relativi a questo account soltanto dall\'app.</string>
     <string name="remove_account_from_app_success">Account rimosso</string>
-    <string name="api_scopes">Ambiti: sono necessari tutti gli ambiti API</string>
     <string name="settings_saved">Impostazioni salvate</string>
     <string name="settings_language_selector_dialog_title">Sceglia la lingua</string>
     <string name="settings_biometric_header">Blocco con biometria</string>

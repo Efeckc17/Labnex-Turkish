@@ -104,28 +104,26 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos == RecyclerView.NO_POSITION) return;
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos == RecyclerView.NO_POSITION) return;
 
-						if (insertListener != null) {
-							Notes note = notesList.get(pos);
-							if (note.getContent() != null) {
-								insertListener.onNoteSelected(note.getContent());
-							}
-						} else if (listener != null) {
-							listener.onNoteClick(notesList.get(pos));
-						}
-					});
+				if (insertListener != null) {
+					Notes note = notesList.get(pos);
+					if (note.getContent() != null) {
+						insertListener.onNoteSelected(note.getContent());
+					}
+				} else if (listener != null) {
+					listener.onNoteClick(notesList.get(pos));
+				}
+			});
 
-			binding.btnDelete.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onNoteDelete(notesList.get(pos), pos);
-						}
-					});
+			binding.btnDelete.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onNoteDelete(notesList.get(pos), pos);
+				}
+			});
 		}
 
 		void bind(Notes note) {

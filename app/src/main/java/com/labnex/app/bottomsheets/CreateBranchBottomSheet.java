@@ -58,28 +58,27 @@ public class CreateBranchBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.btnCreate.setOnClickListener(
-				v -> {
-					branch =
-							binding.branchNameInput.getText() != null
-									? binding.branchNameInput.getText().toString().trim()
-									: "";
-					String ref =
-							binding.branchRefInput.getText() != null
-									? binding.branchRefInput.getText().toString().trim()
-									: "";
+		binding.btnCreate.setOnClickListener(v -> {
+			branch =
+					binding.branchNameInput.getText() != null
+							? binding.branchNameInput.getText().toString().trim()
+							: "";
+			String ref =
+					binding.branchRefInput.getText() != null
+							? binding.branchRefInput.getText().toString().trim()
+							: "";
 
-					if (branch.isEmpty() || ref.isEmpty()) {
-						Toasty.show(requireContext(), getString(R.string.branch_ref_required));
-						return;
-					}
+			if (branch.isEmpty() || ref.isEmpty()) {
+				Toasty.show(requireContext(), getString(R.string.branch_ref_required));
+				return;
+			}
 
-					if (!branch.matches("^[a-zA-Z0-9._\\-]+$")) {
-						Toasty.show(requireContext(), getString(R.string.branch_name_invalid));
-						return;
-					}
-					viewModel.createBranch(requireContext(), projectId, branch, ref);
-				});
+			if (!branch.matches("^[a-zA-Z0-9._\\-]+$")) {
+				Toasty.show(requireContext(), getString(R.string.branch_name_invalid));
+				return;
+			}
+			viewModel.createBranch(requireContext(), projectId, branch, ref);
+		});
 
 		observeViewModel();
 

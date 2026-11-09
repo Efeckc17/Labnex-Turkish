@@ -92,59 +92,52 @@ public class HomeFragment extends Fragment {
 	}
 
 	private void setupSwipeRefresh() {
-		binding.pullToRefresh.setOnRefreshListener(
-				() -> {
-					viewModel.loadAll(ctx, true);
-				});
+		binding.pullToRefresh.setOnRefreshListener(() -> {
+			viewModel.loadAll(ctx, true);
+		});
 	}
 
 	private void setupClickListeners() {
 		binding.sectionProjects.groupsFrame.setOnClickListener(
 				v -> startActivity(new Intent(ctx, GroupsActivity.class)));
 
-		binding.sectionProjects.projectsFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, ProjectsActivity.class);
-					intent.putExtra("source", "projects");
-					startActivity(intent);
-				});
+		binding.sectionProjects.projectsFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, ProjectsActivity.class);
+			intent.putExtra("source", "projects");
+			startActivity(intent);
+		});
 
-		binding.sectionProjects.starredFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, ProjectsActivity.class);
-					intent.putExtra("source", "starred");
-					startActivity(intent);
-				});
+		binding.sectionProjects.starredFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, ProjectsActivity.class);
+			intent.putExtra("source", "starred");
+			startActivity(intent);
+		});
 
-		binding.sectionActivity.activitiesFrame.setOnClickListener(
-				v -> {
-					if (requireActivity() instanceof MainActivity ma) {
-						ma.switchTab(ma.activitiesFrag, R.id.btn_nav_activities);
-					}
-				});
+		binding.sectionActivity.activitiesFrame.setOnClickListener(v -> {
+			if (requireActivity() instanceof MainActivity ma) {
+				ma.switchTab(ma.activitiesFrag, R.id.btn_nav_activities);
+			}
+		});
 
-		binding.sectionActivity.issuesFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, IssuesActivity.class);
-					intent.putExtra("source", "my_issues");
-					intent.putExtra("id", 0);
-					startActivity(intent);
-				});
+		binding.sectionActivity.issuesFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, IssuesActivity.class);
+			intent.putExtra("source", "my_issues");
+			intent.putExtra("id", 0);
+			startActivity(intent);
+		});
 
-		binding.sectionActivity.mergeRequestsFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, MergeRequestsActivity.class);
-					intent.putExtra("source", "my_merge_requests");
-					intent.putExtra("id", 0);
-					startActivity(intent);
-				});
+		binding.sectionActivity.mergeRequestsFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, MergeRequestsActivity.class);
+			intent.putExtra("source", "my_merge_requests");
+			intent.putExtra("id", 0);
+			startActivity(intent);
+		});
 
-		binding.sectionActivity.snippetFrame.setOnClickListener(
-				v -> {
-					Intent intent = new Intent(ctx, SnippetsActivity.class);
-					intent.putExtra("source", "snippets");
-					startActivity(intent);
-				});
+		binding.sectionActivity.snippetFrame.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, SnippetsActivity.class);
+			intent.putExtra("source", "snippets");
+			startActivity(intent);
+		});
 
 		binding.sectionPreferences.mostVisited.setOnClickListener(
 				v -> startActivity(new Intent(ctx, MostVisitedProjectsActivity.class)));

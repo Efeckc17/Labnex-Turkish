@@ -74,29 +74,26 @@ public class UserAccountsAdapter
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onAccountClick(userAccountsList.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onAccountClick(userAccountsList.get(pos));
+				}
+			});
 
-			binding.editAccount.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onEditClick(userAccountsList.get(pos));
-						}
-					});
+			binding.editAccount.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onEditClick(userAccountsList.get(pos));
+				}
+			});
 
-			binding.deleteAccount.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onDeleteClick(userAccountsList.get(pos), pos);
-						}
-					});
+			binding.deleteAccount.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onDeleteClick(userAccountsList.get(pos), pos);
+				}
+			});
 		}
 
 		void bind(UserAccount currentItem) {

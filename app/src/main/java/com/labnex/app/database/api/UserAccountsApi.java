@@ -50,10 +50,9 @@ public class UserAccountsApi extends BaseApi {
 
 	public void updateServerPagingLimit(
 			final int maxResponseItems, final int defaultPagingNumber, final int accountId) {
-		executorService.execute(
-				() ->
-						userAccountsDao.updateServerPagingLimit(
-								maxResponseItems, defaultPagingNumber, accountId));
+		executorService.execute(() ->
+				userAccountsDao.updateServerPagingLimit(
+						maxResponseItems, defaultPagingNumber, accountId));
 	}
 
 	public void updateToken(final int accountId, final String token) {

@@ -86,21 +86,19 @@ public class MergeRequestsAdapter
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onMrClick(list.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onMrClick(list.get(pos));
+				}
+			});
 
-			binding.avatar.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onAuthorClick(list.get(pos));
-						}
-					});
+			binding.avatar.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onAuthorClick(list.get(pos));
+				}
+			});
 		}
 
 		void bind(MergeRequests mr) {
@@ -126,11 +124,9 @@ public class MergeRequestsAdapter
 			if (mr.getCreatedAt() != null) {
 				Date date = TimeHelper.parseIso8601(mr.getCreatedAt());
 				binding.mrCreatedAt.setText(TimeHelper.formatTime(date));
-				binding.mrCreatedAt.setOnClickListener(
-						v ->
-								Toasty.show(
-										context,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				binding.mrCreatedAt.setOnClickListener(v ->
+						Toasty.show(
+								context, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 
 			String authorName = "";

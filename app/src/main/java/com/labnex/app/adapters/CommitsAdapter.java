@@ -70,23 +70,22 @@ public class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.CommitsV
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos == RecyclerView.NO_POSITION) return;
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos == RecyclerView.NO_POSITION) return;
 
-						Commits commit = list.get(pos);
-						Bundle bundle = new Bundle();
-						bundle.putString("source", "commits");
-						bundle.putString("sha", commit.getId());
-						bundle.putLong("projectId", projectId);
+				Commits commit = list.get(pos);
+				Bundle bundle = new Bundle();
+				bundle.putString("source", "commits");
+				bundle.putString("sha", commit.getId());
+				bundle.putLong("projectId", projectId);
 
-						CommitDiffsBottomSheet bottomSheet = new CommitDiffsBottomSheet();
-						bottomSheet.setArguments(bundle);
-						bottomSheet.show(
-								((FragmentActivity) ctx).getSupportFragmentManager(),
-								"CommitDiffsBottomSheet");
-					});
+				CommitDiffsBottomSheet bottomSheet = new CommitDiffsBottomSheet();
+				bottomSheet.setArguments(bundle);
+				bottomSheet.show(
+						((FragmentActivity) ctx).getSupportFragmentManager(),
+						"CommitDiffsBottomSheet");
+			});
 		}
 
 		void bind(Commits commit) {
@@ -97,15 +96,12 @@ public class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.CommitsV
 				binding.commitBadge.setImageDrawable(
 						AvatarGenerator.getLabelDrawable(ctx, commit.getShortId(), badgeColor, 22));
 
-				binding.commitBadge.setOnClickListener(
-						v -> {
-							if (commit.getId() != null) {
-								Utils.copyToClipboard(
-										ctx,
-										commit.getId(),
-										ctx.getString(R.string.commit_sha_copied));
-							}
-						});
+				binding.commitBadge.setOnClickListener(v -> {
+					if (commit.getId() != null) {
+						Utils.copyToClipboard(
+								ctx, commit.getId(), ctx.getString(R.string.commit_sha_copied));
+					}
+				});
 			} else {
 				binding.commitBadge.setVisibility(View.GONE);
 			}
@@ -122,11 +118,8 @@ public class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.CommitsV
 				Date date = TimeHelper.parseIso8601(commit.getCreatedAt());
 				binding.commitTime.setText(TimeHelper.formatTime(date));
 
-				binding.commitTime.setOnClickListener(
-						v ->
-								Toasty.show(
-										ctx,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				binding.commitTime.setOnClickListener(v ->
+						Toasty.show(ctx, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			} else {
 				binding.commitTime.setVisibility(View.GONE);
 			}

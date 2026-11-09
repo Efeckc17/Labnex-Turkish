@@ -109,11 +109,10 @@ public class HomeViewModel extends ViewModel {
 		if (projectsApi != null) {
 			projectsApi
 					.fetchAllMostVisited(accountId)
-					.observeForever(
-							projects -> {
-								mvpProjects.setValue(projects);
-								mvpCount.setValue(projects != null ? projects.size() : 0);
-							});
+					.observeForever(projects -> {
+						mvpProjects.setValue(projects);
+						mvpCount.setValue(projects != null ? projects.size() : 0);
+					});
 		}
 	}
 

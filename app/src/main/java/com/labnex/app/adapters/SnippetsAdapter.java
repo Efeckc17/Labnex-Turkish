@@ -84,21 +84,19 @@ public class SnippetsAdapter extends RecyclerView.Adapter<SnippetsAdapter.Snippe
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onSnippetClick(snippetsList.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onSnippetClick(snippetsList.get(pos));
+				}
+			});
 
-			binding.btnMenu.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onSnippetMenuClick(snippetsList.get(pos), pos);
-						}
-					});
+			binding.btnMenu.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onSnippetMenuClick(snippetsList.get(pos), pos);
+				}
+			});
 		}
 
 		void bind(SnippetsItem snippet) {
@@ -128,11 +126,9 @@ public class SnippetsAdapter extends RecyclerView.Adapter<SnippetsAdapter.Snippe
 			if (snippet.getCreatedAt() != null) {
 				Date date = TimeHelper.parseIso8601(snippet.getCreatedAt());
 				timeStr = TimeHelper.formatTime(date);
-				binding.snippetAuthor.setOnClickListener(
-						v ->
-								Toasty.show(
-										context,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				binding.snippetAuthor.setOnClickListener(v ->
+						Toasty.show(
+								context, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 			binding.snippetAuthor.setText(
 					context.getString(R.string.created_by, authorName, timeStr));

@@ -78,19 +78,18 @@ public class MergeRequestsActivity extends BaseActivity
 				&& projectsContext != null
 				&& !projectsContext.getProject().isArchived()) {
 			binding.dockContainer.addView(binding.newMergeRequest, 1);
-			binding.newMergeRequest.setOnClickListener(
-					v -> {
-						CreateMergeRequestBottomSheet.newInstance(
-										"project",
-										projectsContext.getProjectId(),
-										canModify,
-										false,
-										null,
-										null,
-										null,
-										null)
-								.show(getSupportFragmentManager(), "createIssueSheet");
-					});
+			binding.newMergeRequest.setOnClickListener(v -> {
+				CreateMergeRequestBottomSheet.newInstance(
+								"project",
+								projectsContext.getProjectId(),
+								canModify,
+								false,
+								null,
+								null,
+								null,
+								null)
+						.show(getSupportFragmentManager(), "createIssueSheet");
+			});
 		}
 
 		setupRecyclerView();
@@ -149,29 +148,26 @@ public class MergeRequestsActivity extends BaseActivity
 		fb.chipDesc.setChecked("desc".equals(viewModel.getCurrentSort()));
 		fb.chipAsc.setChecked("asc".equals(viewModel.getCurrentSort()));
 
-		fb.btnApply.setOnClickListener(
-				v -> {
-					searchQuery = Objects.requireNonNull(fb.search.getText()).toString().trim();
+		fb.btnApply.setOnClickListener(v -> {
+			searchQuery = Objects.requireNonNull(fb.search.getText()).toString().trim();
 
-					if (fb.chipOpened.isChecked()) filter = "opened";
-					else if (fb.chipMerged.isChecked()) filter = "merged";
-					else filter = "closed";
+			if (fb.chipOpened.isChecked()) filter = "opened";
+			else if (fb.chipMerged.isChecked()) filter = "merged";
+			else filter = "closed";
 
-					if (fb.chipScopeCreated.isChecked()) viewModel.setCurrentScope("created_by_me");
-					else if (fb.chipScopeAssigned.isChecked())
-						viewModel.setCurrentScope("assigned_to_me");
-					else if (fb.chipScopeReview.isChecked())
-						viewModel.setCurrentScope("reviews_for_me");
-					else viewModel.setCurrentScope("all");
+			if (fb.chipScopeCreated.isChecked()) viewModel.setCurrentScope("created_by_me");
+			else if (fb.chipScopeAssigned.isChecked()) viewModel.setCurrentScope("assigned_to_me");
+			else if (fb.chipScopeReview.isChecked()) viewModel.setCurrentScope("reviews_for_me");
+			else viewModel.setCurrentScope("all");
 
-					viewModel.setCurrentOrderBy(
-							fb.chipOrderCreated.isChecked() ? "created_at" : "updated_at");
-					viewModel.setCurrentSort(fb.chipDesc.isChecked() ? "desc" : "asc");
+			viewModel.setCurrentOrderBy(
+					fb.chipOrderCreated.isChecked() ? "created_at" : "updated_at");
+			viewModel.setCurrentSort(fb.chipDesc.isChecked() ? "desc" : "asc");
 
-					viewModel.loadMergeRequests(
-							ctx, source, id, viewModel.getCurrentScope(), filter, searchQuery);
-					dialog.dismiss();
-				});
+			viewModel.loadMergeRequests(
+					ctx, source, id, viewModel.getCurrentScope(), filter, searchQuery);
+			dialog.dismiss();
+		});
 
 		dialog.show();
 	}

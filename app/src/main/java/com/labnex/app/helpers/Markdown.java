@@ -484,194 +484,163 @@ public class Markdown {
 										public void configureConfiguration(
 												@NonNull MarkwonConfiguration.Builder builder) {
 
-											builder.linkResolver(
-													(view, link) -> {
-														ProjectsContext repoLocal =
-																linkPostProcessor.projects;
-														String baseInstanceUrl =
-																((BaseActivity) context)
-																		.getAccount()
-																		.getAccount()
-																		.getInstanceUrl();
+											builder.linkResolver((view, link) -> {
+												ProjectsContext repoLocal =
+														linkPostProcessor.projects;
+												String baseInstanceUrl =
+														((BaseActivity) context)
+																.getAccount()
+																.getAccount()
+																.getInstanceUrl();
 
-														if (baseInstanceUrl.contains("api/v4/")) {
-															baseInstanceUrl =
-																	baseInstanceUrl.substring(
-																			0,
-																			baseInstanceUrl
-																					.lastIndexOf(
-																							"api/v4/"));
-														}
+												if (baseInstanceUrl.contains("api/v4/")) {
+													baseInstanceUrl =
+															baseInstanceUrl.substring(
+																	0,
+																	baseInstanceUrl.lastIndexOf(
+																			"api/v4/"));
+												}
 
-														if (link.startsWith("/")
-																&& link.contains("/diffs")) {
-															android.net.Uri uri =
-																	android.net.Uri.parse(
+												if (link.startsWith("/")
+														&& link.contains("/diffs")) {
+													android.net.Uri uri =
+															android.net.Uri.parse(
+																	baseInstanceUrl
+																			+ link.substring(1));
+													String targetSha =
+															uri.getQueryParameter("start_sha");
+
+													if (targetSha != null
+															&& !targetSha.trim().isEmpty()) {
+														Bundle args = new Bundle();
+														args.putLong(
+																"projectId",
+																repoLocal.getProjectId());
+														args.putString("sha", targetSha);
+
+														CommitDiffsBottomSheet sheet =
+																new CommitDiffsBottomSheet();
+														sheet.setArguments(args);
+														sheet.show(
+																((FragmentActivity)
+																				view.getContext())
+																		.getSupportFragmentManager(),
+																"commitDiffsSheet");
+														return;
+													}
+												}
+
+												if (link.contains("/commit/")
+														|| link.contains("/diffs")) {
+													android.net.Uri uri =
+															link.startsWith("/")
+																	? android.net.Uri.parse(
 																			baseInstanceUrl
 																					+ link
 																							.substring(
-																									1));
-															String targetSha =
-																	uri.getQueryParameter(
-																			"start_sha");
+																									1))
+																	: android.net.Uri.parse(link);
+													String targetSha =
+															uri.getQueryParameter("start_sha");
 
-															if (targetSha != null
-																	&& !targetSha
-																			.trim()
-																			.isEmpty()) {
-																Bundle args = new Bundle();
-																args.putLong(
-																		"projectId",
-																		repoLocal.getProjectId());
-																args.putString("sha", targetSha);
+													if (targetSha == null) {
+														targetSha = uri.getLastPathSegment();
+													}
 
-																CommitDiffsBottomSheet sheet =
-																		new CommitDiffsBottomSheet();
-																sheet.setArguments(args);
-																sheet.show(
-																		((FragmentActivity)
-																						view
-																								.getContext())
-																				.getSupportFragmentManager(),
-																		"commitDiffsSheet");
-																return;
-															}
-														}
+													if (targetSha != null
+															&& !targetSha.trim().isEmpty()) {
+														Bundle args = new Bundle();
+														args.putLong(
+																"projectId",
+																repoLocal.getProjectId());
+														args.putString("sha", targetSha);
 
-														if (link.contains("/commit/")
-																|| link.contains("/diffs")) {
-															android.net.Uri uri =
-																	link.startsWith("/")
-																			? android.net.Uri.parse(
-																					baseInstanceUrl
-																							+ link
-																									.substring(
-																											1))
-																			: android.net.Uri.parse(
-																					link);
-															String targetSha =
-																	uri.getQueryParameter(
-																			"start_sha");
+														CommitDiffsBottomSheet sheet =
+																new CommitDiffsBottomSheet();
+														sheet.setArguments(args);
+														sheet.show(
+																((FragmentActivity)
+																				view.getContext())
+																		.getSupportFragmentManager(),
+																"commitDiffsSheet");
+														return;
+													}
+												}
 
-															if (targetSha == null) {
-																targetSha =
-																		uri.getLastPathSegment();
-															}
+												if (link.startsWith("labnexuser://")) {
+													Intent i =
+															new Intent(
+																	view.getContext(),
+																	ProfileActivity.class);
+													i.putExtra("username", link.substring(13));
+													view.getContext().startActivity(i);
 
-															if (targetSha != null
-																	&& !targetSha
-																			.trim()
-																			.isEmpty()) {
-																Bundle args = new Bundle();
-																args.putLong(
-																		"projectId",
-																		repoLocal.getProjectId());
-																args.putString("sha", targetSha);
-
-																CommitDiffsBottomSheet sheet =
-																		new CommitDiffsBottomSheet();
-																sheet.setArguments(args);
-																sheet.show(
-																		((FragmentActivity)
-																						view
-																								.getContext())
-																				.getSupportFragmentManager(),
-																		"commitDiffsSheet");
-																return;
-															}
-														}
-
-														if (link.startsWith("labnexuser://")) {
-															Intent i =
-																	new Intent(
+												} else if (link.startsWith("labnexissue://")) {
+													link = link.substring(14);
+													int issueIid;
+													if (link.contains("/")) {
+														issueIid =
+																Integer.parseInt(
+																		link.split("#")[1]);
+													} else {
+														issueIid =
+																Integer.parseInt(link.substring(1));
+													}
+													Intent i =
+															new IssueContext(
+																			repoLocal, issueIid,
+																			null)
+																	.getIntent(
 																			view.getContext(),
-																			ProfileActivity.class);
-															i.putExtra(
-																	"username", link.substring(13));
-															view.getContext().startActivity(i);
+																			IssueDetailActivity
+																					.class);
+													view.getContext().startActivity(i);
+												} else if (link.startsWith("labnexmr://")) {
+													link = link.substring(10);
+													int mrIid;
+													if (link.contains("/")) {
+														mrIid =
+																Integer.parseInt(
+																		link.split("!")[1]);
+													} else {
+														mrIid = Integer.parseInt(link.substring(1));
+													}
+													Intent i =
+															new MergeRequestContext(
+																			repoLocal, mrIid)
+																	.getIntent(
+																			view.getContext(),
+																			MergeRequestDetailActivity
+																					.class);
+													view.getContext().startActivity(i);
+												} else if (link.startsWith("labnexcommit://")) {
+													link = link.substring(15);
+													String sha =
+															link.contains("/")
+																	? link.substring(
+																			link.lastIndexOf('/')
+																					+ 1)
+																	: link;
 
-														} else if (link.startsWith(
-																"labnexissue://")) {
-															link = link.substring(14);
-															int issueIid;
-															if (link.contains("/")) {
-																issueIid =
-																		Integer.parseInt(
-																				link.split("#")[1]);
-															} else {
-																issueIid =
-																		Integer.parseInt(
-																				link.substring(1));
-															}
-															Intent i =
-																	new IssueContext(
-																					repoLocal,
-																					issueIid, null)
-																			.getIntent(
-																					view
-																							.getContext(),
-																					IssueDetailActivity
-																							.class);
-															view.getContext().startActivity(i);
-														} else if (link.startsWith("labnexmr://")) {
-															link = link.substring(10);
-															int mrIid;
-															if (link.contains("/")) {
-																mrIid =
-																		Integer.parseInt(
-																				link.split("!")[1]);
-															} else {
-																mrIid =
-																		Integer.parseInt(
-																				link.substring(1));
-															}
-															Intent i =
-																	new MergeRequestContext(
-																					repoLocal,
-																					mrIid)
-																			.getIntent(
-																					view
-																							.getContext(),
-																					MergeRequestDetailActivity
-																							.class);
-															view.getContext().startActivity(i);
-														} else if (link.startsWith(
-																"labnexcommit://")) {
-															link = link.substring(15);
-															String sha =
-																	link.contains("/")
-																			? link.substring(
-																					link
-																									.lastIndexOf(
-																											'/')
-																							+ 1)
-																			: link;
+													Bundle args = new Bundle();
+													args.putLong(
+															"projectId", repoLocal.getProjectId());
+													args.putString("sha", sha);
 
-															Bundle args = new Bundle();
-															args.putLong(
-																	"projectId",
-																	repoLocal.getProjectId());
-															args.putString("sha", sha);
-
-															CommitDiffsBottomSheet sheet =
-																	new CommitDiffsBottomSheet();
-															sheet.setArguments(args);
-															sheet.show(
-																	((FragmentActivity)
-																					view
-																							.getContext())
-																			.getSupportFragmentManager(),
-																	"commitDiffsSheet");
-														} else {
-															if (link.startsWith("/")) {
-																link =
-																		baseInstanceUrl
-																				+ link.substring(1);
-															}
-															Utils.openUrlInBrowser(
-																	view.getContext(), link);
-														}
-													});
+													CommitDiffsBottomSheet sheet =
+															new CommitDiffsBottomSheet();
+													sheet.setArguments(args);
+													sheet.show(
+															((FragmentActivity) view.getContext())
+																	.getSupportFragmentManager(),
+															"commitDiffsSheet");
+												} else {
+													if (link.startsWith("/")) {
+														link = baseInstanceUrl + link.substring(1);
+													}
+													Utils.openUrlInBrowser(view.getContext(), link);
+												}
+											});
 											super.configureConfiguration(builder);
 										}
 									});
@@ -685,14 +654,12 @@ public class Markdown {
 					MarkwonAdapter.builderTextViewIsRoot(R.layout.custom_markdown_adapter)
 							.include(
 									TableBlock.class,
-									TableEntry.create(
-											builder2 ->
-													builder2.tableLayout(
-																	R.layout.custom_markdown_table,
-																	R.id.table_layout)
-															.textLayoutIsRoot(
-																	R.layout
-																			.custom_markdown_adapter)))
+									TableEntry.create(builder2 ->
+											builder2.tableLayout(
+															R.layout.custom_markdown_table,
+															R.id.table_layout)
+													.textLayoutIsRoot(
+															R.layout.custom_markdown_adapter)))
 							.include(
 									FencedCodeBlock.class,
 									SimpleEntry.create(
@@ -739,23 +706,22 @@ public class Markdown {
 			RecyclerView localReference = recyclerView;
 			String localMd = markdown;
 			MarkwonAdapter localAdapter = adapter;
-			localReference.post(
-					() -> {
-						localReference.setLayoutManager(
-								new LinearLayoutManager(context) {
+			localReference.post(() -> {
+				localReference.setLayoutManager(
+						new LinearLayoutManager(context) {
 
-									@Override
-									public boolean canScrollVertically() {
+							@Override
+							public boolean canScrollVertically() {
 
-										return false; // disable RecyclerView scrolling, handled by
-										// separate ScrollViews
-									}
-								});
-						localReference.setAdapter(localAdapter);
+								return false; // disable RecyclerView scrolling, handled by
+								// separate ScrollViews
+							}
+						});
+				localReference.setAdapter(localAdapter);
 
-						localAdapter.setMarkdown(markwon, localMd);
-						localAdapter.notifyDataSetChanged();
-					});
+				localAdapter.setMarkdown(markwon, localMd);
+				localAdapter.notifyDataSetChanged();
+			});
 
 			release();
 		}

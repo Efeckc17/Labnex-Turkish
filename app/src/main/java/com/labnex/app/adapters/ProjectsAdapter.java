@@ -83,16 +83,15 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos == RecyclerView.NO_POSITION) return;
-						Projects projects = projectsList.get(pos);
-						ProjectsContext projectCtx = new ProjectsContext(projects, context);
-						projectCtx.saveToDB(context);
-						Intent intent = projectCtx.getIntent(context, ProjectDetailActivity.class);
-						context.startActivity(intent);
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos == RecyclerView.NO_POSITION) return;
+				Projects projects = projectsList.get(pos);
+				ProjectsContext projectCtx = new ProjectsContext(projects, context);
+				projectCtx.saveToDB(context);
+				Intent intent = projectCtx.getIntent(context, ProjectDetailActivity.class);
+				context.startActivity(intent);
+			});
 		}
 
 		void bindData(Projects projects) {
@@ -148,11 +147,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 			if (projects.getLastActivityAt() != null) {
 				Date date = TimeHelper.parseIso8601(projects.getLastActivityAt());
 				binding.projectUpdatedAt.setText(TimeHelper.formatTime(date));
-				binding.projectUpdatedAt.setOnClickListener(
-						v ->
-								Toasty.show(
-										context,
-										TimeHelper.getFullDateTime(date, Locale.getDefault())));
+				binding.projectUpdatedAt.setOnClickListener(v ->
+						Toasty.show(
+								context, TimeHelper.getFullDateTime(date, Locale.getDefault())));
 			}
 		}
 	}

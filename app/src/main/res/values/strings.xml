@@ -1,5 +1,5 @@
 <resources>
-    <!-- non translatable strings -->
+    <!-- non-translatable strings -->
     <string name="app_name" translatable="false">LabNex</string>
     <string name="version_display" translatable="false">LabNex %1$s | GitLab %2$s</string>
     <string name="support_link_patreon" translatable="false">https://www.patreon.com/mmarif</string>
@@ -31,7 +31,6 @@
     <string name="light" translatable="false">Light</string>
     <string name="dynamic" translatable="false">Dynamic</string>
     <string name="theme_system" translatable="false">System</string>
-    <string name="where_to_get_token_message" translatable="false"><![CDATA[• Log in to your account on your instance (GitLab, framagit, etc.).<br>• Click on your user profile picture, then go to Preferences.<br>• On the left side menu, click on Access → Personal access tokens.<br>• Click on Generate token button.<br>• Enter token name and choose expiration date as long as possible.<br>• Check all the scopes.<br><br>Once created, copy and paste or type the token in Personal access token input field.]]></string>
     <string name="number_label" translatable="false">12</string>
     <string name="number_zero" translatable="false">0</string>
     <string name="main" translatable="false">main</string>
@@ -40,7 +39,7 @@
     <string name="tag_info" translatable="false">%1$s • %2$s</string>
     <string name="issue_number" translatable="false">#%d</string>
     <string name="mr_number" translatable="false">!%d</string>
-    <!-- non translatable strings -->
+    <!-- non-translatable strings -->
 
     <string name="action_sign_in">Sign in</string>
     <string name="all_good">You\'re all caught up</string>
@@ -56,7 +55,6 @@
     <string name="remove_account_from_app_title">Remove account</string>
     <string name="remove_account_from_app_message">Are you sure you want to remove this account from the app?\n\nThis will remove all data related to this account on the app only.</string>
     <string name="remove_account_from_app_success">Account removed successfully</string>
-    <string name="api_scopes">Scopes: all api scopes are required</string>
     <string name="settings_saved">Settings saved</string>
     <string name="settings_language_selector_dialog_title">Choose language</string>
     <string name="settings_biometric_header">Biometric lock</string>

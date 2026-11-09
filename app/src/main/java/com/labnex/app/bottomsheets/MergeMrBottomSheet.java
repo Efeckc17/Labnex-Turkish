@@ -50,13 +50,12 @@ public class MergeMrBottomSheet extends BottomSheetDialogFragment {
 			@Nullable Bundle savedInstanceState) {
 		binding = BottomsheetMergeMrBinding.inflate(inflater, container, false);
 
-		binding.btnMerge.setOnClickListener(
-				v -> {
-					boolean removeSource = binding.switchRemoveSource.isChecked();
-					boolean squash = binding.switchSquash.isChecked();
-					viewModel.mergeMr(requireContext(), projectId, mrIid, removeSource, squash);
-					dismiss();
-				});
+		binding.btnMerge.setOnClickListener(v -> {
+			boolean removeSource = binding.switchRemoveSource.isChecked();
+			boolean squash = binding.switchSquash.isChecked();
+			viewModel.mergeMr(requireContext(), projectId, mrIid, removeSource, squash);
+			dismiss();
+		});
 
 		return binding.getRoot();
 	}

@@ -76,21 +76,19 @@ public class WikisAdapter extends RecyclerView.Adapter<WikisAdapter.WikisHolder>
 				binding.btnMenu.setVisibility(View.GONE);
 			}
 
-			itemView.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onWikiClick(list.get(pos));
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onWikiClick(list.get(pos));
+				}
+			});
 
-			binding.btnMenu.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onMenuClick(list.get(pos));
-						}
-					});
+			binding.btnMenu.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onMenuClick(list.get(pos));
+				}
+			});
 		}
 
 		void bind(Wiki wiki) {

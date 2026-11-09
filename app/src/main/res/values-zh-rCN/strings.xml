@@ -16,7 +16,6 @@
     <string name="remove_account_from_app_title">移除帐户</string>
     <string name="remove_account_from_app_message">您确定要从应用中移除此帐户吗？\n\n 这将删除在应用程序上与此账户相关的所有数据。</string>
     <string name="remove_account_from_app_success">账户移除成功</string>
-    <string name="api_scopes">访问权限：需要授予令牌所有 API 权限</string>
     <string name="settings_saved">设置已保存</string>
     <string name="settings_language_selector_dialog_title">选择语言</string>
     <string name="settings_biometric_header">启用生物识别验证</string>

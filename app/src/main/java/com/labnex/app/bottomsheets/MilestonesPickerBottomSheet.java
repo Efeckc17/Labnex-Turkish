@@ -77,13 +77,12 @@ public class MilestonesPickerBottomSheet extends BottomSheetDialogFragment {
 		binding.milestonesList.setLayoutManager(new LinearLayoutManager(requireContext()));
 		binding.milestonesList.setAdapter(adapter);
 
-		binding.btnDone.setOnClickListener(
-				v -> {
-					if (listener != null && selected != null) {
-						listener.onMilestoneSelected(selected);
-					}
-					dismiss();
-				});
+		binding.btnDone.setOnClickListener(v -> {
+			if (listener != null && selected != null) {
+				listener.onMilestoneSelected(selected);
+			}
+			dismiss();
+		});
 
 		viewModel
 				.getIsLoading()

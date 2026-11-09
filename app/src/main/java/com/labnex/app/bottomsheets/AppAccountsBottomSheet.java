@@ -46,56 +46,49 @@ public class AppAccountsBottomSheet extends BottomSheetDialogFragment
 			@Nullable Bundle savedInstanceState) {
 		binding = BottomsheetAppAccountsBinding.inflate(inflater, container, false);
 
-		binding.addNewAccount.setOnClickListener(
-				v -> {
-					startActivity(
-							new Intent(requireContext(), SignInActivity.class)
-									.putExtra("source", "add_account"));
-					dismiss();
-				});
+		binding.addNewAccount.setOnClickListener(v -> {
+			startActivity(
+					new Intent(requireContext(), SignInActivity.class)
+							.putExtra("source", "add_account"));
+			dismiss();
+		});
 
-		binding.removeAllAccounts.setOnClickListener(
-				v ->
-						new MaterialAlertDialogBuilder(requireContext())
-								.setTitle(R.string.remove_all_accounts)
-								.setMessage(R.string.remove_all_accounts_from_app_message)
-								.setNeutralButton(R.string.cancel, null)
-								.setPositiveButton(
-										R.string.remove,
-										(dialog, which) -> {
-											UserAccountsApi ua =
-													BaseApi.getInstance(
-															requireContext(),
-															UserAccountsApi.class);
-											NotesApi na =
-													BaseApi.getInstance(
-															requireContext(), NotesApi.class);
-											ProjectsApi pa =
-													BaseApi.getInstance(
-															requireContext(), ProjectsApi.class);
-											if (ua != null) ua.deleteAllAccounts();
-											if (na != null) na.deleteAllNotes();
-											if (pa != null) pa.deleteAllProjects();
-											new Handler()
-													.postDelayed(
-															() -> {
-																Intent intent =
-																		new Intent(
-																				requireContext(),
-																				SignInActivity
-																						.class);
-																intent.setFlags(
-																		Intent
-																						.FLAG_ACTIVITY_NEW_TASK
-																				| Intent
-																						.FLAG_ACTIVITY_CLEAR_TASK);
-																requireContext()
-																		.startActivity(intent);
-																dismiss();
-															},
-															500);
-										})
-								.show());
+		binding.removeAllAccounts.setOnClickListener(v ->
+				new MaterialAlertDialogBuilder(requireContext())
+						.setTitle(R.string.remove_all_accounts)
+						.setMessage(R.string.remove_all_accounts_from_app_message)
+						.setNeutralButton(R.string.cancel, null)
+						.setPositiveButton(
+								R.string.remove,
+								(dialog, which) -> {
+									UserAccountsApi ua =
+											BaseApi.getInstance(
+													requireContext(), UserAccountsApi.class);
+									NotesApi na =
+											BaseApi.getInstance(requireContext(), NotesApi.class);
+									ProjectsApi pa =
+											BaseApi.getInstance(
+													requireContext(), ProjectsApi.class);
+									if (ua != null) ua.deleteAllAccounts();
+									if (na != null) na.deleteAllNotes();
+									if (pa != null) pa.deleteAllProjects();
+									new Handler()
+											.postDelayed(
+													() -> {
+														Intent intent =
+																new Intent(
+																		requireContext(),
+																		SignInActivity.class);
+														intent.setFlags(
+																Intent.FLAG_ACTIVITY_NEW_TASK
+																		| Intent
+																				.FLAG_ACTIVITY_CLEAR_TASK);
+														requireContext().startActivity(intent);
+														dismiss();
+													},
+													500);
+								})
+						.show());
 
 		adapter = new UserAccountsAdapter(requireContext(), this);
 		binding.accountsList.setLayoutManager(new LinearLayoutManager(requireContext()));

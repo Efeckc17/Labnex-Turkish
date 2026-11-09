@@ -233,31 +233,27 @@ public class DeepLinksActivity extends BaseActivity {
 	}
 
 	private void goToProject(Projects project) {
-		loadUserInfo(
-				() -> {
-					ProjectsContext projectContext = new ProjectsContext(project, ctx);
-					projectContext.saveToDB(ctx);
+		loadUserInfo(() -> {
+			ProjectsContext projectContext = new ProjectsContext(project, ctx);
+			projectContext.saveToDB(ctx);
 
-					Intent projectIntent =
-							projectContext.getIntent(ctx, ProjectDetailActivity.class);
-					ctx.startActivity(projectIntent);
-					finish();
-				});
+			Intent projectIntent = projectContext.getIntent(ctx, ProjectDetailActivity.class);
+			ctx.startActivity(projectIntent);
+			finish();
+		});
 	}
 
 	private void goToProjectWithSection(Projects project, String sectionType) {
-		loadUserInfo(
-				() -> {
-					ProjectsContext projectContext = new ProjectsContext(project, ctx);
-					projectContext.saveToDB(ctx);
+		loadUserInfo(() -> {
+			ProjectsContext projectContext = new ProjectsContext(project, ctx);
+			projectContext.saveToDB(ctx);
 
-					Intent projectIntent =
-							projectContext.getIntent(ctx, ProjectDetailActivity.class);
-					projectIntent.putExtra("goToSection", "yes");
-					projectIntent.putExtra("goToSectionType", sectionType);
-					ctx.startActivity(projectIntent);
-					finish();
-				});
+			Intent projectIntent = projectContext.getIntent(ctx, ProjectDetailActivity.class);
+			projectIntent.putExtra("goToSection", "yes");
+			projectIntent.putExtra("goToSectionType", sectionType);
+			ctx.startActivity(projectIntent);
+			finish();
+		});
 	}
 
 	private void createBackStackAndOpenIssue(Projects project, Issues issue) {
@@ -375,25 +371,23 @@ public class DeepLinksActivity extends BaseActivity {
 
 		if (accountsCount > 0) {
 			viewBinding.goToApp.setVisibility(View.VISIBLE);
-			viewBinding.goToApp.setOnClickListener(
-					goToApp -> {
-						startActivity(mainIntent);
-						finish();
-					});
+			viewBinding.goToApp.setOnClickListener(goToApp -> {
+				startActivity(mainIntent);
+				finish();
+			});
 		}
 
 		viewBinding.addAccountText.setText(
 				String.format(
 						getResources().getString(R.string.account_does_not_exist), data.getHost()));
 
-		viewBinding.addNewAccount.setOnClickListener(
-				addNewAccount -> {
-					Intent accountIntent = new Intent(ctx, SignInActivity.class);
-					accountIntent.putExtra("instanceUrl", data.getHost());
-					accountIntent.putExtra("source", "add_account");
-					startActivity(accountIntent);
-					finish();
-				});
+		viewBinding.addNewAccount.setOnClickListener(addNewAccount -> {
+			Intent accountIntent = new Intent(ctx, SignInActivity.class);
+			accountIntent.putExtra("instanceUrl", data.getHost());
+			accountIntent.putExtra("source", "add_account");
+			startActivity(accountIntent);
+			finish();
+		});
 	}
 
 	@NonNull private StringBuilder getStringBuilder() {

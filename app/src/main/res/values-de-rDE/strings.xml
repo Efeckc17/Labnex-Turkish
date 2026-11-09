@@ -16,7 +16,6 @@
     <string name="remove_account_from_app_title">Account entfernen</string>
     <string name="remove_account_from_app_message">Bist du sicher, dass du diesen Account aus der App entfernen willst?\n\nDies wird alle Daten auf deinem Gerät entfernen, die mit diesem Account verknüpft sind.</string>
     <string name="remove_account_from_app_success">Account erfolgreich entfernt</string>
-    <string name="api_scopes">Scopes: alle API Scopes werden benötigt</string>
     <string name="settings_saved">Einstellungen gespeichert</string>
     <string name="settings_language_selector_dialog_title">Wähle eine Sprache</string>
     <string name="settings_biometric_header">Biometrische Sperrung</string>

@@ -34,6 +34,10 @@ LabNex is licensed under the GPLv3 License.
 
 [More screenshots →](https://codeberg.org/labnex/LabNex/src/branch/main/metadata/en-US/images/phoneScreenshots)
 
+## AI Submissions
+
+We don't block AI submissions, but we don't accept slop, either. [read the wiki](https://codeberg.org/labnex/LabNex/wiki/Submissions-via-AI)
+
 ## Add a Custom URL Scheme
 
 Starting with version **7.0.0**, LabNex supports a custom URL scheme. This feature allows you to seamlessly open links directly in LabNex for issues, merge requests, projects by using third-party apps like [URL Check](https://github.com/TrianguloY/URLCheck).

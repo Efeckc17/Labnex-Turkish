@@ -86,27 +86,24 @@ public class ReleasesAdapter extends RecyclerView.Adapter<ReleasesAdapter.Releas
 				binding.btnMenu.setVisibility(View.GONE);
 			}
 
-			binding.btnMenu.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && listener != null) {
-							listener.onMenuClick(list.get(pos));
-						}
-					});
+			binding.btnMenu.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && listener != null) {
+					listener.onMenuClick(list.get(pos));
+				}
+			});
 
-			binding.userAvatar.setOnClickListener(
-					v -> {
-						int pos = getBindingAdapterPosition();
-						if (pos != RecyclerView.NO_POSITION && list.get(pos).getAuthor() != null) {
-							context.startActivity(
-									new Intent(context, ProfileActivity.class)
-											.putExtra("source", "releases")
-											.putExtra(
-													"userId",
-													String.valueOf(
-															list.get(pos).getAuthor().getId())));
-						}
-					});
+			binding.userAvatar.setOnClickListener(v -> {
+				int pos = getBindingAdapterPosition();
+				if (pos != RecyclerView.NO_POSITION && list.get(pos).getAuthor() != null) {
+					context.startActivity(
+							new Intent(context, ProfileActivity.class)
+									.putExtra("source", "releases")
+									.putExtra(
+											"userId",
+											String.valueOf(list.get(pos).getAuthor().getId())));
+				}
+			});
 		}
 
 		void bind(Releases release) {
@@ -138,11 +135,10 @@ public class ReleasesAdapter extends RecyclerView.Adapter<ReleasesAdapter.Releas
 				if (release.getCreatedAt() != null) {
 					Date date = TimeHelper.parseIso8601(release.getCreatedAt());
 					timeStr = TimeHelper.formatTime(date);
-					binding.publishedInfo.setOnClickListener(
-							v ->
-									Toasty.show(
-											context,
-											TimeHelper.getFullDateTime(date, Locale.getDefault())));
+					binding.publishedInfo.setOnClickListener(v ->
+							Toasty.show(
+									context,
+									TimeHelper.getFullDateTime(date, Locale.getDefault())));
 				}
 				binding.publishedInfo.setText(
 						context.getString(

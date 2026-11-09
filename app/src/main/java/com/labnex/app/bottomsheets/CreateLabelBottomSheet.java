@@ -75,17 +75,16 @@ public class CreateLabelBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.descriptionInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.descriptionInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (isEditMode && getArguments() != null) {
 			Labels label = (Labels) getArguments().getSerializable("label");
@@ -117,20 +116,16 @@ public class CreateLabelBottomSheet extends BottomSheetDialogFragment {
 		updateLivePreview(
 				Objects.requireNonNull(binding.nameInput.getText()).toString(), selectedColor);
 
-		binding.colorPickerTrigger.setOnClickListener(
-				v -> {
-					ColorPickerBottomSheet picker =
-							ColorPickerBottomSheet.newInstance(selectedColor);
-					picker.setOnColorSelectedListener(
-							hex -> {
-								selectedColor = hex;
-								updateLivePreview(
-										Objects.requireNonNull(binding.nameInput.getText())
-												.toString(),
-										selectedColor);
-							});
-					picker.show(getChildFragmentManager(), "colorPicker");
-				});
+		binding.colorPickerTrigger.setOnClickListener(v -> {
+			ColorPickerBottomSheet picker = ColorPickerBottomSheet.newInstance(selectedColor);
+			picker.setOnColorSelectedListener(hex -> {
+				selectedColor = hex;
+				updateLivePreview(
+						Objects.requireNonNull(binding.nameInput.getText()).toString(),
+						selectedColor);
+			});
+			picker.show(getChildFragmentManager(), "colorPicker");
+		});
 
 		binding.btnSubmit.setOnClickListener(v -> submitLabel());
 		observeViewModel();

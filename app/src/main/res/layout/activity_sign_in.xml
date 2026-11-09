@@ -82,7 +82,6 @@
                         android:hint="@string/personal_access_token"
                         app:endIconMode="clear_text"
                         app:endIconTint="?attr/iconsColor"
-                        app:helperText="@string/api_scopes"
                         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium">
 
                         <com.google.android.material.textfield.TextInputEditText

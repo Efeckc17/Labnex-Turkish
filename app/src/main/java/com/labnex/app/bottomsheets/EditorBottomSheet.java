@@ -225,93 +225,87 @@ public class EditorBottomSheet extends BottomSheetDialogFragment {
 		binding.editorCursorPosition.setVisibility(View.VISIBLE);
 		SourcePositionListener sourcePositionListener =
 				new SourcePositionListener(binding.fullscreenCodeView);
-		sourcePositionListener.setOnPositionChanged(
-				(line, column) -> {
-					binding.editorCursorPosition.setText(
-							getString(R.string.cursor_position_format, line, column));
-				});
+		sourcePositionListener.setOnPositionChanged((line, column) -> {
+			binding.editorCursorPosition.setText(
+					getString(R.string.cursor_position_format, line, column));
+		});
 	}
 
 	private void setupListeners() {
-		binding.fullscreenBtnCollapse.setOnClickListener(
-				v -> {
-					String newContent;
+		binding.fullscreenBtnCollapse.setOnClickListener(v -> {
+			String newContent;
 
-					if (editorMode == EditorMode.CODE) {
-						newContent = binding.fullscreenCodeView.getText().toString();
-					} else {
-						newContent =
-								binding.fullscreenEditor.getText() != null
-										? binding.fullscreenEditor.getText().toString()
-										: "";
-					}
+			if (editorMode == EditorMode.CODE) {
+				newContent = binding.fullscreenCodeView.getText().toString();
+			} else {
+				newContent =
+						binding.fullscreenEditor.getText() != null
+								? binding.fullscreenEditor.getText().toString()
+								: "";
+			}
 
-					if (listener != null) {
-						listener.onContentChanged(newContent);
-					}
-					dismiss();
-				});
+			if (listener != null) {
+				listener.onContentChanged(newContent);
+			}
+			dismiss();
+		});
 
-		binding.fullscreenBtnClear.setOnClickListener(
-				v -> {
-					binding.fullscreenEditor.setText("");
-					if (isMarkdownMode) {
-						binding.fullscreenMarkdownPreview.setAdapter(null);
-					}
-				});
+		binding.fullscreenBtnClear.setOnClickListener(v -> {
+			binding.fullscreenEditor.setText("");
+			if (isMarkdownMode) {
+				binding.fullscreenMarkdownPreview.setAdapter(null);
+			}
+		});
 
-		binding.fullscreenBtnNotes.setOnClickListener(
-				v -> {
-					NotesPickerBottomSheet notesPicker = NotesPickerBottomSheet.newInstance();
-					notesPicker.setOnNoteSelectedListener(
-							noteContent -> {
-								int start = binding.fullscreenEditor.getSelectionStart();
-								binding.fullscreenEditor.getText().insert(start, noteContent);
-							});
-					notesPicker.show(getChildFragmentManager(), "NOTES_PICKER");
-				});
+		binding.fullscreenBtnNotes.setOnClickListener(v -> {
+			NotesPickerBottomSheet notesPicker = NotesPickerBottomSheet.newInstance();
+			notesPicker.setOnNoteSelectedListener(noteContent -> {
+				int start = binding.fullscreenEditor.getSelectionStart();
+				binding.fullscreenEditor.getText().insert(start, noteContent);
+			});
+			notesPicker.show(getChildFragmentManager(), "NOTES_PICKER");
+		});
 
-		binding.fullscreenBtnMarkdown.setOnClickListener(
-				v -> {
-					isMarkdownMode = !isMarkdownMode;
-					binding.fullscreenBtnMarkdown.setIconResource(
-							isMarkdownMode ? R.drawable.ic_edit : R.drawable.ic_markdown);
+		binding.fullscreenBtnMarkdown.setOnClickListener(v -> {
+			isMarkdownMode = !isMarkdownMode;
+			binding.fullscreenBtnMarkdown.setIconResource(
+					isMarkdownMode ? R.drawable.ic_edit : R.drawable.ic_markdown);
 
-					if (isMarkdownMode) {
-						binding.fullscreenEditor.setVisibility(View.GONE);
-						String editorContent =
-								binding.fullscreenEditor.getText() != null
-										? binding.fullscreenEditor.getText().toString()
-										: "";
+			if (isMarkdownMode) {
+				binding.fullscreenEditor.setVisibility(View.GONE);
+				String editorContent =
+						binding.fullscreenEditor.getText() != null
+								? binding.fullscreenEditor.getText().toString()
+								: "";
 
-						if (projectsContext != null) {
-							binding.fullscreenMarkdownScroll.setVisibility(View.VISIBLE);
-							binding.fullscreenMarkdownScrollText.setVisibility(View.GONE);
-							Markdown.render(
-									requireContext(),
-									EmojiParser.parseToUnicode(editorContent),
-									binding.fullscreenMarkdownPreview,
-									projectsContext);
-						} else {
-							binding.fullscreenMarkdownScroll.setVisibility(View.GONE);
-							binding.fullscreenMarkdownScrollText.setVisibility(View.VISIBLE);
-							Markdown.render(
-									requireContext(),
-									EmojiParser.parseToUnicode(editorContent),
-									binding.fullscreenMarkdownPreviewText);
-						}
-					} else {
-						binding.fullscreenMarkdownScroll.setVisibility(View.GONE);
-						binding.fullscreenMarkdownScrollText.setVisibility(View.GONE);
-						binding.fullscreenEditor.setVisibility(View.VISIBLE);
-						binding.fullscreenEditor.requestFocus();
-						String currentText =
-								binding.fullscreenEditor.getText() != null
-										? binding.fullscreenEditor.getText().toString()
-										: "";
-						binding.fullscreenEditor.setSelection(currentText.length());
-					}
-				});
+				if (projectsContext != null) {
+					binding.fullscreenMarkdownScroll.setVisibility(View.VISIBLE);
+					binding.fullscreenMarkdownScrollText.setVisibility(View.GONE);
+					Markdown.render(
+							requireContext(),
+							EmojiParser.parseToUnicode(editorContent),
+							binding.fullscreenMarkdownPreview,
+							projectsContext);
+				} else {
+					binding.fullscreenMarkdownScroll.setVisibility(View.GONE);
+					binding.fullscreenMarkdownScrollText.setVisibility(View.VISIBLE);
+					Markdown.render(
+							requireContext(),
+							EmojiParser.parseToUnicode(editorContent),
+							binding.fullscreenMarkdownPreviewText);
+				}
+			} else {
+				binding.fullscreenMarkdownScroll.setVisibility(View.GONE);
+				binding.fullscreenMarkdownScrollText.setVisibility(View.GONE);
+				binding.fullscreenEditor.setVisibility(View.VISIBLE);
+				binding.fullscreenEditor.requestFocus();
+				String currentText =
+						binding.fullscreenEditor.getText() != null
+								? binding.fullscreenEditor.getText().toString()
+								: "";
+				binding.fullscreenEditor.setSelection(currentText.length());
+			}
+		});
 	}
 
 	@Override

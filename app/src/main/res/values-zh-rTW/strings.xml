@@ -16,7 +16,6 @@
     <string name="remove_account_from_app_title">移除帳號</string>
     <string name="remove_account_from_app_message">你確定要從應用程式中移除此帳號嗎？\n\n這將只會刪除應用程式內與此帳號相關的所有資料。</string>
     <string name="remove_account_from_app_success">帳號已成功移除</string>
-    <string name="api_scopes">範圍：需要所有 API 權限</string>
     <string name="settings_saved">設定已儲存</string>
     <string name="settings_language_selector_dialog_title">選擇語言</string>
     <string name="settings_biometric_header">生物辨識鎖</string>

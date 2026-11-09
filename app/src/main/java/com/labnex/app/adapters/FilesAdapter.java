@@ -133,12 +133,11 @@ public class FilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 				}
 			}
 
-			binding.breadcrumbContainer.post(
-					() -> {
-						HorizontalScrollView scrollView =
-								(HorizontalScrollView) binding.breadcrumbContainer.getParent();
-						scrollView.fullScroll(View.FOCUS_RIGHT);
-					});
+			binding.breadcrumbContainer.post(() -> {
+				HorizontalScrollView scrollView =
+						(HorizontalScrollView) binding.breadcrumbContainer.getParent();
+				scrollView.fullScroll(View.FOCUS_RIGHT);
+			});
 		}
 
 		private void addBreadcrumbItem(String label, String path, boolean clickable) {
@@ -169,12 +168,11 @@ public class FilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 			if (clickable) {
 				tv.setTextColor(resolveColor(com.google.android.material.R.attr.colorOnSurface));
-				tv.setOnClickListener(
-						v -> {
-							if (listener != null) {
-								listener.onBreadcrumbClick(path);
-							}
-						});
+				tv.setOnClickListener(v -> {
+					if (listener != null) {
+						listener.onBreadcrumbClick(path);
+					}
+				});
 			} else {
 				tv.setTextColor(resolveColor(com.google.android.material.R.attr.colorOnSurface));
 				tv.setTypeface(null, Typeface.BOLD);
@@ -209,12 +207,11 @@ public class FilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 			super(binding.getRoot());
 			this.binding = binding;
 
-			itemView.setOnClickListener(
-					v -> {
-						if (listener != null && currentTree != null) {
-							listener.onClickFile(currentTree);
-						}
-					});
+			itemView.setOnClickListener(v -> {
+				if (listener != null && currentTree != null) {
+					listener.onClickFile(currentTree);
+				}
+			});
 		}
 
 		void bind(Tree tree) {
@@ -230,12 +227,11 @@ public class FilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 				binding.fileIcon.setContentDescription(context.getString(R.string.file));
 				binding.fileMenu.setVisibility(View.VISIBLE);
 
-				binding.fileMenu.setOnClickListener(
-						v -> {
-							if (listener != null && currentTree != null) {
-								listener.onFileMenuClick(currentTree);
-							}
-						});
+				binding.fileMenu.setOnClickListener(v -> {
+					if (listener != null && currentTree != null) {
+						listener.onFileMenuClick(currentTree);
+					}
+				});
 			}
 
 			binding.fileName.setText(tree.getName());

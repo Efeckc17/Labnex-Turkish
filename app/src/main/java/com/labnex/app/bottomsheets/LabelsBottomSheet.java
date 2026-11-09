@@ -99,38 +99,32 @@ public class LabelsBottomSheet extends BottomSheetDialogFragment {
 							GenericMenuBottomSheet sheet =
 									GenericMenuBottomSheet.newInstance(
 											label.getName(), null, items);
-							sheet.setOnMenuItemClickListener(
-									menuId -> {
-										switch (menuId) {
-											case "edit":
-												CreateLabelBottomSheet.newInstance(type, id, label)
-														.show(
-																getParentFragmentManager(),
-																"editLabelSheet");
-												break;
-											case "delete":
-												new MaterialAlertDialogBuilder(requireContext())
-														.setTitle(
-																getString(
-																		R.string
-																				.delete_dialog_title,
-																		label.getName()))
-														.setMessage(
-																R.string
-																		.delete_label_dialog_message)
-														.setPositiveButton(
-																R.string.delete,
-																(dialog, which) ->
-																		viewModel.deleteLabel(
-																				requireContext(),
-																				type,
-																				id,
-																				label.getId()))
-														.setNeutralButton(R.string.cancel, null)
-														.show();
-												break;
-										}
-									});
+							sheet.setOnMenuItemClickListener(menuId -> {
+								switch (menuId) {
+									case "edit":
+										CreateLabelBottomSheet.newInstance(type, id, label)
+												.show(getParentFragmentManager(), "editLabelSheet");
+										break;
+									case "delete":
+										new MaterialAlertDialogBuilder(requireContext())
+												.setTitle(
+														getString(
+																R.string.delete_dialog_title,
+																label.getName()))
+												.setMessage(R.string.delete_label_dialog_message)
+												.setPositiveButton(
+														R.string.delete,
+														(dialog, which) ->
+																viewModel.deleteLabel(
+																		requireContext(),
+																		type,
+																		id,
+																		label.getId()))
+												.setNeutralButton(R.string.cancel, null)
+												.show();
+										break;
+								}
+							});
 							sheet.show(getParentFragmentManager(), "labelMenuSheet");
 						});
 

@@ -96,37 +96,33 @@ public class ReleasesBottomSheet extends BottomSheetDialogFragment {
 							GenericMenuBottomSheet sheet =
 									GenericMenuBottomSheet.newInstance(
 											release.getName(), release.getTagName(), items);
-							sheet.setOnMenuItemClickListener(
-									id -> {
-										switch (id) {
-											case "edit":
-												CreateReleaseBottomSheet.newInstance(
-																projectId, release)
-														.show(
-																getParentFragmentManager(),
-																"editReleaseSheet");
-												break;
-											case "delete":
-												new MaterialAlertDialogBuilder(requireContext())
-														.setTitle(
-																getString(
-																		R.string
-																				.delete_dialog_title,
+							sheet.setOnMenuItemClickListener(id -> {
+								switch (id) {
+									case "edit":
+										CreateReleaseBottomSheet.newInstance(projectId, release)
+												.show(
+														getParentFragmentManager(),
+														"editReleaseSheet");
+										break;
+									case "delete":
+										new MaterialAlertDialogBuilder(requireContext())
+												.setTitle(
+														getString(
+																R.string.delete_dialog_title,
+																release.getTagName()))
+												.setMessage(R.string.delete_release_message)
+												.setPositiveButton(
+														R.string.delete,
+														(dialog, which) ->
+																viewModel.deleteRelease(
+																		requireContext(),
+																		projectId,
 																		release.getTagName()))
-														.setMessage(R.string.delete_release_message)
-														.setPositiveButton(
-																R.string.delete,
-																(dialog, which) ->
-																		viewModel.deleteRelease(
-																				requireContext(),
-																				projectId,
-																				release
-																						.getTagName()))
-														.setNeutralButton(R.string.cancel, null)
-														.show();
-												break;
-										}
-									});
+												.setNeutralButton(R.string.cancel, null)
+												.show();
+										break;
+								}
+							});
 							sheet.show(getParentFragmentManager(), "releaseMenuSheet");
 						});
 

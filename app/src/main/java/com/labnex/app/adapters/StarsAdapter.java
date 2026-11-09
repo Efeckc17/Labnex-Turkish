@@ -108,13 +108,12 @@ public class StarsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 			name = itemView.findViewById(R.id.user_name);
 			userId = itemView.findViewById(R.id.user_id);
 
-			avatar.setOnClickListener(
-					profile -> {
-						Intent intent = new Intent(context, ProfileActivity.class);
-						intent.putExtra("source", "starrers");
-						intent.putExtra("userId", String.valueOf(stars.getUser().getId()));
-						context.startActivity(intent);
-					});
+			avatar.setOnClickListener(profile -> {
+				Intent intent = new Intent(context, ProfileActivity.class);
+				intent.putExtra("source", "starrers");
+				intent.putExtra("userId", String.valueOf(stars.getUser().getId()));
+				context.startActivity(intent);
+			});
 		}
 
 		void bindData(Stars stars) {

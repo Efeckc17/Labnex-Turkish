@@ -43,7 +43,7 @@ public class ProjectsActivity extends BaseActivity {
 			source = getIntent().getStringExtra("source");
 			if ("forks".equalsIgnoreCase(source)) {
 				binding.dockContainer.removeView(binding.addNew);
-				userId = getIntent().getIntExtra("projectId", 0);
+				userId = getIntent().getLongExtra("projectId", 0L);
 			}
 		}
 
@@ -53,11 +53,10 @@ public class ProjectsActivity extends BaseActivity {
 
 		binding.btnBack.setOnClickListener(v -> finish());
 
-		binding.addNew.setOnClickListener(
-				v -> {
-					CreateProjectBottomSheet sheet = new CreateProjectBottomSheet();
-					sheet.show(getSupportFragmentManager(), "createProjectSheet");
-				});
+		binding.addNew.setOnClickListener(v -> {
+			CreateProjectBottomSheet sheet = new CreateProjectBottomSheet();
+			sheet.show(getSupportFragmentManager(), "createProjectSheet");
+		});
 
 		viewModel.loadProjects(ctx, source, userId);
 	}

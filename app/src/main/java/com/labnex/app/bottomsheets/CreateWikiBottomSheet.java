@@ -65,17 +65,16 @@ public class CreateWikiBottomSheet extends BottomSheetDialogFragment {
 
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.contentInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
-							|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.contentInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == android.view.MotionEvent.ACTION_UP
+					|| event.getAction() == android.view.MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
 		if (isEditMode && getArguments() != null) {
 			Wiki w = (Wiki) getArguments().getSerializable("wiki");
@@ -87,19 +86,17 @@ public class CreateWikiBottomSheet extends BottomSheetDialogFragment {
 			}
 		}
 
-		binding.btnExpand.setOnClickListener(
-				v -> {
-					String content =
-							binding.contentInput.getText() != null
-									? binding.contentInput.getText().toString()
-									: "";
-					EditorBottomSheet editor =
-							EditorBottomSheet.newInstance(
-									content, null, EditorBottomSheet.EditorMode.MARKDOWN, null);
-					editor.setEditorListener(
-							newContent -> binding.contentInput.setText(newContent));
-					editor.show(getChildFragmentManager(), "fullscreenEditor");
-				});
+		binding.btnExpand.setOnClickListener(v -> {
+			String content =
+					binding.contentInput.getText() != null
+							? binding.contentInput.getText().toString()
+							: "";
+			EditorBottomSheet editor =
+					EditorBottomSheet.newInstance(
+							content, null, EditorBottomSheet.EditorMode.MARKDOWN, null);
+			editor.setEditorListener(newContent -> binding.contentInput.setText(newContent));
+			editor.show(getChildFragmentManager(), "fullscreenEditor");
+		});
 
 		binding.btnSubmit.setOnClickListener(v -> submitWiki());
 		observeViewModel();

@@ -37,38 +37,36 @@ public class NotesActivity extends BaseActivity implements NotesAdapter.OnNoteCl
 
 		binding.btnBack.setOnClickListener(v -> finish());
 
-		binding.btnDeleteAll.setOnClickListener(
-				v -> {
-					if (adapter.getItemCount() == 0) {
-						Toasty.show(ctx, getString(R.string.all_good));
-						return;
-					}
-					new MaterialAlertDialogBuilder(ctx)
-							.setMessage(R.string.delete_all_notes_dialog_message)
-							.setPositiveButton(
-									R.string.delete,
-									(dialog, which) -> {
-										if (notesApi != null) notesApi.deleteAllNotes();
-										adapter.updateList(new ArrayList<>());
-										showEmptyState();
-										Toasty.show(
-												ctx,
-												getResources()
-														.getQuantityString(
-																R.plurals.note_delete_message, 2));
-									})
-							.setNeutralButton(R.string.cancel, null)
-							.show();
-				});
+		binding.btnDeleteAll.setOnClickListener(v -> {
+			if (adapter.getItemCount() == 0) {
+				Toasty.show(ctx, getString(R.string.all_good));
+				return;
+			}
+			new MaterialAlertDialogBuilder(ctx)
+					.setMessage(R.string.delete_all_notes_dialog_message)
+					.setPositiveButton(
+							R.string.delete,
+							(dialog, which) -> {
+								if (notesApi != null) notesApi.deleteAllNotes();
+								adapter.updateList(new ArrayList<>());
+								showEmptyState();
+								Toasty.show(
+										ctx,
+										getResources()
+												.getQuantityString(
+														R.plurals.note_delete_message, 2));
+							})
+					.setNeutralButton(R.string.cancel, null)
+					.show();
+		});
 
-		binding.btnNewNote.setOnClickListener(
-				v -> {
-					NotesBottomSheet sheet = new NotesBottomSheet();
-					Bundle args = new Bundle();
-					args.putString("source", "new");
-					sheet.setArguments(args);
-					sheet.show(getSupportFragmentManager(), "notesBottomSheet");
-				});
+		binding.btnNewNote.setOnClickListener(v -> {
+			NotesBottomSheet sheet = new NotesBottomSheet();
+			Bundle args = new Bundle();
+			args.putString("source", "new");
+			sheet.setArguments(args);
+			sheet.show(getSupportFragmentManager(), "notesBottomSheet");
+		});
 
 		adapter = new NotesAdapter(ctx, new ArrayList<>(), this);
 		binding.recyclerView.setLayoutManager(new LinearLayoutManager(ctx));

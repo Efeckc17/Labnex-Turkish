@@ -229,18 +229,16 @@ public class CreateFileBottomSheet extends BottomSheetDialogFragment {
 		binding.cardBranch.cardIcon.setImageResource(R.drawable.ic_branch);
 		binding.cardBranch
 				.getRoot()
-				.setOnClickListener(
-						v -> {
-							BranchesBottomSheet sheet =
-									BranchesBottomSheet.newPickerInstance(
-											projectId,
-											selectedBranch -> {
-												branch = selectedBranch;
-												binding.cardBranch.cardSubtitle.setText(
-														selectedBranch);
-											});
-							sheet.show(getParentFragmentManager(), "branchesPicker");
-						});
+				.setOnClickListener(v -> {
+					BranchesBottomSheet sheet =
+							BranchesBottomSheet.newPickerInstance(
+									projectId,
+									selectedBranch -> {
+										branch = selectedBranch;
+										binding.cardBranch.cardSubtitle.setText(selectedBranch);
+									});
+					sheet.show(getParentFragmentManager(), "branchesPicker");
+				});
 
 		binding.filePathInput.addTextChangedListener(
 				new TextWatcher() {
@@ -259,55 +257,52 @@ public class CreateFileBottomSheet extends BottomSheetDialogFragment {
 					}
 				});
 
-		binding.fileContentInput.setOnTouchListener(
-				(v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN) {
-						v.getParent().requestDisallowInterceptTouchEvent(true);
-					} else if (event.getAction() == MotionEvent.ACTION_UP
-							|| event.getAction() == MotionEvent.ACTION_CANCEL) {
-						v.getParent().requestDisallowInterceptTouchEvent(false);
-						v.performClick();
-					}
-					return false;
-				});
+		binding.fileContentInput.setOnTouchListener((v, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				v.getParent().requestDisallowInterceptTouchEvent(true);
+			} else if (event.getAction() == MotionEvent.ACTION_UP
+					|| event.getAction() == MotionEvent.ACTION_CANCEL) {
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+				v.performClick();
+			}
+			return false;
+		});
 
-		binding.btnExpand.setOnClickListener(
-				v -> {
-					if (selectedFileIndex >= files.size()) return;
+		binding.btnExpand.setOnClickListener(v -> {
+			if (selectedFileIndex >= files.size()) return;
 
-					FileEntry entry = files.get(selectedFileIndex);
-					String currentContent =
-							binding.fileContentInput.getText() != null
-									? binding.fileContentInput.getText().toString()
-									: "";
-					if (!"base64".equals(entry.encoding)) {
-						entry.content = currentContent;
-					}
+			FileEntry entry = files.get(selectedFileIndex);
+			String currentContent =
+					binding.fileContentInput.getText() != null
+							? binding.fileContentInput.getText().toString()
+							: "";
+			if (!"base64".equals(entry.encoding)) {
+				entry.content = currentContent;
+			}
 
-					String ext = FilenameUtils.getExtension(entry.filePath);
-					EditorBottomSheet.EditorMode editorMode;
-					if ("md".equalsIgnoreCase(ext) || "markdown".equalsIgnoreCase(ext)) {
-						editorMode = EditorBottomSheet.EditorMode.MARKDOWN;
-					} else if (isCodeExtension(ext)) {
-						editorMode = EditorBottomSheet.EditorMode.CODE;
-					} else {
-						editorMode = EditorBottomSheet.EditorMode.STANDARD;
-					}
+			String ext = FilenameUtils.getExtension(entry.filePath);
+			EditorBottomSheet.EditorMode editorMode;
+			if ("md".equalsIgnoreCase(ext) || "markdown".equalsIgnoreCase(ext)) {
+				editorMode = EditorBottomSheet.EditorMode.MARKDOWN;
+			} else if (isCodeExtension(ext)) {
+				editorMode = EditorBottomSheet.EditorMode.CODE;
+			} else {
+				editorMode = EditorBottomSheet.EditorMode.STANDARD;
+			}
 
-					EditorBottomSheet editor =
-							EditorBottomSheet.newInstance(
-									"base64".equals(entry.encoding) ? "" : entry.content,
-									null,
-									editorMode,
-									ext);
-					editor.setEditorListener(
-							newContent -> {
-								entry.content = newContent;
-								entry.encoding = "text";
-								binding.fileContentInput.setText(newContent);
-							});
-					editor.show(getChildFragmentManager(), "fullscreenEditor");
-				});
+			EditorBottomSheet editor =
+					EditorBottomSheet.newInstance(
+							"base64".equals(entry.encoding) ? "" : entry.content,
+							null,
+							editorMode,
+							ext);
+			editor.setEditorListener(newContent -> {
+				entry.content = newContent;
+				entry.encoding = "text";
+				binding.fileContentInput.setText(newContent);
+			});
+			editor.show(getChildFragmentManager(), "fullscreenEditor");
+		});
 
 		binding.btnAddFile.setOnClickListener(v -> addFile());
 
