@@ -80,6 +80,12 @@ public interface ApiInterface {
 	Call<List<User>> getFollowing(
 			@Path("id") long id, @Query("per_page") int perPage, @Query("page") int page);
 
+	@POST("users/{id}/follow") // follow a user
+	Call<Void> followUser(@Path("id") long id);
+
+	@POST("users/{id}/unfollow") // unfollow a user
+	Call<Void> unfollowUser(@Path("id") long id);
+
 	@GET("personal_access_tokens/self") // personal access token info
 	Call<PersonalAccessTokens> getPersonalAccessTokenInfo();
 

@@ -9,7 +9,7 @@
         android:id="@+id/headers_frame"
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen140dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
         app:cardCornerRadius="@dimen/dimen28dp"
         app:cardElevation="0dp"
@@ -37,6 +37,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:alpha=".8"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold"
@@ -52,34 +54,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_followers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen12dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:checkedIconVisible="false"
-                android:textColor="?attr/colorOnPrimary"
-                app:chipBackgroundColor="?attr/colorPrimary"
-                app:chipStrokeColor="@android:color/transparent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username_text" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_following"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen8dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:checkedIconVisible="false"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                app:chipBackgroundColor="?attr/colorSecondaryContainer"
-                app:chipStrokeColor="@android:color/transparent"
-                app:layout_constraintStart_toEndOf="@id/chip_followers"
-                app:layout_constraintTop_toTopOf="@id/chip_followers" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
