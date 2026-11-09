@@ -16,7 +16,6 @@
     <string name="remove_account_from_app_title">Supprimer le compte</string>
     <string name="remove_account_from_app_message">Êtes-vous certain de vouloir supprimer ce compte de l’application ?\n\nSeules les données concernant ce compte au sein de l’application seront supprimées.</string>
     <string name="remove_account_from_app_success">Compte supprimé avec succès</string>
-    <string name="api_scopes">Étendues : touts les étendues de l\'API sont requises</string>
     <string name="settings_saved">Paramètres enregistrés</string>
     <string name="settings_language_selector_dialog_title">Choisir la langue</string>
     <string name="settings_biometric_header">Verrouillage biométrique</string>

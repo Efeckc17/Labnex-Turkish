@@ -16,7 +16,6 @@
     <string name="remove_account_from_app_title">Удалить аккаунт</string>
     <string name="remove_account_from_app_message">Вы уверены, что хотите удалить этот аккаунт из приложения?\n\nЭто приведёт к удалению всех данных, связанных с этим аккаунтом, только в рамках приложения.</string>
     <string name="remove_account_from_app_success">Аккаунт успешно удалён</string>
-    <string name="api_scopes">Области доступа: требуются все области API</string>
     <string name="settings_saved">Настройки сохранены</string>
     <string name="settings_language_selector_dialog_title">Выбор языка</string>
     <string name="settings_biometric_header">Блокировка по биометрии</string>

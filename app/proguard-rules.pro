@@ -2,12 +2,7 @@
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
 
-# Keep all classes and fields that use Unsafe or volatile state variables
--keepclassmembers class * {
-    volatile <fields>;
-}
-
-# Keep Coroutines and Atomic/State fields from being stripped or renamed
+# Suppress warnings for libraries that ship without ProGuard rules
 -dontwarn kotlinx.coroutines.**
 -dontwarn com.google.gson.**
 -dontwarn okhttp3.**
@@ -24,9 +19,8 @@
 }
 -dontwarn retrofit2.**
 
-# App Models & Account Context
--keep class com.labnex.app.database.models.** { *; }
--keep class com.labnex.app.helpers.contexts.** { *; }
+# App helper & core application
+-keep class com.labnex.app.helpers.** { *; }
 -keep class com.labnex.app.core.CoreApplication { *; }
 
 # Room Database
