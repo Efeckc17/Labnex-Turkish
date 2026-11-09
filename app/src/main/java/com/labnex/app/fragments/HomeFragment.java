@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.labnex.app.R;
 import com.labnex.app.activities.*;
+import com.labnex.app.bottomsheets.FollowersBottomSheet;
 import com.labnex.app.databinding.FragmentHomeBinding;
 import com.labnex.app.helpers.SharedPrefDB;
 import com.labnex.app.helpers.Toasty;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
 	private Context ctx;
 	private HomeViewModel viewModel;
 	private boolean isFirstLoad = true;
+	private User currentUser;
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -147,6 +149,18 @@ public class HomeFragment extends Fragment {
 
 		binding.sectionPreferences.settingsFrame.setOnClickListener(
 				v -> startActivity(new Intent(ctx, AppSettingsActivity.class)));
+
+		binding.sectionHeader.chipFollowers.setOnClickListener(v -> {
+			if (currentUser == null) return;
+			FollowersBottomSheet.newInstance("followers", currentUser.getId())
+					.show(getParentFragmentManager(), "followersSheet");
+		});
+
+		binding.sectionHeader.chipFollowing.setOnClickListener(v -> {
+			if (currentUser == null) return;
+			FollowersBottomSheet.newInstance("following", currentUser.getId())
+					.show(getParentFragmentManager(), "followingSheet");
+		});
 	}
 
 	private void observeViewModel() {
@@ -253,6 +267,8 @@ public class HomeFragment extends Fragment {
 							if (requireActivity() instanceof BaseActivity) {
 								((BaseActivity) requireActivity()).getAccount().setUserInfo(user);
 							}
+
+							this.currentUser = user;
 
 							Glide.with(ctx)
 									.load(user.getAvatarUrl())
