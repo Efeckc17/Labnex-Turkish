@@ -119,6 +119,16 @@
     <string name="source_target_branch_empty_error">Both the target and source branches are required</string>
     <string name="user_followers">%s followers</string>
     <string name="user_following">%s following</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="follow_success">Now following</string>
+    <string name="unfollow_success">Unfollowed</string>
+    <string name="follow_failed">Could not update follow status</string>
+    <string name="copy_user_id">Copy user ID</string>
+    <string name="copy_username">Copy username</string>
+    <string name="copy_profile_url">Copy profile URL</string>
     <string name="remove_source_branch">Remove source branch</string>
     <string name="create_branch">Create branch</string>
     <string name="squash_commits">Squash all commits</string>

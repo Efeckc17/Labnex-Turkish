@@ -153,6 +153,20 @@ public class User implements Serializable {
 	@SerializedName("access_level")
 	private int accessLevel;
 
+	@SerializedName("is_followed")
+	private boolean isFollowed;
+
+	@SerializedName("bot")
+	private boolean bot;
+
+	public boolean isBot() {
+		return bot;
+	}
+
+	public boolean isFollowed() {
+		return isFollowed;
+	}
+
 	public int getAccessLevel() {
 		return accessLevel;
 	}
@@ -375,5 +389,17 @@ public class User implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public void setFollowed(boolean followed) {
+		this.isFollowed = followed;
+	}
+
+	public void setFollowers(long followers) {
+		this.followers = followers;
+	}
+
+	public void setFollowing(long following) {
+		this.following = following;
 	}
 }

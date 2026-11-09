@@ -284,15 +284,6 @@ public class HomeFragment extends Fragment {
 
 							binding.sectionHeader.usernameText.setText(
 									user.getUsername() != null ? "@" + user.getUsername() : "");
-
-							binding.sectionHeader.chipFollowers.setText(
-									getString(
-											R.string.user_followers,
-											Utils.numberFormatter(user.getFollowers())));
-							binding.sectionHeader.chipFollowing.setText(
-									getString(
-											R.string.user_following,
-											Utils.numberFormatter(user.getFollowing())));
 						});
 
 		viewModel

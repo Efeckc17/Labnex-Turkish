@@ -62,11 +62,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.7"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textAppearance="?attr/textAppearanceBodyLarge"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/fullname" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_follow"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen12dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/username"
+                    tools:text="@string/follow" />
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/badge_group"
@@ -75,7 +89,7 @@
                     android:layout_marginTop="@dimen/dimen8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/username">
+                    app:layout_constraintTop_toBottomOf="@id/btn_follow">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_job_title"
@@ -83,8 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
-                        tools:text="Entrepreneur"
-                        tools:visibility="visible" />
+                        tools:text="Entrepreneur" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_admin"
@@ -106,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/dimen24dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
+                android:visibility="gone"
                 app:cardCornerRadius="@dimen/dimen24dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -278,21 +292,12 @@
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_arrow_back" />
 
-            <View
-                android:id="@+id/dock_divider"
-                android:layout_width="@dimen/dimen1dp"
-                android:layout_height="@dimen/dimen24dp"
-                android:layout_gravity="center_vertical"
-                android:background="?attr/colorOutlineVariant" />
-
-            <TextView
-                android:id="@+id/profile"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_menu"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile"
-                android:layout_marginStart="@dimen/dimen20dp"
-                android:layout_marginEnd="@dimen/dimen12dp"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                app:icon="@drawable/ic_menu" />
 
         </com.google.android.material.overflow.OverflowLinearLayout>
 
