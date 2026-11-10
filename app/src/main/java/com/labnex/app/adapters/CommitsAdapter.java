@@ -31,11 +31,17 @@ public class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.CommitsV
 	private final Context ctx;
 	private List<Commits> list;
 	private final long projectId;
+	private final String filterPath;
 
 	public CommitsAdapter(Context ctx, List<Commits> list, long projectId) {
+		this(ctx, list, projectId, null);
+	}
+
+	public CommitsAdapter(Context ctx, List<Commits> list, long projectId, String filterPath) {
 		this.ctx = ctx;
 		this.list = list != null ? list : new ArrayList<>();
 		this.projectId = projectId;
+		this.filterPath = filterPath;
 	}
 
 	@SuppressLint("NotifyDataSetChanged")
@@ -79,6 +85,9 @@ public class CommitsAdapter extends RecyclerView.Adapter<CommitsAdapter.CommitsV
 				bundle.putString("source", "commits");
 				bundle.putString("sha", commit.getId());
 				bundle.putLong("projectId", projectId);
+				if (filterPath != null && !filterPath.isEmpty()) {
+					bundle.putString("filterPath", filterPath);
+				}
 
 				CommitDiffsBottomSheet bottomSheet = new CommitDiffsBottomSheet();
 				bottomSheet.setArguments(bundle);

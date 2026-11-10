@@ -367,6 +367,7 @@
     <string name="commit_sha_copied">Commit SHA copied to clipboard</string>
     <string name="activity_deleted_no_action">This item no longer exists</string>
     <string name="wiki_page_not_found_maybe_renamed">The page may have been renamed</string>
+    <string name="view_commits">View commits</string>
 
     <!-- errors -->
     <string name="generic_error">An unexpected error occurred</string>
