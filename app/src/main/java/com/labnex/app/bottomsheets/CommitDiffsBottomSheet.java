@@ -40,6 +40,7 @@ public class CommitDiffsBottomSheet extends BottomSheetDialogFragment {
 	private long projectId;
 	private String sha;
 	private long mrIid;
+	private String filterPath;
 
 	private final List<Pair<Diff, Pair<SpannableStringBuilder, SpannableStringBuilder>>>
 			masterAdapterList = new ArrayList<>();
@@ -61,6 +62,7 @@ public class CommitDiffsBottomSheet extends BottomSheetDialogFragment {
 			projectId = args.getLong("projectId");
 			sha = args.getString("sha");
 			mrIid = args.getLong("mrIid", 0);
+			filterPath = args.getString("filterPath");
 		}
 
 		setupRecyclerView();
@@ -167,6 +169,12 @@ public class CommitDiffsBottomSheet extends BottomSheetDialogFragment {
 
 		List<Diff> newElementsToProcess = new ArrayList<>();
 		for (Diff rawItem : incomingRawList) {
+			if (filterPath != null && !filterPath.isEmpty()) {
+				boolean matches =
+						filterPath.equals(rawItem.getNewPath())
+								|| filterPath.equals(rawItem.getOldPath());
+				if (!matches) continue;
+			}
 			boolean alreadyTracked = false;
 			for (Pair<Diff, Pair<SpannableStringBuilder, SpannableStringBuilder>> trackedPair :
 					masterAdapterList) {

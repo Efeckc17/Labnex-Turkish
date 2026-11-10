@@ -29,6 +29,7 @@ public class CommitsActivity extends BaseActivity {
 	private long mergeRequestIid;
 	private String branch;
 	private String pendingSha;
+	private String path;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,22 +47,23 @@ public class CommitsActivity extends BaseActivity {
 		mergeRequestIid = getIntent().getLongExtra("mergeRequestIid", 0);
 		branch = getIntent().getStringExtra("branch");
 		pendingSha = getIntent().getStringExtra("pending_sha");
+		path = getIntent().getStringExtra("filePath");
 
 		binding.btnBack.setOnClickListener(v -> finish());
 
 		setupRecyclerView();
 		setupPullToRefresh();
 		observeViewModel();
-		viewModel.loadCommits(ctx, source, projectId, mergeRequestIid, branch);
+		viewModel.loadCommits(ctx, source, projectId, mergeRequestIid, branch, path);
 	}
 
 	@Override
 	protected void onGlobalRefresh() {
-		viewModel.loadCommits(ctx, source, projectId, mergeRequestIid, branch);
+		viewModel.loadCommits(ctx, source, projectId, mergeRequestIid, branch, path);
 	}
 
 	private void setupRecyclerView() {
-		adapter = new CommitsAdapter(ctx, new ArrayList<>(), projectId);
+		adapter = new CommitsAdapter(ctx, new ArrayList<>(), projectId, path);
 
 		LinearLayoutManager layoutManager = new LinearLayoutManager(ctx);
 		binding.recyclerView.setLayoutManager(layoutManager);

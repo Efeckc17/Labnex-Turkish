@@ -24,8 +24,14 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.core.content.pm.PackageInfoCompat;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.labnex.app.R;
 import com.labnex.app.core.CoreApplication;
+import com.labnex.app.database.api.BaseApi;
+import com.labnex.app.database.api.UserAccountsApi;
 import com.labnex.app.database.models.UserAccount;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -185,7 +191,8 @@ public class Utils {
 					"zig",
 					"yamllint",
 					"lock",
-					"mjs"
+					"mjs",
+					"weblate"
 				},
 				FileType.TEXT);
 		extensions.put(new String[] {"ttf", "otf", "woff", "woff2", "ttc", "eot"}, FileType.FONT);
@@ -486,5 +493,48 @@ public class Utils {
 		default void onActionFinished() {}
 
 		void onProgressChanged(short progress);
+	}
+
+	public static GlideUrl buildAuthenticatedGlideUrl(
+			Context context, String entityType, long entityId) {
+		int activeAccountId = SharedPrefDB.getInstance(context).getInt("currentActiveAccountId", 0);
+		UserAccountsApi accountsApi = BaseApi.getInstance(context, UserAccountsApi.class);
+		UserAccount account =
+				accountsApi != null ? accountsApi.getAccountById(activeAccountId) : null;
+
+		if (account == null) return null;
+
+		String token = account.getToken();
+		String instanceUrl = account.getInstanceUrl();
+		if (token == null || instanceUrl == null) return null;
+
+		String base = instanceUrl.replaceAll("/api/v4/?$", "");
+		String url = base + "/api/v4/" + entityType + "/" + entityId + "/avatar";
+
+		return new GlideUrl(
+				url, new LazyHeaders.Builder().addHeader("PRIVATE-TOKEN", token).build());
+	}
+
+	public static void loadEntityAvatar(
+			Context context,
+			String entityType,
+			long entityId,
+			String avatarUrl,
+			String name,
+			android.widget.ImageView target,
+			int letterSize) {
+		if (avatarUrl != null && !avatarUrl.isEmpty()) {
+			GlideUrl glideUrl = buildAuthenticatedGlideUrl(context, entityType, entityId);
+			if (glideUrl != null) {
+				Glide.with(context)
+						.load(glideUrl)
+						.diskCacheStrategy(DiskCacheStrategy.ALL)
+						.placeholder(R.drawable.ic_spinner)
+						.centerCrop()
+						.into(target);
+				return;
+			}
+		}
+		target.setImageDrawable(AvatarGenerator.getLetterAvatar(context, name, letterSize));
 	}
 }

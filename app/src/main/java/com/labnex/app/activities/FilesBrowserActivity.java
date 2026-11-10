@@ -195,6 +195,14 @@ public class FilesBrowserActivity extends BaseActivity
 						com.google.android.material.R.attr.colorPrimaryContainer,
 						com.google.android.material.R.attr.colorOnPrimaryContainer));
 
+		items.add(
+				new GenericMenuItemModel(
+						"file_commits",
+						R.string.view_commits,
+						R.drawable.ic_commits,
+						com.google.android.material.R.attr.colorPrimaryContainer,
+						com.google.android.material.R.attr.colorOnPrimaryContainer));
+
 		if (canModify) {
 			items.add(
 					new GenericMenuItemModel(
@@ -226,6 +234,14 @@ public class FilesBrowserActivity extends BaseActivity
 					break;
 				case "download_file":
 					downloadFile(tree);
+					break;
+				case "file_commits":
+					Intent intent = new Intent(ctx, CommitsActivity.class);
+					intent.putExtra("source", "file");
+					intent.putExtra("projectId", projectId);
+					intent.putExtra("branch", branch);
+					intent.putExtra("filePath", tree.getPath());
+					startActivity(intent);
 					break;
 				case "delete_file":
 					CreateFileBottomSheet.newInstance(

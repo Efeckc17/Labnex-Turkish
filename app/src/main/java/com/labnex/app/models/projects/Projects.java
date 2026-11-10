@@ -172,7 +172,7 @@ public class Projects implements Serializable {
 	private String analyticsAccessLevel;
 
 	@SerializedName("avatar_url")
-	private Object avatarUrl;
+	private String avatarUrl;
 
 	@SerializedName("wiki_enabled")
 	private boolean wikiEnabled;
@@ -583,7 +583,7 @@ public class Projects implements Serializable {
 		return analyticsAccessLevel;
 	}
 
-	public Object getAvatarUrl() {
+	public String getAvatarUrl() {
 		return avatarUrl;
 	}
 

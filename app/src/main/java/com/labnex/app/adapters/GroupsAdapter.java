@@ -7,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.color.MaterialColors;
-import com.labnex.app.R;
 import com.labnex.app.databinding.ListGroupsBinding;
-import com.labnex.app.helpers.AvatarGenerator;
+import com.labnex.app.helpers.Utils;
 import com.labnex.app.models.groups.GroupsItem;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,17 +108,14 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsHold
 				binding.pathBadge.setVisibility(View.GONE);
 			}
 
-			if (group.getAvatarUrl() != null && !group.getAvatarUrl().isEmpty()) {
-				Glide.with(context)
-						.load(group.getAvatarUrl())
-						.diskCacheStrategy(DiskCacheStrategy.ALL)
-						.placeholder(R.drawable.ic_spinner)
-						.centerCrop()
-						.into(binding.groupAvatar);
-			} else {
-				binding.groupAvatar.setImageDrawable(
-						AvatarGenerator.getLetterAvatar(context, group.getName(), 40));
-			}
+			Utils.loadEntityAvatar(
+					context,
+					"groups",
+					group.getId(),
+					group.getAvatarUrl(),
+					group.getName(),
+					binding.groupAvatar,
+					40);
 
 			binding.groupName.setText(group.getName());
 			binding.groupId.setText(group.getFullPath());

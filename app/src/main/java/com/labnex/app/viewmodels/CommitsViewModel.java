@@ -25,6 +25,7 @@ public class CommitsViewModel extends ViewModel {
 	private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 	private final MutableLiveData<String> error = new MutableLiveData<>();
 
+	private String path;
 	private String source;
 	private long projectId;
 	private long mergeRequestIid;
@@ -52,11 +53,22 @@ public class CommitsViewModel extends ViewModel {
 
 	public void loadCommits(
 			Context ctx, String source, long projectId, long mergeRequestIid, String branch) {
+		loadCommits(ctx, source, projectId, mergeRequestIid, branch, null);
+	}
+
+	public void loadCommits(
+			Context ctx,
+			String source,
+			long projectId,
+			long mergeRequestIid,
+			String branch,
+			String path) {
 		if (ctx == null) return;
 		this.source = source;
 		this.projectId = projectId;
 		this.mergeRequestIid = mergeRequestIid;
 		this.branch = branch;
+		this.path = path;
 		currentPage = 1;
 		isLastPage = false;
 		isLoadingMore = false;
@@ -77,6 +89,11 @@ public class CommitsViewModel extends ViewModel {
 			call =
 					RetrofitClient.getApiInterface(ctx)
 							.getMergeRequestCommits(projectId, mergeRequestIid, resultLimit, page);
+		} else if (path != null && !path.isEmpty()) {
+			call =
+					RetrofitClient.getApiInterface(ctx)
+							.getProjectCommitsWithPath(
+									projectId, branch, path, true, resultLimit, page);
 		} else {
 			call =
 					RetrofitClient.getApiInterface(ctx)

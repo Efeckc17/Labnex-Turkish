@@ -367,6 +367,10 @@
     <string name="commit_sha_copied">Commit SHA copied to clipboard</string>
     <string name="activity_deleted_no_action">This item no longer exists</string>
     <string name="wiki_page_not_found_maybe_renamed">The page may have been renamed</string>
+    <string name="view_commits">View commits</string>
+    <string name="clear_image_cache">Clear image cache</string>
+    <string name="clear_image_cache_confirm">Cached images will be removed and re-downloaded as you browse. Continue?</string>
+    <string name="image_cache_cleared">Image cache cleared</string>
 
     <!-- errors -->
     <string name="generic_error">An unexpected error occurred</string>

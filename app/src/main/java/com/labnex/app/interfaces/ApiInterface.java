@@ -294,6 +294,15 @@ public interface ApiInterface {
 			@Query("per_page") int per_page,
 			@Query("page") int page);
 
+	@GET("projects/{id}/repository/commits") // get a single file commits
+	Call<List<Commits>> getProjectCommitsWithPath(
+			@Path("id") long id,
+			@Query("ref_name") String branch,
+			@Query("path") String path,
+			@Query("follow") boolean follow,
+			@Query("per_page") int perPage,
+			@Query("page") int page);
+
 	@GET("projects/{id}/repository/commits/{sha}/diff") // get a commit diffs
 	Call<List<Diff>> getCommitDiffs(
 			@Path("id") long id,
