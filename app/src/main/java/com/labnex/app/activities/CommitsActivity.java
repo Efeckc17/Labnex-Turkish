@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.labnex.app.R;
 import com.labnex.app.adapters.CommitsAdapter;
+import com.labnex.app.bottomsheets.CommitDiffsBottomSheet;
 import com.labnex.app.databinding.ActivityCommitsBinding;
 import com.labnex.app.helpers.EndlessRecyclerViewScrollListener;
 import com.labnex.app.helpers.Toasty;
@@ -27,6 +28,7 @@ public class CommitsActivity extends BaseActivity {
 	private long projectId;
 	private long mergeRequestIid;
 	private String branch;
+	private String pendingSha;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class CommitsActivity extends BaseActivity {
 		projectId = getIntent().getLongExtra("projectId", 0);
 		mergeRequestIid = getIntent().getLongExtra("mergeRequestIid", 0);
 		branch = getIntent().getStringExtra("branch");
+		pendingSha = getIntent().getStringExtra("pending_sha");
 
 		binding.btnBack.setOnClickListener(v -> finish());
 
@@ -108,6 +111,15 @@ public class CommitsActivity extends BaseActivity {
 								binding.nothingFoundFrame.getRoot().setVisibility(View.GONE);
 								binding.recyclerView.setVisibility(View.VISIBLE);
 								adapter.updateList(list);
+								if (pendingSha != null) {
+									Bundle b = new Bundle();
+									b.putLong("projectId", projectId);
+									b.putString("sha", pendingSha);
+									CommitDiffsBottomSheet sheet = new CommitDiffsBottomSheet();
+									sheet.setArguments(b);
+									sheet.show(getSupportFragmentManager(), "commitDiffsSheet");
+									pendingSha = null;
+								}
 							}
 						});
 

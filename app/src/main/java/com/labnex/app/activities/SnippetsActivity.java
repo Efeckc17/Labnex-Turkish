@@ -66,6 +66,11 @@ public class SnippetsActivity extends BaseActivity
 		setupPullToRefresh();
 		observeViewModel();
 		viewModel.loadSnippets(ctx);
+
+		long pendingSnippetId = getIntent().getLongExtra("pending_snippet_id", 0);
+		if (pendingSnippetId > 0) {
+			viewModel.loadSnippetAndOpen(ctx, pendingSnippetId);
+		}
 	}
 
 	@Override
