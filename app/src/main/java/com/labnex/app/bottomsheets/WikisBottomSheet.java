@@ -39,6 +39,7 @@ public class WikisBottomSheet extends BottomSheetDialogFragment {
 	private long id;
 	private String webUrl;
 	private boolean canModify;
+	private String autoOpenTitle;
 
 	public static WikisBottomSheet newInstance(
 			String type, long id, String webUrl, boolean canModify) {
@@ -60,6 +61,7 @@ public class WikisBottomSheet extends BottomSheetDialogFragment {
 			id = getArguments().getLong("id", 0);
 			webUrl = getArguments().getString("webUrl", "");
 			canModify = getArguments().getBoolean("canModify");
+			autoOpenTitle = getArguments().getString("auto_open_title");
 		}
 	}
 
@@ -86,25 +88,7 @@ public class WikisBottomSheet extends BottomSheetDialogFragment {
 						new WikisAdapter.OnWikiClickListener() {
 							@Override
 							public void onWikiClick(Wiki wiki) {
-								Map<String, String> meta = new HashMap<>();
-								if (webUrl != null && !webUrl.isEmpty()) {
-									meta.put("URL", webUrl + "/-/wikis/" + wiki.getSlug());
-								}
-
-								ContentViewerBottomSheet viewer =
-										ContentViewerBottomSheet.newInstance(
-												wiki.getContent(),
-												null,
-												wiki.getTitle(),
-												null,
-												null,
-												meta,
-												ContentViewerBottomSheet.Feature.SHOW_TITLE,
-												ContentViewerBottomSheet.Feature.MARKDOWN_PREVIEW,
-												ContentViewerBottomSheet.Feature.START_IN_MARKDOWN,
-												ContentViewerBottomSheet.Feature.ALLOW_COPY,
-												ContentViewerBottomSheet.Feature.ALLOW_SHARE);
-								viewer.show(getParentFragmentManager(), "wikiViewer");
+								openWikiViewer(wiki);
 							}
 
 							@Override
@@ -202,6 +186,24 @@ public class WikisBottomSheet extends BottomSheetDialogFragment {
 								binding.nothingFoundFrame.getRoot().setVisibility(View.GONE);
 								binding.wikisList.setVisibility(View.VISIBLE);
 								adapter.updateList(list);
+								if (autoOpenTitle != null && !autoOpenTitle.isEmpty()) {
+									boolean opened = false;
+									for (Wiki w : list) {
+										if (autoOpenTitle.equals(w.getTitle())) {
+											openWikiViewer(w);
+											opened = true;
+											break;
+										}
+									}
+									if (!opened) {
+										Toasty.show(
+												requireContext(),
+												getString(
+														R.string
+																.wiki_page_not_found_maybe_renamed));
+									}
+									autoOpenTitle = null;
+								}
 							}
 						});
 
@@ -256,6 +258,28 @@ public class WikisBottomSheet extends BottomSheetDialogFragment {
 							}
 							viewModel.clearError();
 						});
+	}
+
+	private void openWikiViewer(Wiki wiki) {
+		Map<String, String> meta = new HashMap<>();
+		if (webUrl != null && !webUrl.isEmpty()) {
+			meta.put("URL", webUrl + "/-/wikis/" + wiki.getSlug());
+		}
+
+		ContentViewerBottomSheet viewer =
+				ContentViewerBottomSheet.newInstance(
+						wiki.getContent(),
+						null,
+						wiki.getTitle(),
+						null,
+						null,
+						meta,
+						ContentViewerBottomSheet.Feature.SHOW_TITLE,
+						ContentViewerBottomSheet.Feature.MARKDOWN_PREVIEW,
+						ContentViewerBottomSheet.Feature.START_IN_MARKDOWN,
+						ContentViewerBottomSheet.Feature.ALLOW_COPY,
+						ContentViewerBottomSheet.Feature.ALLOW_SHARE);
+		viewer.show(getParentFragmentManager(), "wikiViewer");
 	}
 
 	@Override

@@ -50,6 +50,8 @@ public class ProjectDetailActivity extends BaseActivity
 	private final List<GenericMenuItemModel> menuItems = new ArrayList<>();
 	private boolean canModify;
 	private boolean isFork;
+	private String pendingSheet;
+	private String pendingWikiTitle;
 
 	private static final CardColors COLOR_DEEP =
 			new CardColors(
@@ -79,6 +81,9 @@ public class ProjectDetailActivity extends BaseActivity
 		projectsContext = ProjectsContext.fromIntent(getIntent());
 		projectId = projectsContext.getProjectId();
 		loadLanguageColors();
+
+		pendingSheet = getIntent().getStringExtra("open_sheet");
+		pendingWikiTitle = getIntent().getStringExtra("open_wiki_title");
 
 		binding.btnBack.setOnClickListener(v -> finish());
 		binding.btnStar.setOnClickListener(v -> viewModel.toggleStar(ctx, projectId));
@@ -499,6 +504,51 @@ public class ProjectDetailActivity extends BaseActivity
 							int accessLevel = AccessLevel.getUserAccessLevel(project);
 							canModify = accessLevel >= AccessLevel.MAINTAINER;
 							buildMenuItems(project, accessLevel);
+
+							if (pendingSheet != null) {
+								switch (pendingSheet) {
+									case "milestones":
+										MilestonesBottomSheet.newInstance(
+														"project", projectId, canModify)
+												.show(
+														getSupportFragmentManager(),
+														"milestonesSheet");
+										break;
+									case "wikis":
+										WikisBottomSheet ws =
+												WikisBottomSheet.newInstance(
+														"project",
+														projectId,
+														project.getWebUrl(),
+														canModify);
+										if (pendingWikiTitle != null) {
+											Bundle args = ws.getArguments();
+											if (args != null)
+												args.putString("auto_open_title", pendingWikiTitle);
+										}
+										ws.show(getSupportFragmentManager(), "wikisSheet");
+										break;
+									case "tags":
+										TagsBottomSheet.newInstance(projectId, canModify)
+												.show(getSupportFragmentManager(), "tagsSheet");
+										break;
+									case "labels":
+										LabelsBottomSheet.newInstance(
+														"project", projectId, canModify)
+												.show(getSupportFragmentManager(), "labelsSheet");
+										break;
+									case "members":
+										MembersBottomSheet.newInstance("project", projectId)
+												.show(getSupportFragmentManager(), "membersSheet");
+										break;
+									case "releases":
+										ReleasesBottomSheet.newInstance(projectId, canModify)
+												.show(getSupportFragmentManager(), "releasesSheet");
+										break;
+								}
+								pendingSheet = null;
+								pendingWikiTitle = null;
+							}
 
 							binding.sectionActions
 									.cardIssues
