@@ -8,8 +8,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.lifecycle.ViewModelProvider;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.labnex.app.R;
 import com.labnex.app.bottomsheets.*;
 import com.labnex.app.contexts.ProjectsContext;
@@ -17,7 +15,6 @@ import com.labnex.app.databinding.ActivityProjectDetailBinding;
 import com.labnex.app.databinding.ItemProjectActionCardBinding;
 import com.labnex.app.helpers.AccessLevel;
 import com.labnex.app.helpers.AppUIStateManager;
-import com.labnex.app.helpers.AvatarGenerator;
 import com.labnex.app.helpers.Markdown;
 import com.labnex.app.helpers.Toasty;
 import com.labnex.app.helpers.UIHelper;
@@ -693,17 +690,14 @@ public class ProjectDetailActivity extends BaseActivity
 			binding.dockContainer.removeView(binding.btnMenu);
 		}
 
-		if (project.getAvatarUrl() != null && "public".equalsIgnoreCase(project.getVisibility())) {
-			Glide.with(ctx)
-					.load(project.getAvatarUrl())
-					.diskCacheStrategy(DiskCacheStrategy.ALL)
-					.placeholder(R.drawable.ic_spinner)
-					.centerCrop()
-					.into(binding.sectionHeader.projectAvatar);
-		} else {
-			binding.sectionHeader.projectAvatar.setImageDrawable(
-					AvatarGenerator.getLetterAvatar(ctx, project.getName(), 48));
-		}
+		Utils.loadEntityAvatar(
+				ctx,
+				"projects",
+				project.getId(),
+				project.getAvatarUrl(),
+				project.getName(),
+				binding.sectionHeader.projectAvatar,
+				48);
 
 		if ("private".equalsIgnoreCase(project.getVisibility())) {
 			binding.sectionHeader.visibilityIcon.setVisibility(View.VISIBLE);

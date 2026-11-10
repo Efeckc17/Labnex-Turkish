@@ -214,6 +214,14 @@ public class AppSettingsActivity extends BaseActivity
 			BackupBottomSheet bottomSheet = BackupBottomSheet.newInstance(this);
 			bottomSheet.show(getSupportFragmentManager(), "BackupBottomSheet");
 		});
+
+		binding.sectionAll.clearCacheFrameSelection.setOnClickListener(v ->
+				new MaterialAlertDialogBuilder(this)
+						.setTitle(R.string.clear_image_cache)
+						.setMessage(R.string.clear_image_cache_confirm)
+						.setPositiveButton(R.string.clear, (d, w) -> clearImageCache())
+						.setNegativeButton(R.string.cancel, null)
+						.show());
 	}
 
 	private void setupDynamicSections() {
@@ -295,7 +303,6 @@ public class AppSettingsActivity extends BaseActivity
 
 	private void recreateWithAnimation() {
 		AppUIStateManager.invalidateUI();
-		overridePendingTransition(0, 0);
 		recreate();
 	}
 
@@ -442,7 +449,7 @@ public class AppSettingsActivity extends BaseActivity
 	}
 
 	private static String getLanguageDisplayName(String langCode) {
-		Locale english = new Locale("en");
+		Locale english = Locale.forLanguageTag("en");
 
 		String[] multiCodeLang = langCode.split("-");
 		String countryCode;
@@ -453,7 +460,11 @@ public class AppSettingsActivity extends BaseActivity
 			countryCode = "";
 		}
 
-		Locale translated = new Locale(langCode, countryCode);
+		Locale translated =
+				countryCode.isEmpty()
+						? Locale.forLanguageTag(langCode)
+						: Locale.forLanguageTag(langCode + "-" + countryCode);
+
 		return String.format(
 				"%s (%s)",
 				translated.getDisplayName(translated), translated.getDisplayName(english));
@@ -601,6 +612,18 @@ public class AppSettingsActivity extends BaseActivity
 		} catch (IOException | SQLiteException e) {
 			Toasty.show(this, getString(R.string.import_failed));
 		}
+	}
+
+	private void clearImageCache() {
+		new Thread(
+						() -> {
+							Glide.get(ctx).clearDiskCache();
+							runOnUiThread(() -> {
+								Glide.get(ctx).clearMemory();
+								Toasty.show(ctx, getString(R.string.image_cache_cleared));
+							});
+						})
+				.start();
 	}
 
 	private void restartApp() {

@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.labnex.app.R;
 import com.labnex.app.activities.ProjectDetailActivity;
 import com.labnex.app.contexts.ProjectsContext;
@@ -105,18 +103,14 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 				binding.visibilityIcon.setVisibility(View.GONE);
 			}
 
-			if (projects.getAvatarUrl() != null
-					&& "public".equalsIgnoreCase(projects.getVisibility())) {
-				Glide.with(itemView.getContext())
-						.load(projects.getAvatarUrl())
-						.diskCacheStrategy(DiskCacheStrategy.ALL)
-						.placeholder(R.drawable.ic_spinner)
-						.centerCrop()
-						.into(binding.projectAvatar);
-			} else {
-				binding.projectAvatar.setImageDrawable(
-						AvatarGenerator.getLetterAvatar(context, projects.getName(), 40));
-			}
+			Utils.loadEntityAvatar(
+					context,
+					"projects",
+					projects.getId(),
+					projects.getAvatarUrl(),
+					projects.getName(),
+					binding.projectAvatar,
+					40);
 
 			if (projects.getDescription() != null && !projects.getDescription().isEmpty()) {
 				binding.projectDescription.setVisibility(View.VISIBLE);

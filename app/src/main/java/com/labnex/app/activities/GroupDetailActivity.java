@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.labnex.app.R;
 import com.labnex.app.adapters.ProjectsAdapter;
 import com.labnex.app.bottomsheets.CreateGroupBottomSheet;
@@ -16,9 +14,9 @@ import com.labnex.app.bottomsheets.LabelsBottomSheet;
 import com.labnex.app.bottomsheets.MembersBottomSheet;
 import com.labnex.app.databinding.ActivityGroupDetailBinding;
 import com.labnex.app.helpers.AccessLevel;
-import com.labnex.app.helpers.AvatarGenerator;
 import com.labnex.app.helpers.Toasty;
 import com.labnex.app.helpers.UIHelper;
+import com.labnex.app.helpers.Utils;
 import com.labnex.app.models.app.GenericMenuItemModel;
 import com.labnex.app.models.groups.GroupsItem;
 import com.labnex.app.viewmodels.GroupsViewModel;
@@ -114,17 +112,14 @@ public class GroupDetailActivity extends BaseActivity {
 							groupsItem = group;
 							binding.infoFrame.setVisibility(View.VISIBLE);
 
-							if (group.getAvatarUrl() != null && !group.getAvatarUrl().isEmpty()) {
-								Glide.with(ctx)
-										.load(group.getAvatarUrl())
-										.diskCacheStrategy(DiskCacheStrategy.ALL)
-										.placeholder(R.drawable.ic_spinner)
-										.centerCrop()
-										.into(binding.groupAvatar);
-							} else {
-								binding.groupAvatar.setImageDrawable(
-										AvatarGenerator.getLetterAvatar(ctx, group.getName(), 56));
-							}
+							Utils.loadEntityAvatar(
+									ctx,
+									"groups",
+									group.getId(),
+									group.getAvatarUrl(),
+									group.getName(),
+									binding.groupAvatar,
+									56);
 
 							binding.groupName.setText(group.getName());
 							binding.groupPath.setText(group.getFullPath());
