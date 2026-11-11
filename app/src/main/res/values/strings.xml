@@ -37,7 +37,7 @@
     <string name="cursor_position_format" translatable="false">Ln %d, Col %d</string>
     <string name="readme" translatable="false">Readme</string>
     <string name="tag_info" translatable="false">%1$s • %2$s</string>
-    <string name="issue_number" translatable="false">#%d</string>
+    <string name="text_with_hash" translatable="false">#%d</string>
     <string name="mr_number" translatable="false">!%d</string>
     <!-- non-translatable strings -->
 
@@ -371,6 +371,28 @@
     <string name="clear_image_cache">Clear image cache</string>
     <string name="clear_image_cache_confirm">Cached images will be removed and re-downloaded as you browse. Continue?</string>
     <string name="image_cache_cleared">Image cache cleared</string>
+    <string name="create_variable">New CI/CD Variable</string>
+    <string name="view_pipelines">View Pipelines</string>
+    <string name="no_pipeline_data">No recent pipeline</string>
+    <string name="ci_status_passed">Passed</string>
+    <string name="ci_status_failed">Failed</string>
+    <string name="ci_status_running">Running</string>
+    <string name="ci_status_pending">Pending</string>
+    <string name="ci_status_canceled">Canceled</string>
+    <string name="ci_status_skipped">Skipped</string>
+    <string name="ci_status_manual">Manual</string>
+    <string name="ci_status_unknown">Unknown</string>
+    <string name="pipeline_details">Pipeline details</string>
+    <string name="run_again">Run again</string>
+    <string name="job_archived_message">This job is archived and cannot be retried.</string>
+    <string name="loading_log">Loading log…</string>
+    <string name="log_empty">No log available.</string>
+    <string name="log_failed_to_read">Failed to read log.</string>
+    <string name="log_failed_to_load">Failed to load log: %1$s</string>
+    <string name="action_success">Action completed successfully</string>
+    <string name="action_failed">Failed to perform action</string>
+    <string name="job_meta_stage">Stage: %1$s</string>
+    <string name="job_metadata_format">Stage: %1$s\nCommit: %2$s\nRef: %3$s</string>
 
     <!-- errors -->
     <string name="generic_error">An unexpected error occurred</string>
@@ -507,5 +529,10 @@
     <string name="send">Send</string>
     <string name="draft">Draft</string>
     <string name="diffs">Diffs</string>
+    <string name="retry">Retry</string>
+    <string name="play">Play</string>
+    <string name="scroll">Scroll</string>
+    <string name="pipelines">Pipelines</string>
+    <string name="variables">Variables</string>
     <!-- generic copy -->
 </resources>

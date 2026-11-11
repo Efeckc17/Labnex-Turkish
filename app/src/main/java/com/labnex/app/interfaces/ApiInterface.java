@@ -5,6 +5,11 @@ import com.labnex.app.models.approvals.Rule;
 import com.labnex.app.models.award_emoji.AwardEmoji;
 import com.labnex.app.models.branches.Branches;
 import com.labnex.app.models.broadcast_messages.Messages;
+import com.labnex.app.models.ci.CrudeVariable;
+import com.labnex.app.models.ci.Job;
+import com.labnex.app.models.ci.Pipeline;
+import com.labnex.app.models.ci.PipelineDetail;
+import com.labnex.app.models.ci.Variable;
 import com.labnex.app.models.commits.Commits;
 import com.labnex.app.models.commits.CrudeCommit;
 import com.labnex.app.models.commits.Diff;
@@ -618,4 +623,64 @@ public interface ApiInterface {
 			@Path("mr_iid") long mrIid,
 			@Path("note_id") long noteId,
 			@Path("award_id") long awardId);
+
+	// CI/CD Pipelines/Jobs/Variables
+	@GET("projects/{id}/pipelines")
+	Call<List<Pipeline>> getProjectPipelines(
+			@Path("id") long id,
+			@Query("ref") String ref,
+			@Query("per_page") int perPage,
+			@Query("page") int page);
+
+	@GET("projects/{id}/pipelines/{pipeline_id}")
+	Call<PipelineDetail> getPipelineDetail(
+			@Path("id") long id, @Path("pipeline_id") long pipelineId);
+
+	@POST("projects/{id}/pipelines/{pipeline_id}/retry")
+	Call<PipelineDetail> retryPipeline(@Path("id") long id, @Path("pipeline_id") long pipelineId);
+
+	@POST("projects/{id}/pipelines/{pipeline_id}/cancel")
+	Call<PipelineDetail> cancelPipeline(@Path("id") long id, @Path("pipeline_id") long pipelineId);
+
+	@GET("projects/{id}/pipelines/{pipeline_id}/jobs")
+	Call<List<Job>> getPipelineJobs(
+			@Path("id") long id,
+			@Path("pipeline_id") long pipelineId,
+			@Query("per_page") int perPage,
+			@Query("page") int page);
+
+	@GET("projects/{id}/jobs/{job_id}")
+	Call<Job> getJobDetail(@Path("id") long id, @Path("job_id") long jobId);
+
+	@GET("projects/{id}/jobs/{job_id}/trace")
+	Call<ResponseBody> getJobTrace(@Path("id") long id, @Path("job_id") long jobId);
+
+	@POST("projects/{id}/jobs/{job_id}/retry")
+	Call<Job> retryJob(@Path("id") long id, @Path("job_id") long jobId);
+
+	@POST("projects/{id}/jobs/{job_id}/cancel")
+	Call<Job> cancelJob(@Path("id") long id, @Path("job_id") long jobId);
+
+	@POST("projects/{id}/jobs/{job_id}/play")
+	Call<Job> playJob(@Path("id") long id, @Path("job_id") long jobId);
+
+	@POST("projects/{id}/jobs/{job_id}/erase")
+	Call<Job> eraseJob(@Path("id") long id, @Path("job_id") long jobId);
+
+	@GET("projects/{id}/variables")
+	Call<List<Variable>> getProjectVariables(
+			@Path("id") long id, @Query("per_page") int perPage, @Query("page") int page);
+
+	@POST("projects/{id}/variables")
+	Call<Variable> createProjectVariable(@Path("id") long id, @Body CrudeVariable body);
+
+	@PUT("projects/{id}/variables/{key}")
+	Call<Variable> updateProjectVariable(
+			@Path("id") long id, @Path("key") String key, @Body CrudeVariable body);
+
+	@DELETE("projects/{id}/variables/{key}")
+	Call<Void> deleteProjectVariable(@Path("id") long id, @Path("key") String key);
+
+	@GET("projects/{id}/pipelines/latest")
+	Call<Pipeline> getLatestPipeline(@Path("id") long id, @Query("ref") String ref);
 }

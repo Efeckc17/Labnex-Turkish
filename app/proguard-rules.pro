@@ -2,6 +2,11 @@
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
 
+# Keep all classes and fields that use volatile state variables
+-keepclassmembers class * {
+    volatile <fields>;
+}
+
 # Suppress warnings for libraries that ship without ProGuard rules
 -dontwarn kotlinx.coroutines.**
 -dontwarn com.google.gson.**

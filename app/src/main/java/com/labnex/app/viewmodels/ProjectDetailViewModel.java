@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.labnex.app.clients.RetrofitClient;
 import com.labnex.app.helpers.ApiResponseHandler;
 import com.labnex.app.helpers.Utils;
+import com.labnex.app.models.ci.Pipeline;
 import com.labnex.app.models.merge_requests.MergeRequests;
 import com.labnex.app.models.projects.CrudeProject;
 import com.labnex.app.models.projects.Projects;
@@ -33,6 +34,16 @@ public class ProjectDetailViewModel extends ViewModel {
 	private final MutableLiveData<String> error = new MutableLiveData<>();
 	private final MutableLiveData<Integer> starCount = new MutableLiveData<>(-1);
 	private final MutableLiveData<Boolean> forkSuccess = new MutableLiveData<>(false);
+	private final MutableLiveData<Pipeline> latestPipeline = new MutableLiveData<>();
+	private final MutableLiveData<Boolean> isCiLoading = new MutableLiveData<>(false);
+
+	public LiveData<Pipeline> getLatestPipeline() {
+		return latestPipeline;
+	}
+
+	public LiveData<Boolean> getIsCiLoading() {
+		return isCiLoading;
+	}
 
 	public LiveData<Integer> getStarCount() {
 		return starCount;
@@ -255,6 +266,33 @@ public class ProjectDetailViewModel extends ViewModel {
 						error.setValue(t.getMessage());
 					}
 				});
+	}
+
+	public void loadLatestPipeline(Context ctx, long projectId, String defaultBranch) {
+		isCiLoading.setValue(true);
+		RetrofitClient.getApiInterface(ctx)
+				.getLatestPipeline(projectId, defaultBranch)
+				.enqueue(
+						new Callback<>() {
+							@Override
+							public void onResponse(
+									@NonNull Call<Pipeline> call,
+									@NonNull Response<Pipeline> response) {
+								isCiLoading.setValue(false);
+								if (response.isSuccessful() && response.body() != null) {
+									latestPipeline.setValue(response.body());
+								} else {
+									latestPipeline.setValue(null);
+								}
+							}
+
+							@Override
+							public void onFailure(
+									@NonNull Call<Pipeline> call, @NonNull Throwable t) {
+								isCiLoading.setValue(false);
+								latestPipeline.setValue(null);
+							}
+						});
 	}
 
 	public void loadMrCount(Context ctx, long projectId) {

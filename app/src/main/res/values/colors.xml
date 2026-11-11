@@ -21,6 +21,13 @@
     <color name="alert_caution_border">#D73A49</color>
     <color name="alert_text">#24292E</color>
 
+    <!-- ci colors -->
+    <color name="ci_gray">#747378</color>
+    <color name="ci_blue">#267ACC</color>
+    <color name="ci_green">#289E83</color>
+    <color name="ci_red">#ED3C50</color>
+    <color name="ci_orange">#BA8404</color>
+
     <!-- System default - light -->
     <color name="md_theme_primary">#4B2100</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>

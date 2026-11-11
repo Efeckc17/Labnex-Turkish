@@ -2,11 +2,13 @@ package com.labnex.app.activities;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import com.labnex.app.R;
 import com.labnex.app.bottomsheets.*;
@@ -15,6 +17,7 @@ import com.labnex.app.databinding.ActivityProjectDetailBinding;
 import com.labnex.app.databinding.ItemProjectActionCardBinding;
 import com.labnex.app.helpers.AccessLevel;
 import com.labnex.app.helpers.AppUIStateManager;
+import com.labnex.app.helpers.AvatarGenerator;
 import com.labnex.app.helpers.Markdown;
 import com.labnex.app.helpers.Toasty;
 import com.labnex.app.helpers.UIHelper;
@@ -209,6 +212,17 @@ public class ProjectDetailActivity extends BaseActivity
 				R.string.copy_info,
 				COLOR_BRIGHT,
 				this::showCopyInfoSheet);
+
+		binding.sectionActions.cardCiDashboard.btnViewPipelines.setOnClickListener(v -> {
+			Intent intent = new Intent(ctx, PipelinesActivity.class);
+			intent.putExtra("projectId", projectId);
+			startActivity(intent);
+		});
+
+		binding.sectionActions.cardCiDashboard.btnVariables.setOnClickListener(v -> {
+			// TODO open Variables
+			Toasty.show(ctx, "Open Variables");
+		});
 	}
 
 	private void setupCard(
@@ -350,6 +364,16 @@ public class ProjectDetailActivity extends BaseActivity
 			}
 		}
 
+		if (AccessLevel.canCreateBranch(project, accessLevel)) {
+			menuItems.add(
+					new GenericMenuItemModel(
+							"create_variable",
+							R.string.create_variable,
+							R.drawable.ic_add,
+							com.google.android.material.R.attr.colorPrimaryContainer,
+							com.google.android.material.R.attr.colorOnPrimaryContainer));
+		}
+
 		binding.btnMenu.setVisibility(menuItems.isEmpty() ? View.GONE : View.VISIBLE);
 	}
 
@@ -407,6 +431,9 @@ public class ProjectDetailActivity extends BaseActivity
 					ForkProjectBottomSheet.newInstance(
 									projectId, project.getName(), project.getPath())
 							.show(getSupportFragmentManager(), "forkProjectSheet");
+				case "create_variable":
+					// TODO open create variable sheet
+					Toasty.show(ctx, "Open Create Variable");
 					break;
 			}
 		});
@@ -502,6 +529,14 @@ public class ProjectDetailActivity extends BaseActivity
 							canModify = accessLevel >= AccessLevel.MAINTAINER;
 							buildMenuItems(project, accessLevel);
 
+							if (canModify) {
+								binding.sectionActions.cardCiDashboard.btnVariables.setVisibility(
+										View.VISIBLE);
+							} else {
+								binding.sectionActions.cardCiDashboard.btnVariables.setVisibility(
+										View.GONE);
+							}
+
 							if (pendingSheet != null) {
 								switch (pendingSheet) {
 									case "milestones":
@@ -582,6 +617,8 @@ public class ProjectDetailActivity extends BaseActivity
 												.substring(project.getReadmeUrl().length() - 9);
 								viewModel.loadReadme(ctx, projectId, branch, readmePath);
 							}
+							viewModel.loadLatestPipeline(
+									ctx, projectId, project.getDefaultBranch());
 						});
 
 		viewModel.getLanguageStats().observe(this, this::displayLanguageStats);
@@ -651,6 +688,46 @@ public class ProjectDetailActivity extends BaseActivity
 										ItemProjectActionCardBinding.bind(
 												binding.sectionActions.cardMergeRequests.getRoot());
 								mrCard.actionChip.setText(Utils.numberFormatter(count));
+							}
+						});
+
+		viewModel
+				.getLatestPipeline()
+				.observe(
+						this,
+						pipeline -> {
+							if (pipeline != null) {
+								String shortSha =
+										pipeline.getSha() != null && pipeline.getSha().length() >= 8
+												? pipeline.getSha().substring(0, 8)
+												: "";
+								String ref = pipeline.getRef() != null ? pipeline.getRef() : "main";
+								String subtitle = ref + " / " + shortSha;
+								binding.sectionActions.cardCiDashboard.pipelineStatusSubtitle
+										.setText(subtitle);
+
+								String status = pipeline.getStatus();
+								int colorResId = Utils.getCiColorResId(status);
+								int finalColor = ContextCompat.getColor(ctx, colorResId);
+								String displayStatus =
+										getString(Utils.getCiStatusStringRes(status));
+
+								Drawable statusBadge =
+										AvatarGenerator.getLabelDrawable(
+												ctx, displayStatus, finalColor, 20);
+								binding.sectionActions.cardCiDashboard.pipelineStatusBadge
+										.setImageDrawable(statusBadge);
+
+							} else {
+								binding.sectionActions.cardCiDashboard.pipelineStatusSubtitle
+										.setText(R.string.no_pipeline_data);
+
+								int grayColor = ContextCompat.getColor(ctx, R.color.ci_gray);
+								Drawable defaultBadge =
+										AvatarGenerator.getLabelDrawable(
+												ctx, "No Data", grayColor, 20);
+								binding.sectionActions.cardCiDashboard.pipelineStatusBadge
+										.setImageDrawable(defaultBadge);
 							}
 						});
 

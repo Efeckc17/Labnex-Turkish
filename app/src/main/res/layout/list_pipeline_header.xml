@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dimen16dp">
+
+    <ImageView
+        android:id="@+id/header_status_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/generic_img_copy"
+        android:minHeight="@dimen/dimen24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_spinner" />
+
+    <TextView
+        android:id="@+id/header_pipeline_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen8dp"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textColor="?attr/colorOnSurface"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/header_status_badge"
+        app:layout_constraintEnd_toStartOf="@id/header_user_avatar"
+        app:layout_constraintStart_toEndOf="@id/header_status_badge"
+        app:layout_constraintTop_toTopOf="@id/header_status_badge"
+        tools:text="#3049824066" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/header_user_avatar"
+        android:layout_width="@dimen/dimen24dp"
+        android:layout_height="@dimen/dimen24dp"
+        android:src="@drawable/ic_spinner"
+        app:layout_constraintBottom_toBottomOf="@id/header_status_badge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/header_status_badge"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small" />
+
+    <TextView
+        android:id="@+id/header_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen8dp"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_status_badge" />
+
+    <TextView
+        android:id="@+id/header_commit_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_user_name"
+        tools:text="merge_request_event" />
+
+    <LinearLayout
+        android:id="@+id/header_commit_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen4dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_commit_title">
+
+        <ImageView
+            android:layout_width="@dimen/dimen16dp"
+            android:layout_height="@dimen/dimen16dp"
+            android:contentDescription="@string/generic_img_copy"
+            android:src="@drawable/ic_code"
+            app:tint="?attr/colorPrimary" />
+
+        <TextView
+            android:id="@+id/header_commit_sha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen4dp"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
+            tools:text="19aac244" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/header_time_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen4dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_commit_row">
+
+        <TextView
+            android:id="@+id/header_time_ago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceLabelSmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:alpha="0.7"
+            tools:text="1 hour ago" />
+
+        <ImageView
+            android:id="@+id/icon_duration"
+            android:layout_width="@dimen/dimen14dp"
+            android:layout_height="@dimen/dimen14dp"
+            android:layout_marginStart="@dimen/dimen8dp"
+            android:contentDescription="@string/generic_img_copy"
+            android:src="@drawable/ic_calendar"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:id="@+id/header_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen4dp"
+            android:textAppearance="?attr/textAppearanceLabelSmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:alpha="0.7"
+            tools:text="00:16:55" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

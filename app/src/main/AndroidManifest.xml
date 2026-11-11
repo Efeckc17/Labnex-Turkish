@@ -62,6 +62,14 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|keyboard|keyboardHidden|navigation"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activities.PipelinesActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|keyboard|keyboardHidden|navigation"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.PipelineDetailActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|keyboard|keyboardHidden|navigation"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activities.IssuesActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|keyboard|keyboardHidden|navigation"
             android:theme="@style/AppTheme" />
