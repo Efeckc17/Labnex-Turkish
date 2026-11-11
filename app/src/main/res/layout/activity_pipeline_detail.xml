@@ -67,19 +67,18 @@
                 app:icon="@drawable/ic_arrow_back" />
 
             <View
+                android:id="@+id/dock_divider"
                 android:layout_width="@dimen/dimen1dp"
                 android:layout_height="@dimen/dimen24dp"
                 android:layout_gravity="center_vertical"
                 android:background="?attr/colorOutlineVariant" />
 
-            <TextView
-                android:id="@+id/pipeline_title"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pipeline_menu"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen20dp"
-                android:layout_marginEnd="@dimen/dimen12dp"
-                android:text="@string/pipeline_details"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                app:icon="@drawable/ic_menu" />
 
         </com.google.android.material.overflow.OverflowLinearLayout>
 

@@ -393,6 +393,8 @@
     <string name="action_failed">Failed to perform action</string>
     <string name="job_meta_stage">Stage: %1$s</string>
     <string name="job_metadata_format">Stage: %1$s\nCommit: %2$s\nRef: %3$s</string>
+    <string name="delete_pipeline">Delete Pipeline</string>
+    <string name="delete_pipeline_confirmation">Are you sure you want to delete this pipeline? This action cannot be undone.</string>
 
     <!-- errors -->
     <string name="generic_error">An unexpected error occurred</string>

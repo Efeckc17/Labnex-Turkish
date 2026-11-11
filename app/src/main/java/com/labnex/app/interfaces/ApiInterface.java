@@ -642,6 +642,9 @@ public interface ApiInterface {
 	@POST("projects/{id}/pipelines/{pipeline_id}/cancel")
 	Call<PipelineDetail> cancelPipeline(@Path("id") long id, @Path("pipeline_id") long pipelineId);
 
+	@DELETE("projects/{id}/pipelines/{pipeline_id}")
+	Call<Void> deletePipeline(@Path("id") long id, @Path("pipeline_id") long pipelineId);
+
 	@GET("projects/{id}/pipelines/{pipeline_id}/jobs")
 	Call<List<Job>> getPipelineJobs(
 			@Path("id") long id,

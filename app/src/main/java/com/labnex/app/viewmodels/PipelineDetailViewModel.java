@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.labnex.app.clients.RetrofitClient;
 import com.labnex.app.helpers.AccessLevel;
+import com.labnex.app.helpers.ApiResponseHandler;
 import com.labnex.app.models.ci.Job;
 import com.labnex.app.models.ci.PipelineDetail;
 import com.labnex.app.models.projects.Projects;
@@ -39,6 +40,21 @@ public class PipelineDetailViewModel extends ViewModel {
 	private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 	private final MutableLiveData<String> error = new MutableLiveData<>();
 	private final MutableLiveData<Integer> userAccessLevel = new MutableLiveData<>(0);
+	private final MutableLiveData<Boolean> isActionLoading = new MutableLiveData<>(false);
+	private final MutableLiveData<Boolean> actionSuccess = new MutableLiveData<>(false);
+	private final MutableLiveData<String> actionError = new MutableLiveData<>();
+
+	public LiveData<Boolean> getIsActionLoading() {
+		return isActionLoading;
+	}
+
+	public LiveData<Boolean> getActionSuccess() {
+		return actionSuccess;
+	}
+
+	public LiveData<String> getActionError() {
+		return actionError;
+	}
 
 	public LiveData<PipelineData> getPipelineData() {
 		return pipelineData;
@@ -58,6 +74,14 @@ public class PipelineDetailViewModel extends ViewModel {
 
 	public void clearError() {
 		error.setValue(null);
+	}
+
+	public void clearActionSuccess() {
+		actionSuccess.setValue(false);
+	}
+
+	public void clearActionError() {
+		actionError.setValue(null);
 	}
 
 	public void loadProjectAccess(Context ctx, long projectId) {
@@ -144,6 +168,94 @@ public class PipelineDetailViewModel extends ViewModel {
 									@NonNull Call<PipelineDetail> call, @NonNull Throwable t) {
 								isLoading.setValue(false);
 								pipelineData.setValue(new PipelineData(null, stages, jobs));
+							}
+						});
+	}
+
+	public void retryPipeline(Context ctx, long projectId, long pipelineId) {
+		if (Boolean.TRUE.equals(isActionLoading.getValue())) return;
+		isActionLoading.setValue(true);
+
+		RetrofitClient.getApiInterface(ctx)
+				.retryPipeline(projectId, pipelineId)
+				.enqueue(
+						new Callback<>() {
+							@Override
+							public void onResponse(
+									@NonNull Call<PipelineDetail> call,
+									@NonNull Response<PipelineDetail> response) {
+								isActionLoading.setValue(false);
+								if (response.isSuccessful()) {
+									actionSuccess.setValue(true);
+								} else {
+									actionError.setValue(
+											ApiResponseHandler.getErrorMessageStatic(response));
+								}
+							}
+
+							@Override
+							public void onFailure(
+									@NonNull Call<PipelineDetail> call, @NonNull Throwable t) {
+								isActionLoading.setValue(false);
+								actionError.setValue(t.getMessage());
+							}
+						});
+	}
+
+	public void cancelPipeline(Context ctx, long projectId, long pipelineId) {
+		if (Boolean.TRUE.equals(isActionLoading.getValue())) return;
+		isActionLoading.setValue(true);
+
+		RetrofitClient.getApiInterface(ctx)
+				.cancelPipeline(projectId, pipelineId)
+				.enqueue(
+						new Callback<>() {
+							@Override
+							public void onResponse(
+									@NonNull Call<PipelineDetail> call,
+									@NonNull Response<PipelineDetail> response) {
+								isActionLoading.setValue(false);
+								if (response.isSuccessful()) {
+									actionSuccess.setValue(true);
+								} else {
+									actionError.setValue(
+											ApiResponseHandler.getErrorMessageStatic(response));
+								}
+							}
+
+							@Override
+							public void onFailure(
+									@NonNull Call<PipelineDetail> call, @NonNull Throwable t) {
+								isActionLoading.setValue(false);
+								actionError.setValue(t.getMessage());
+							}
+						});
+	}
+
+	public void deletePipeline(Context ctx, long projectId, long pipelineId) {
+		if (Boolean.TRUE.equals(isActionLoading.getValue())) return;
+		isActionLoading.setValue(true);
+
+		RetrofitClient.getApiInterface(ctx)
+				.deletePipeline(projectId, pipelineId)
+				.enqueue(
+						new Callback<>() {
+							@Override
+							public void onResponse(
+									@NonNull Call<Void> call, @NonNull Response<Void> response) {
+								isActionLoading.setValue(false);
+								if (response.isSuccessful()) {
+									actionSuccess.setValue(true);
+								} else {
+									actionError.setValue(
+											ApiResponseHandler.getErrorMessageStatic(response));
+								}
+							}
+
+							@Override
+							public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+								isActionLoading.setValue(false);
+								actionError.setValue(t.getMessage());
 							}
 						});
 	}

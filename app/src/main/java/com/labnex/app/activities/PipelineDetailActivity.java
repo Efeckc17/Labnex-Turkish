@@ -5,14 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.labnex.app.R;
 import com.labnex.app.adapters.PipelineDetailAdapter;
 import com.labnex.app.bottomsheets.CommitDiffsBottomSheet;
+import com.labnex.app.bottomsheets.GenericMenuBottomSheet;
 import com.labnex.app.bottomsheets.JobDetailBottomSheet;
 import com.labnex.app.databinding.ActivityPipelineDetailBinding;
+import com.labnex.app.helpers.AccessLevel;
 import com.labnex.app.helpers.Toasty;
 import com.labnex.app.helpers.UIHelper;
+import com.labnex.app.models.app.GenericMenuItemModel;
+import com.labnex.app.models.ci.PipelineDetail;
 import com.labnex.app.viewmodels.PipelineDetailViewModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mmarif
@@ -24,6 +31,7 @@ public class PipelineDetailActivity extends BaseActivity {
 	private PipelineDetailAdapter adapter;
 	private long projectId;
 	private long pipelineId;
+	private boolean pendingDelete = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +49,6 @@ public class PipelineDetailActivity extends BaseActivity {
 		viewModel.loadProjectAccess(ctx, projectId);
 
 		binding.btnBack.setOnClickListener(v -> finish());
-		binding.pipelineTitle.setText(getString(R.string.text_with_hash, pipelineId));
 
 		setupRecyclerView();
 		observeViewModel();
@@ -115,6 +122,36 @@ public class PipelineDetailActivity extends BaseActivity {
 								binding.nothingFoundFrame.getRoot().setVisibility(View.GONE);
 								binding.recyclerView.setVisibility(View.VISIBLE);
 								adapter.setData(data.detail, data.stages, data.jobs);
+								setupPipelineMenu(data.detail);
+							}
+						});
+
+		viewModel
+				.getActionSuccess()
+				.observe(
+						this,
+						success -> {
+							if (Boolean.TRUE.equals(success)) {
+								Toasty.show(ctx, R.string.action_success);
+								viewModel.clearActionSuccess();
+
+								if (pendingDelete) {
+									pendingDelete = false;
+									finish();
+								} else {
+									viewModel.loadPipelineDetail(ctx, projectId, pipelineId);
+								}
+							}
+						});
+
+		viewModel
+				.getActionError()
+				.observe(
+						this,
+						errorMsg -> {
+							if (errorMsg != null) {
+								Toasty.show(ctx, errorMsg);
+								viewModel.clearActionError();
 							}
 						});
 
@@ -128,5 +165,83 @@ public class PipelineDetailActivity extends BaseActivity {
 								viewModel.clearError();
 							}
 						});
+	}
+
+	private void setupPipelineMenu(PipelineDetail detail) {
+		binding.dockContainer.removeView(binding.btnPipelineMenu);
+		binding.dockContainer.removeView(binding.dockDivider);
+
+		if (detail == null) return;
+
+		Integer accessLevel = viewModel.getUserAccessLevel().getValue();
+		int level = accessLevel != null ? accessLevel : 0;
+		boolean isMaintainer = level >= AccessLevel.MAINTAINER;
+
+		if (!isMaintainer) return;
+
+		String status = detail.getStatus();
+		if (status == null) return;
+
+		List<GenericMenuItemModel> items = new ArrayList<>();
+
+		if ("failed".equalsIgnoreCase(status)
+				|| "canceled".equalsIgnoreCase(status)
+				|| "success".equalsIgnoreCase(status)) {
+			items.add(
+					new GenericMenuItemModel(
+							"retry",
+							R.string.retry,
+							R.drawable.ic_refresh,
+							com.google.android.material.R.attr.colorPrimaryContainer,
+							com.google.android.material.R.attr.colorOnPrimaryContainer));
+		}
+
+		if ("running".equalsIgnoreCase(status) || "pending".equalsIgnoreCase(status)) {
+			items.add(
+					new GenericMenuItemModel(
+							"cancel",
+							R.string.cancel,
+							R.drawable.ic_close,
+							com.google.android.material.R.attr.colorErrorContainer,
+							com.google.android.material.R.attr.colorOnErrorContainer));
+		}
+
+		items.add(
+				new GenericMenuItemModel(
+						"delete",
+						R.string.delete,
+						R.drawable.ic_trash,
+						com.google.android.material.R.attr.colorErrorContainer,
+						com.google.android.material.R.attr.colorOnErrorContainer));
+
+		binding.dockContainer.addView(binding.btnPipelineMenu);
+		binding.dockContainer.addView(binding.dockDivider);
+
+		binding.btnPipelineMenu.setOnClickListener(v -> {
+			GenericMenuBottomSheet sheet =
+					GenericMenuBottomSheet.newInstance(
+							getString(R.string.pipeline_details), "#" + pipelineId, items);
+
+			sheet.setOnMenuItemClickListener(id -> {
+				if ("delete".equals(id)) {
+					new MaterialAlertDialogBuilder(this)
+							.setTitle(R.string.delete_pipeline)
+							.setMessage(R.string.delete_pipeline_confirmation)
+							.setPositiveButton(
+									R.string.delete,
+									(d, w) -> {
+										pendingDelete = true;
+										viewModel.deletePipeline(ctx, projectId, pipelineId);
+									})
+							.setNegativeButton(R.string.cancel, null)
+							.show();
+				} else if ("retry".equals(id)) {
+					viewModel.retryPipeline(ctx, projectId, pipelineId);
+				} else if ("cancel".equals(id)) {
+					viewModel.cancelPipeline(ctx, projectId, pipelineId);
+				}
+			});
+			sheet.show(getSupportFragmentManager(), "pipelineMenuSheet");
+		});
 	}
 }
