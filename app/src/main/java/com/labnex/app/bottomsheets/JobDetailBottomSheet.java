@@ -23,8 +23,11 @@ import com.labnex.app.helpers.AvatarGenerator;
 import com.labnex.app.helpers.Toasty;
 import com.labnex.app.helpers.UIHelper;
 import com.labnex.app.helpers.Utils;
+import com.labnex.app.models.app.GenericMenuItemModel;
 import com.labnex.app.models.ci.Job;
 import com.labnex.app.viewmodels.JobDetailViewModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mmarif
@@ -156,9 +159,7 @@ public class JobDetailBottomSheet extends BottomSheetDialogFragment {
 	private void setupActions() {
 		binding.btnClose.setOnClickListener(v -> dismiss());
 
-		binding.dockContainer.removeView(binding.btnRetry);
-		binding.dockContainer.removeView(binding.btnCancel);
-		binding.dockContainer.removeView(binding.btnPlay);
+		binding.dockContainer.removeView(binding.btnMenu);
 		binding.dockContainer.removeView(binding.dockDivider);
 
 		boolean isArchived = job.getPipeline() != null && job.getPipeline().isArchived();
@@ -174,55 +175,60 @@ public class JobDetailBottomSheet extends BottomSheetDialogFragment {
 		String status = job.getStatus();
 		if (status == null) return;
 
-		boolean showCancel =
-				"running".equalsIgnoreCase(status)
-						|| "pending".equalsIgnoreCase(status)
-						|| "canceling".equalsIgnoreCase(status);
-		boolean showRetry =
-				"failed".equalsIgnoreCase(status)
-						|| "canceled".equalsIgnoreCase(status)
-						|| "success".equalsIgnoreCase(status);
-		boolean showPlay = "manual".equalsIgnoreCase(status);
+		List<GenericMenuItemModel> items = new ArrayList<>();
 
-		if (showCancel || showRetry || showPlay) {
-			binding.dockContainer.addView(binding.dockDivider);
+		if ("running".equalsIgnoreCase(status)
+				|| "pending".equalsIgnoreCase(status)
+				|| "canceling".equalsIgnoreCase(status)) {
+			items.add(
+					new GenericMenuItemModel(
+							"cancel",
+							R.string.cancel,
+							R.drawable.ic_close,
+							com.google.android.material.R.attr.colorErrorContainer,
+							com.google.android.material.R.attr.colorOnErrorContainer));
 		}
 
-		if (showCancel) {
-			binding.dockContainer.addView(binding.btnCancel);
-			binding.btnCancel.setOnClickListener(v ->
-					viewModel.performAction(requireContext(), projectId, job.getId(), "cancel"));
+		if ("failed".equalsIgnoreCase(status)
+				|| "canceled".equalsIgnoreCase(status)
+				|| "success".equalsIgnoreCase(status)) {
+			int labelRes = "success".equalsIgnoreCase(status) ? R.string.run_again : R.string.retry;
+			items.add(
+					new GenericMenuItemModel(
+							"retry",
+							labelRes,
+							R.drawable.ic_refresh,
+							com.google.android.material.R.attr.colorPrimaryContainer,
+							com.google.android.material.R.attr.colorOnPrimaryContainer));
 		}
 
-		if (showRetry) {
-			binding.dockContainer.addView(binding.btnRetry);
-			if ("success".equalsIgnoreCase(status)) {
-				binding.btnRetry.setText(R.string.run_again);
-			} else {
-				binding.btnRetry.setText(R.string.retry);
-			}
-			binding.btnRetry.setOnClickListener(v ->
-					viewModel.performAction(requireContext(), projectId, job.getId(), "retry"));
+		if ("manual".equalsIgnoreCase(status)) {
+			items.add(
+					new GenericMenuItemModel(
+							"play",
+							R.string.play,
+							R.drawable.ic_play,
+							com.google.android.material.R.attr.colorPrimaryContainer,
+							com.google.android.material.R.attr.colorOnPrimaryContainer));
 		}
 
-		if (showPlay) {
-			binding.dockContainer.addView(binding.btnPlay);
-			binding.btnPlay.setOnClickListener(
-					v -> viewModel.performAction(requireContext(), projectId, job.getId(), "play"));
-		}
+		if (items.isEmpty()) return;
+
+		binding.dockContainer.addView(binding.dockDivider);
+		binding.dockContainer.addView(binding.btnMenu);
+
+		binding.btnMenu.setOnClickListener(v -> {
+			GenericMenuBottomSheet sheet =
+					GenericMenuBottomSheet.newInstance(job.getName(), null, items);
+			sheet.setOnMenuItemClickListener(id -> {
+				viewModel.performAction(requireContext(), projectId, job.getId(), id);
+			});
+			sheet.show(getParentFragmentManager(), "jobMenuSheet");
+		});
 	}
 
 	private void observeViewModel() {
-		viewModel
-				.getIsActionLoading()
-				.observe(
-						getViewLifecycleOwner(),
-						isLoading -> {
-							boolean enabled = !Boolean.TRUE.equals(isLoading);
-							binding.btnRetry.setEnabled(enabled);
-							binding.btnCancel.setEnabled(enabled);
-							binding.btnPlay.setEnabled(enabled);
-						});
+		viewModel.getIsActionLoading().observe(getViewLifecycleOwner(), isLoading -> {});
 
 		viewModel
 				.getActionSuccess()
