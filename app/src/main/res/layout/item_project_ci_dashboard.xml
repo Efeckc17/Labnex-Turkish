@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/dimen4dp"
                 android:text="@string/variables"
-                app:icon="@drawable/ic_database"
+                app:icon="@drawable/ic_variable"
                 app:iconGravity="textStart" />
 
         </LinearLayout>

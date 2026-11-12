@@ -45,3 +45,8 @@
     public *;
 }
 -dontwarn com.bumptech.glide.**
+
+# Keep constructors of Gson model classes
+-keepclassmembers class com.labnex.app.models.** {
+    <init>(...);
+}
