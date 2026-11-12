@@ -8,12 +8,14 @@
     <string name="source_code_link" translatable="false">https://codeberg.org/labnex/LabNex</string>
     <string name="support_text_patreon" translatable="false">Patreon</string>
     <string name="crowd_in_text" translatable="false">Crowdin</string>
-    <string name="gitnex" translatable="false">GitNex</string>
+    <string name="gitnex" translatable="false">GitNex for Gitea and Forgejo</string>
     <string name="gitnex_link" translatable="false">https://gitnex.com</string>
-    <string name="oceannex" translatable="false">OceanNex</string>
+    <string name="oceannex" translatable="false">OceanNex for DigitalOcean</string>
     <string name="oceannex_link" translatable="false">https://oceannex.swatian.com</string>
-    <string name="nexnode" translatable="false">NexNode</string>
+    <string name="nexnode" translatable="false">NexNode for Linode Cloud</string>
     <string name="nexnode_link" translatable="false">https://nexnode.swatian.com</string>
+    <string name="nexpanel" translatable="false">NexPanel Control Panel</string>
+    <string name="nexpanel_link" translatable="false">https://nexpanel.dev</string>
 
     <string name="gitlab" translatable="false">GitLab</string>
     <string name="private_placeholder" translatable="false">Private</string>

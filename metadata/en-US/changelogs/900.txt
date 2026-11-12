@@ -1,0 +1,15 @@
+9.0.0
+
+🎉 Features 🎉
+- CI pipelines, jobs, logs, and job details (per-job commit)
+- Retry/Play/Cancel jobs and pipelines
+- Project variables (create/edit/delete)
+- See the list of users you follow and who follows you
+- Follow and unfollow a user
+- Copy a user's ID, username, and profile link
+- Open the relevant screen from activities/events where the API supports it
+- File commit history support
+- Clear image cache (App Settings)
+- and many more...
+
+Release Notes: https://codeberg.org/labnex/LabNex/releases

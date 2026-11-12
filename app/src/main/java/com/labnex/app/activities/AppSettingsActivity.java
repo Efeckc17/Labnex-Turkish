@@ -268,6 +268,11 @@ public class AppSettingsActivity extends BaseActivity
 				getString(R.string.nexnode),
 				R.drawable.ic_app_nexnode,
 				getString(R.string.nexnode_link));
+		addDynamicRow(
+				appsContainer,
+				getString(R.string.nexpanel),
+				R.drawable.ic_app_nexpanel,
+				getString(R.string.nexpanel_link));
 	}
 
 	private void addDynamicRow(LinearLayout container, String title, int iconRes, String url) {

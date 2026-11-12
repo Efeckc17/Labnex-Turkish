@@ -76,6 +76,7 @@
             android:id="@+id/home_screen_selection_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen12dp"
             android:padding="@dimen/dimen16dp">
 
             <ImageView
@@ -116,6 +117,7 @@
             android:id="@+id/show_labels_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen12dp"
             android:paddingHorizontal="@dimen/dimen16dp">
 
             <ImageView
@@ -154,6 +156,7 @@
             android:id="@+id/show_labels_colors_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen12dp"
             android:paddingVertical="@dimen/dimen12dp"
             android:paddingHorizontal="@dimen/dimen16dp">
 
@@ -193,6 +196,7 @@
             android:id="@+id/biometric_frame_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen12dp"
             android:paddingHorizontal="@dimen/dimen16dp">
 
             <ImageView
@@ -231,6 +235,7 @@
             android:id="@+id/backup_frame_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen12dp"
             android:padding="@dimen/dimen16dp">
 
             <ImageView
@@ -260,6 +265,8 @@
             android:id="@+id/clear_cache_frame_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen12dp"
+            android:layout_marginBottom="@dimen/dimen16dp"
             android:padding="@dimen/dimen16dp">
 
             <ImageView
