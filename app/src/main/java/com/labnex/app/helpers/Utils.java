@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
+import androidx.annotation.StringRes;
 import androidx.core.content.pm.PackageInfoCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -536,5 +537,29 @@ public class Utils {
 			}
 		}
 		target.setImageDrawable(AvatarGenerator.getLetterAvatar(context, name, letterSize));
+	}
+
+	@StringRes
+	public static int getCiStatusStringRes(String status) {
+		if (status == null) return R.string.ci_status_unknown;
+		return switch (status.toLowerCase()) {
+			case "success" -> R.string.ci_status_passed;
+			case "failed" -> R.string.ci_status_failed;
+			case "running" -> R.string.ci_status_running;
+			case "pending" -> R.string.ci_status_pending;
+			case "canceled" -> R.string.ci_status_canceled;
+			case "skipped" -> R.string.ci_status_skipped;
+			case "manual" -> R.string.ci_status_manual;
+			default -> R.string.ci_status_unknown;
+		};
+	}
+
+	public static int getCiColorResId(String status) {
+		if ("success".equalsIgnoreCase(status)) return R.color.ci_green;
+		if ("running".equalsIgnoreCase(status)) return R.color.ci_blue;
+		if ("failed".equalsIgnoreCase(status)) return R.color.ci_red;
+		if ("canceled".equalsIgnoreCase(status)) return R.color.ci_gray;
+		if ("pending".equalsIgnoreCase(status)) return R.color.ci_orange;
+		return R.color.ci_gray;
 	}
 }

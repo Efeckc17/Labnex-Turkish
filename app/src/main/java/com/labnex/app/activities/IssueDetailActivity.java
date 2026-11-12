@@ -435,7 +435,7 @@ public class IssueDetailActivity extends BaseActivity {
 	private void setupIssueHeaderTitle(String titleText, long issueIid) {
 		if (titleText == null) titleText = "";
 
-		String numberText = " " + getString(R.string.issue_number, issueIid);
+		String numberText = " " + getString(R.string.text_with_hash, issueIid);
 
 		TypedValue typedValue = new TypedValue();
 		getTheme()

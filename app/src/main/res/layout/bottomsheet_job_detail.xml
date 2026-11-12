@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dimen132dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dimen16dp"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/job_status_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/generic_img_copy"
+                    android:minHeight="@dimen/dimen24dp"
+                    tools:src="@drawable/ic_spinner" />
+
+                <TextView
+                    android:id="@+id/job_name_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dimen12dp"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/job_metadata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen16dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="Stage: build\nCommit: 19aac244\nDuration: 01:15" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen1dp"
+                android:layout_marginBottom="@dimen/dimen16dp"
+                android:background="?attr/colorOutlineVariant" />
+
+            <TextView
+                android:id="@+id/trace_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textSize="12sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:lineSpacingExtra="2dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_scroll_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/dimen80dp"
+        android:layout_marginEnd="@dimen/dimen16dp"
+        android:contentDescription="@string/scroll"
+        android:visibility="gone"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_arrow_down"
+        app:tint="?attr/iconsColor"
+        app:backgroundTint="?attr/colorSurfaceContainerHighest" />
+
+    <com.google.android.material.dockedtoolbar.DockedToolbarLayout
+        android:id="@+id/docked_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/dimen16dp"
+        android:backgroundTint="?attr/colorSurfaceContainerHighest"
+        app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior"
+        app:paddingBottomSystemWindowInsets="false"
+        app:paddingLeftSystemWindowInsets="false"
+        app:paddingRightSystemWindowInsets="false"
+        app:paddingTopSystemWindowInsets="false"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.RoundedDock">
+
+        <com.google.android.material.overflow.OverflowLinearLayout
+            android:id="@+id/dock_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_close"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_arrow_back" />
+
+            <View
+                android:id="@+id/dock_divider"
+                android:layout_width="@dimen/dimen1dp"
+                android:layout_height="@dimen/dimen24dp"
+                android:layout_gravity="center_vertical"
+                android:background="?attr/colorOutlineVariant" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_menu"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_menu" />
+
+        </com.google.android.material.overflow.OverflowLinearLayout>
+
+    </com.google.android.material.dockedtoolbar.DockedToolbarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

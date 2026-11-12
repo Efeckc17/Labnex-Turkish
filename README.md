@@ -17,6 +17,7 @@ LabNex is licensed under the GPLv3 License.
 ## Features
 
 - Multiple accounts support
+- CI pipelines, jobs, logs, and job details (per-job commit)
 - Projects and groups listing
 - Biometric lock for security
 - Issues, merge requests, and commits
