@@ -39,6 +39,7 @@
     <string name="tag_info" translatable="false">%1$s • %2$s</string>
     <string name="text_with_hash" translatable="false">#%d</string>
     <string name="mr_number" translatable="false">!%d</string>
+    <string name="char_star" translatable="false">*</string>
     <!-- non-translatable strings -->
 
     <string name="action_sign_in">Sign in</string>
@@ -371,7 +372,6 @@
     <string name="clear_image_cache">Clear image cache</string>
     <string name="clear_image_cache_confirm">Cached images will be removed and re-downloaded as you browse. Continue?</string>
     <string name="image_cache_cleared">Image cache cleared</string>
-    <string name="create_variable">New CI/CD Variable</string>
     <string name="view_pipelines">View Pipelines</string>
     <string name="no_pipeline_data">No recent pipeline</string>
     <string name="ci_status_passed">Passed</string>
@@ -395,6 +395,28 @@
     <string name="job_metadata_format">Stage: %1$s\nCommit: %2$s\nRef: %3$s</string>
     <string name="delete_pipeline">Delete Pipeline</string>
     <string name="delete_pipeline_confirmation">Are you sure you want to delete this pipeline? This action cannot be undone.</string>
+    <string name="create_variable">Create Variable</string>
+    <string name="edit_variable">Edit Variable</string>
+    <string name="variable_key">Key</string>
+    <string name="variable_value">Value</string>
+    <string name="variable_value_hint_edit">Leave blank to keep current value</string>
+    <string name="environment_scope">Environment Scope</string>
+    <string name="protected_variable">Protected</string>
+    <string name="masked_variable">Masked</string>
+    <string name="variable_created">Variable created</string>
+    <string name="variable_updated">Variable updated</string>
+    <string name="delete_variable">Delete Variable</string>
+    <string name="delete_variable_confirmation">Are you sure you want to delete %1$s?</string>
+    <string name="variable_key_required">Variable key is required</string>
+    <string name="variable_value_required">Variable value is required</string>
+    <string name="masked_var_too_short">Masked variables must be at least 8 characters long</string>
+    <string name="masked_var_invalid_chars">Masked variables cannot contain spaces or newlines</string>
+    <string name="environment_scope_helper">Use * for all environments, or specify names separated by commas (e.g., production, staging).</string>
+    <string name="variable_masked">Masked</string>
+    <string name="variable_protected">Protected</string>
+    <string name="variable_scope_format">Scope: %1$s  |  Type: %2$s</string>
+    <string name="variable_deleted">Variable deleted</string>
+    <string name="copy_value">Copy value</string>
 
     <!-- errors -->
     <string name="generic_error">An unexpected error occurred</string>

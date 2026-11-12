@@ -32,6 +32,9 @@ public class Variable implements Serializable {
 	@SerializedName("environment_scope")
 	private String environmentScope;
 
+	@SerializedName("description")
+	private String description;
+
 	public String getKey() {
 		return key;
 	}
@@ -94,5 +97,9 @@ public class Variable implements Serializable {
 
 	public void setEnvironmentScope(String environmentScope) {
 		this.environmentScope = environmentScope;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }

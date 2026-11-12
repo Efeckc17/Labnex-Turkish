@@ -24,6 +24,9 @@ public class CrudeVariable {
 	@SerializedName("environment_scope")
 	private String environmentScope;
 
+	@SerializedName("description")
+	private String description;
+
 	public void setKey(String key) {
 		this.key = key;
 	}
@@ -46,5 +49,9 @@ public class CrudeVariable {
 
 	public void setEnvironmentScope(String environmentScope) {
 		this.environmentScope = environmentScope;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

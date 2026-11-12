@@ -219,10 +219,9 @@ public class ProjectDetailActivity extends BaseActivity
 			startActivity(intent);
 		});
 
-		binding.sectionActions.cardCiDashboard.btnVariables.setOnClickListener(v -> {
-			// TODO open Variables
-			Toasty.show(ctx, "Open Variables");
-		});
+		binding.sectionActions.cardCiDashboard.btnVariables.setOnClickListener(v ->
+				VariablesBottomSheet.newInstance(projectId)
+						.show(getSupportFragmentManager(), "variablesSheet"));
 	}
 
 	private void setupCard(
@@ -352,6 +351,17 @@ public class ProjectDetailActivity extends BaseActivity
 							com.google.android.material.R.attr.colorPrimaryContainer,
 							com.google.android.material.R.attr.colorOnPrimaryContainer));
 		}
+
+		if (AccessLevel.canCreateBranch(project, accessLevel)) {
+			menuItems.add(
+					new GenericMenuItemModel(
+							"create_variable",
+							R.string.create_variable,
+							R.drawable.ic_add,
+							com.google.android.material.R.attr.colorPrimaryContainer,
+							com.google.android.material.R.attr.colorOnPrimaryContainer));
+		}
+
 		if (AccessLevel.canFork(project, accessLevel)) {
 			if (!isFork) {
 				menuItems.add(
@@ -362,16 +372,6 @@ public class ProjectDetailActivity extends BaseActivity
 								com.google.android.material.R.attr.colorPrimaryContainer,
 								com.google.android.material.R.attr.colorOnPrimaryContainer));
 			}
-		}
-
-		if (AccessLevel.canCreateBranch(project, accessLevel)) {
-			menuItems.add(
-					new GenericMenuItemModel(
-							"create_variable",
-							R.string.create_variable,
-							R.drawable.ic_add,
-							com.google.android.material.R.attr.colorPrimaryContainer,
-							com.google.android.material.R.attr.colorOnPrimaryContainer));
 		}
 
 		binding.btnMenu.setVisibility(menuItems.isEmpty() ? View.GONE : View.VISIBLE);
@@ -427,14 +427,14 @@ public class ProjectDetailActivity extends BaseActivity
 					CreateWikiBottomSheet.newInstance("project", projectId, null)
 							.show(getSupportFragmentManager(), "createWikiSheet");
 					break;
+				case "create_variable":
+					CreateVariableBottomSheet.newInstance(projectId, null)
+							.show(getSupportFragmentManager(), "createVariableSheet");
+					break;
 				case "fork_project":
 					ForkProjectBottomSheet.newInstance(
 									projectId, project.getName(), project.getPath())
 							.show(getSupportFragmentManager(), "forkProjectSheet");
-				case "create_variable":
-					// TODO open create variable sheet
-					Toasty.show(ctx, "Open Create Variable");
-					break;
 			}
 		});
 		sheet.show(getSupportFragmentManager(), "projectMenuSheet");

@@ -86,7 +86,7 @@
         android:visibility="gone"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_arrow_down"
-        app:tint="?attr/colorOnSecondaryContainer"
+        app:tint="?attr/iconsColor"
         app:backgroundTint="?attr/colorSurfaceContainerHighest" />
 
     <com.google.android.material.dockedtoolbar.DockedToolbarLayout
