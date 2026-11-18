@@ -1,0 +1,49 @@
+<resources>
+    <string-array name="languages">
+        <item>en</item>
+        <item>de</item>
+        <item>es</item>
+        <item>fr</item>
+        <item>zh-TW</item>
+        <item>ru</item>
+        <item>zh</item>
+        <item>it</item>
+        <item>tr</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>Koyu</item>
+        <item>Açık</item>
+        <item>Sistem</item>
+        <item>Dinamik</item>
+    </string-array>
+
+    <string-array name="themes_older_versions">
+        <item>Koyu</item>
+        <item>Açık</item>
+        <item>Sistem</item>
+    </string-array>
+
+    <string-array name="ceColors">
+        <item>Beş Renk</item>
+        <item>Mavi Ay</item>
+    </string-array>
+
+    <string-array name="ceIndentation">
+        <item>Sekmeler</item>
+        <item>Boşluklar</item>
+    </string-array>
+
+    <string-array name="home_screen">
+        <item>@string/home</item>
+        <item>@string/explore</item>
+        <item>@string/todo_list</item>
+        <item>@string/activities</item>
+    </string-array>
+
+    <string-array name="snippet_visibility_options">
+        <item>Özel</item>
+        <item>Dahili</item>
+        <item>Herkese açık</item>
+    </string-array>
+</resources>
