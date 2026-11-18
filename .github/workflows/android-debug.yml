@@ -24,6 +24,9 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses > /dev/null || test ${PIPESTATUS[1]} -eq 0
+
       - name: Install Android SDK 37
         run: sdkmanager --install 'platforms;android-37' 'build-tools;37.0.0'
 
