@@ -1,0 +1,39 @@
+name: Build Turkish LabNex APKs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, feat/turkish-localization]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK 37
+        run: sdkmanager --install 'platforms;android-37' 'build-tools;37.0.0'
+
+      - name: Build free and premium debug APKs
+        run: ./gradlew --no-daemon :app:assembleFreeDebug :app:assemblePremiumDebug
+
+      - name: Upload debug APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: LabNex-Turkish-debug-APKs
+          path: app/build/outputs/apk/*/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
