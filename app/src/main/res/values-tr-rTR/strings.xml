@@ -2,7 +2,7 @@
     <string name="action_sign_in">Giriş yap</string>
     <string name="all_good">Güncel durumdasınız</string>
     <string name="most_visited">En çok ziyaret edilen projeler</string>
-    <string name="gitlab_link">GitLab URL'si</string>
+    <string name="gitlab_link">GitLab URL\'si</string>
     <string name="gitlab_link_help">Örn. gitlab.com (https:// eklemeyin; http, LabNex tarafından desteklenmez)</string>
     <string name="personal_access_token">Kişisel erişim belirteci</string>
     <string name="personal_access_token_helper"><u>Kişisel erişim belirtecini (PAT) nereden alabilirim?</u></string>
@@ -46,9 +46,9 @@
     <string name="label_deleted">Etiket başarıyla silindi</string>
     <string name="label_updated">Etiket başarıyla güncellendi</string>
     <string name="copy_project_id">Proje kimliğini kopyala</string>
-    <string name="copy_web_url">Proje URL'sini kopyala</string>
-    <string name="copy_clone_https_url">HTTPS klon URL'sini kopyala</string>
-    <string name="copy_ssh_url">SSH URL'sini kopyala</string>
+    <string name="copy_web_url">Proje URL\'sini kopyala</string>
+    <string name="copy_clone_https_url">HTTPS klon URL\'sini kopyala</string>
+    <string name="copy_ssh_url">SSH URL\'sini kopyala</string>
     <string name="new_page">Yeni sayfa</string>
     <string name="delete_wiki_dialog_message">Bu wiki sayfasını gerçekten silmek istiyor musunuz?</string>
     <string name="wiki_content_hint">İçerik (Markdown)</string>
@@ -62,7 +62,7 @@
     <string name="delete_release_message">Bu sürümü silmek istediğinizden emin misiniz? Bir sürümün silinmesi, ilişkili etiketi silmez.</string>
     <string name="due_on">Son tarih: %1$s</string>
     <string name="open_in_browser">Tarayıcıda aç</string>
-    <string name="copy_url">URL'yi kopyala</string>
+    <string name="copy_url">URL\'yi kopyala</string>
     <string name="discussion_locked">Tartışma kilitlendi</string>
     <string name="discussion_locked_message">Tartışma kilitli. Yalnızca proje üyeleri yorum yapabilir.</string>
     <string name="comment_posted">Yorum gönderildi</string>
@@ -71,7 +71,7 @@
     <string name="source_branch">Kaynak dal</string>
     <string name="target_branch">Hedef dal</string>
     <string name="branch_name">Dal adı</string>
-    <string name="branch_ref_hint">Dalın oluşturulacağı dal adı veya commit SHA'sı</string>
+    <string name="branch_ref_hint">Dalın oluşturulacağı dal adı veya commit SHA\'sı</string>
     <string name="branch_ref_required">Dal adı ve referans gerekli</string>
     <string name="branch_created">%1$s dalı başarıyla oluşturuldu</string>
     <string name="source_target_branch_empty_error">Hedef ve kaynak dallarının ikisi de gerekli</string>
@@ -86,10 +86,10 @@
     <string name="follow_failed">Takip durumu güncellenemedi</string>
     <string name="copy_user_id">Kullanıcı kimliğini kopyala</string>
     <string name="copy_username">Kullanıcı adını kopyala</string>
-    <string name="copy_profile_url">Profil URL'sini kopyala</string>
+    <string name="copy_profile_url">Profil URL\'sini kopyala</string>
     <string name="remove_source_branch">Kaynak dalı kaldır</string>
     <string name="create_branch">Dal oluştur</string>
-    <string name="squash_commits">Tüm commit'leri birleştir</string>
+    <string name="squash_commits">Tüm commit\'leri birleştir</string>
     <string name="close_issue">İşi kapat</string>
     <string name="issue_closed">İş başarıyla kapatıldı</string>
     <string name="initialize_with_readme">Depoyu README ile başlat</string>
@@ -123,7 +123,7 @@
     <string name="mr_branches_are_same">Hedef ve kaynak dalları aynı olamaz</string>
     <string name="revoke_approval">Onayı geri al</string>
     <string name="exclude_files_in_fileviewer">Bu dosya türü önizlenemiyor. Görüntülemek için indirin.</string>
-    <string name="render_md">Markdown'u oluştur</string>
+    <string name="render_md">Markdown\'u oluştur</string>
     <string name="create_file">Dosya oluştur</string>
     <string name="filename">Dosya adı</string>
     <string name="commit_message">Commit mesajı</string>
@@ -222,7 +222,7 @@
     <string name="nothing_found_title">Burada hiçbir şey yok</string>
     <string name="namespace">Ad alanı</string>
     <string name="default_branch">Varsayılan dal</string>
-    <string name="enable_lfs">LFS'yi etkinleştir</string>
+    <string name="enable_lfs">LFS\'yi etkinleştir</string>
     <string name="enable_email_notifications">E-posta bildirimlerini etkinleştir</string>
     <string name="remove_all_projects">Tüm projeleri kaldır</string>
     <string name="remove_all_projects_message">Bu işlem en çok ziyaret edilen tüm projeleri listeden kaldırır.</string>
@@ -240,7 +240,7 @@
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="image_load_error">Görsel yüklenemedi</string>
     <string name="copy_content">İçeriği kopyala</string>
-    <string name="share_url">URL'yi paylaş</string>
+    <string name="share_url">URL\'yi paylaş</string>
     <string name="share_content">İçeriği paylaş</string>
     <string name="choose_what_to_share">Neyin paylaşılacağını seçin</string>
     <string name="choose_what_to_copy">Neyin kopyalanacağını seçin</string>
@@ -271,7 +271,7 @@
     <string name="tag_name_required">Etiket adı gerekli</string>
     <string name="released_at">Yayımlanma tarihi</string>
     <string name="released_at_hint">Ayarlanmazsa şimdi olarak belirlenir. Gelecekteki veya geçmiş sürümler için kullanın.</string>
-    <string name="ref_hint">Etiketin oluşturulacağı dal, commit SHA'sı veya etiket adı</string>
+    <string name="ref_hint">Etiketin oluşturulacağı dal, commit SHA\'sı veya etiket adı</string>
     <string name="release_created">Sürüm oluşturuldu</string>
     <string name="release_updated">Sürüm güncellendi</string>
     <string name="create_wiki">Wiki sayfası oluştur</string>
@@ -322,14 +322,14 @@
     <string name="close_mr_confirmation">Bu birleştirme isteğini kapatmak üzeresiniz. Devam etmek için Kapat düğmesine dokunun.</string>
     <string name="mark_draft">Taslak olarak işaretle</string>
     <string name="mark_ready">Hazır olarak işaretle</string>
-    <string name="commit_sha_copied">Commit SHA'sı panoya kopyalandı</string>
+    <string name="commit_sha_copied">Commit SHA\'sı panoya kopyalandı</string>
     <string name="activity_deleted_no_action">Bu öğe artık mevcut değil</string>
     <string name="wiki_page_not_found_maybe_renamed">Sayfanın adı değiştirilmiş olabilir</string>
-    <string name="view_commits">Commit'leri görüntüle</string>
+    <string name="view_commits">Commit\'leri görüntüle</string>
     <string name="clear_image_cache">Görsel önbelleğini temizle</string>
     <string name="clear_image_cache_confirm">Önbelleğe alınan görseller kaldırılacak ve siz göz attıkça yeniden indirilecek. Devam edilsin mi?</string>
     <string name="image_cache_cleared">Görsel önbelleği temizlendi</string>
-    <string name="view_pipelines">Pipeline'ları görüntüle</string>
+    <string name="view_pipelines">Pipeline\'ları görüntüle</string>
     <string name="no_pipeline_data">Yakın tarihli pipeline yok</string>
     <string name="ci_status_passed">Başarılı</string>
     <string name="ci_status_failed">Başarısız</string>
@@ -350,8 +350,8 @@
     <string name="action_failed">İşlem gerçekleştirilemedi</string>
     <string name="job_meta_stage">Aşama: %1$s</string>
     <string name="job_metadata_format">Aşama: %1$s\nCommit: %2$s\nReferans: %3$s</string>
-    <string name="delete_pipeline">Pipeline'ı sil</string>
-    <string name="delete_pipeline_confirmation">Bu pipeline'ı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
+    <string name="delete_pipeline">Pipeline\'ı sil</string>
+    <string name="delete_pipeline_confirmation">Bu pipeline\'ı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
     <string name="create_variable">Değişken oluştur</string>
     <string name="edit_variable">Değişkeni düzenle</string>
     <string name="variable_key">Anahtar</string>
@@ -377,16 +377,16 @@
 
     <string name="generic_error">Beklenmeyen bir hata oluştu</string>
     <string name="browserOpenFailed">Bu bağlantıyı açacak uygulama bulunamadı</string>
-    <string name="gitlab_url_empty_error">GitLab URL'si boş olamaz</string>
+    <string name="gitlab_url_empty_error">GitLab URL\'si boş olamaz</string>
     <string name="gitlab_token_empty_error">Kişisel belirteç boş olamaz</string>
-    <string name="gitlab_url_spaces_not_supported">GitLab URL'si boşluk içeremez</string>
+    <string name="gitlab_url_spaces_not_supported">GitLab URL\'si boşluk içeremez</string>
     <string name="gitlab_token_spaces_not_supported">Kişisel belirteç boşluk içeremez</string>
-    <string name="gitlab_url_no_http_allowed">Lütfen GitLab URL'sini http:// veya https:// olmadan girin</string>
-    <string name="gitlab_url_missing_dot">GitLab URL'si nokta içermeli (örn. gitlab.com)</string>
+    <string name="gitlab_url_no_http_allowed">Lütfen GitLab URL\'sini http:// veya https:// olmadan girin</string>
+    <string name="gitlab_url_missing_dot">GitLab URL\'si nokta içermeli (örn. gitlab.com)</string>
     <string name="gitlab_url_invalid_format">Geçersiz GitLab URL biçimi</string>
     <string name="version_unknown">Bilinmeyen bir GitLab sürümü algılandı!</string>
     <string name="version_unsupported_old">Desteklenmeyen eski GitLab sürümü (%1$s) algılandı. Lütfen en son kararlı sürüme güncelleyin. Devam ederseniz bazı özellikler çalışmayabilir.</string>
-    <string name="version_unsupported_new">Yeni GitLab sürümü algılandı! Lütfen LabNex'i güncelleyin!</string>
+    <string name="version_unsupported_new">Yeni GitLab sürümü algılandı! Lütfen LabNex\'i güncelleyin!</string>
     <string name="version_alert_dialog_header">Desteklenmeyen GitLab sürümü</string>
     <string name="not_authorized">Yetkiniz yok. Bu işlemi gerçekleştirme izniniz olmayabilir; kimlik bilgilerinizi kontrol edip tekrar deneyin</string>
     <string name="token_auth_error">Belirteç geçerli değil</string>
@@ -442,7 +442,7 @@
     <string name="wiki">Wiki</string>
     <string name="files">Dosyalar</string>
     <string name="file">Dosya</string>
-    <string name="commits">Commit'ler</string>
+    <string name="commits">Commit\'ler</string>
     <string name="branch">Dal</string>
     <string name="members">Üyeler</string>
     <string name="title">Başlık</string>
@@ -510,6 +510,6 @@
     <string name="retry">Yeniden dene</string>
     <string name="play">Oynat</string>
     <string name="scroll">Kaydır</string>
-    <string name="pipelines">Pipeline'lar</string>
+    <string name="pipelines">Pipeline\'lar</string>
     <string name="variables">Değişkenler</string>
 </resources>
