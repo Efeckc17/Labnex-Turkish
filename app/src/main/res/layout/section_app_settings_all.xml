@@ -28,6 +28,15 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/extra_palette_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/extra_color_palettes"
+            android:textColor="?attr/colorPrimary"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen12dp" />

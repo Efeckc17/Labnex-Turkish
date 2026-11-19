@@ -515,4 +515,7 @@
     <string name="turkish_translation_credit">Türkçe çeviri: toxi360 tarafından yapılmıştır</string>
     <string name="turkish_color_themes">Renk temaları</string>
     <string-array name="turkish_palette_choices"><item>Okyanus Mavisi</item><item>Orman Yeşili</item></string-array>
+    <string name="extra_color_palettes">Yeni renk temaları</string>
+    <string name="turkish_translation_credit">Türkçe çeviri toxi360 tarafından yapılmıştır</string>
+    <string-array name="extra_palettes"><item>Gece moru</item><item>Orman yeşili</item><item>Okyanus mavisi</item></string-array>
 </resources>

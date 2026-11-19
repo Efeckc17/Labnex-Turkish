@@ -281,4 +281,45 @@
         <item name="colorOnSurface">#E4F1E6</item>
         <item name="colorOnBackground">#E4F1E6</item>
     </style>
+
+    <!-- Additional high-contrast dark palettes for the Turkish edition. -->
+    <style name="AppThemeMidnight" parent="AppThemeDark">
+        <item name="colorPrimary">#A7B8FF</item>
+        <item name="colorOnPrimary">#101B40</item>
+        <item name="colorPrimaryContainer">#293765</item>
+        <item name="colorOnPrimaryContainer">#DCE2FF</item>
+        <item name="colorSecondary">#C5B8FF</item>
+        <item name="colorTertiary">#FFB4D1</item>
+        <item name="colorSurface">#101522</item>
+        <item name="colorSurfaceContainerLow">#192033</item>
+        <item name="colorSurfaceContainerHigh">#293149</item>
+        <item name="android:colorBackground">#101522</item>
+        <item name="android:statusBarColor">#101522</item>
+    </style>
+    <style name="AppThemeForest" parent="AppThemeDark">
+        <item name="colorPrimary">#9DE3B4</item>
+        <item name="colorOnPrimary">#103822</item>
+        <item name="colorPrimaryContainer">#28523B</item>
+        <item name="colorOnPrimaryContainer">#C3F3D2</item>
+        <item name="colorSecondary">#B8D9A1</item>
+        <item name="colorTertiary">#E6C78D</item>
+        <item name="colorSurface">#101D18</item>
+        <item name="colorSurfaceContainerLow">#1A2A22</item>
+        <item name="colorSurfaceContainerHigh">#304238</item>
+        <item name="android:colorBackground">#101D18</item>
+        <item name="android:statusBarColor">#101D18</item>
+    </style>
+    <style name="AppThemeOcean" parent="AppThemeDark">
+        <item name="colorPrimary">#81D7F2</item>
+        <item name="colorOnPrimary">#003545</item>
+        <item name="colorPrimaryContainer">#14556A</item>
+        <item name="colorOnPrimaryContainer">#BDEBFA</item>
+        <item name="colorSecondary">#A1D8E2</item>
+        <item name="colorTertiary">#C6C2FF</item>
+        <item name="colorSurface">#0B1B25</item>
+        <item name="colorSurfaceContainerLow">#142B37</item>
+        <item name="colorSurfaceContainerHigh">#28424E</item>
+        <item name="android:colorBackground">#0B1B25</item>
+        <item name="android:statusBarColor">#0B1B25</item>
+    </style>
 </resources>

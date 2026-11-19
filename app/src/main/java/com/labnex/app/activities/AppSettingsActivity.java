@@ -173,6 +173,19 @@ public class AppSettingsActivity extends BaseActivity
 				.getRoot()
 				.setOnClickListener(v -> selectTheme(getString(R.string.theme_system)));
 
+		binding.sectionAll.extraPaletteSelector.setOnClickListener(v -> {
+			String[] names = getResources().getStringArray(R.array.extra_palettes);
+			int selected = themeSelectedChoice >= 4 ? themeSelectedChoice - 4 : -1;
+			new MaterialAlertDialogBuilder(this)
+					.setTitle(R.string.extra_color_palettes)
+					.setSingleChoiceItems(names, selected, (dialog, index) -> {
+						AppSettingsInit.updateSettingsValue(ctx, String.valueOf(index + 4), AppSettingsInit.APP_THEME_KEY);
+						dialog.dismiss();
+						recreateWithAnimation();
+					})
+					.show();
+		});
+
 		initLanguageSelector();
 		initHomeScreenSelector();
 		initLabelsSettings();
@@ -267,6 +280,12 @@ public class AppSettingsActivity extends BaseActivity
 				getString(R.string.crowd_in_link));
 
 		addDynamicRow(
+				linksContainer,
+				getString(R.string.turkish_translation_credit),
+				R.drawable.ic_language,
+				getString(R.string.turkish_translation_donate_url));
+
+		addDynamicRow(
 				appsContainer,
 				getString(R.string.gitnex),
 				R.drawable.ic_app_gitnex,
@@ -339,7 +358,8 @@ public class AppSettingsActivity extends BaseActivity
 
 		for (int i = 0; i < themeCards.length; i++) {
 			boolean isSelected =
-					selectedIndex < themeList.length && i < themeList.length && internalNames[i].equals(themeList[selectedIndex]);
+					selectedIndex < themeList.length && selectedIndex >= 0 && selectedIndex < themeList.length
+						&& internalNames[i].equals(themeList[selectedIndex]);
 			themeCards[i].setStrokeWidth(
 					isSelected ? getResources().getDimensionPixelSize(R.dimen.dimen2dp) : 0);
 		}
