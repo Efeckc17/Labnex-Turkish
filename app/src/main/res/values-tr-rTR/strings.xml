@@ -512,4 +512,7 @@
     <string name="scroll">Kaydır</string>
     <string name="pipelines">Pipeline\'lar</string>
     <string name="variables">Değişkenler</string>
+    <string name="turkish_translation_credit">Türkçe çeviri: toxi360 tarafından yapılmıştır</string>
+    <string name="turkish_color_themes">Renk temaları</string>
+    <string-array name="turkish_palette_choices"><item>Okyanus Mavisi</item><item>Orman Yeşili</item></string-array>
 </resources>

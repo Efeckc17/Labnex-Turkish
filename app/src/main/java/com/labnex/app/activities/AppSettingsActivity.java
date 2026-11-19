@@ -232,6 +232,19 @@ public class AppSettingsActivity extends BaseActivity
 		linksContainer.removeAllViews();
 		appsContainer.removeAllViews();
 
+		addDynamicRow(linksContainer, getString(R.string.turkish_translation_credit),
+				R.drawable.ic_language, "https://codeberg.org/toxi360");
+		View paletteRow = getLayoutInflater().inflate(R.layout.item_settings_others, linksContainer, false);
+		((TextView) paletteRow.findViewById(R.id.item_title)).setText(R.string.turkish_color_themes);
+		((ImageView) paletteRow.findViewById(R.id.item_icon)).setImageResource(R.drawable.ic_themes);
+		paletteRow.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
+				.setTitle(R.string.turkish_color_themes)
+				.setItems(R.array.turkish_palette_choices, (dialog, choice) -> {
+					AppSettingsInit.updateSettingsValue(ctx, String.valueOf(choice + 4), AppSettingsInit.APP_THEME_KEY);
+					recreateWithAnimation();
+				}).show());
+		linksContainer.addView(paletteRow);
+
 		addDynamicRow(
 				linksContainer,
 				getString(R.string.support_text_patreon),
@@ -326,7 +339,7 @@ public class AppSettingsActivity extends BaseActivity
 
 		for (int i = 0; i < themeCards.length; i++) {
 			boolean isSelected =
-					i < themeList.length && internalNames[i].equals(themeList[selectedIndex]);
+					selectedIndex < themeList.length && i < themeList.length && internalNames[i].equals(themeList[selectedIndex]);
 			themeCards[i].setStrokeWidth(
 					isSelected ? getResources().getDimensionPixelSize(R.dimen.dimen2dp) : 0);
 		}
