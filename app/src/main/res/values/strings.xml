@@ -561,9 +561,7 @@
     <string name="pipelines">Pipelines</string>
     <string name="variables">Variables</string>
     <!-- generic copy -->
-    <string name="turkish_translation_credit">Turkish translation by toxi360</string>
-    <string name="turkish_color_themes">Color themes</string>
-    <string-array name="turkish_palette_choices"><item>Ocean Blue</item><item>Forest Green</item></string-array>
+
     <string name="extra_color_palettes">More color palettes</string>
     <string name="turkish_translation_credit">Turkish translation by toxi360</string>
     <string name="turkish_translation_donate_url" translatable="false">https://paycow.net/donate/youtubego</string>

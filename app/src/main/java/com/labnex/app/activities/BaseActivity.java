@@ -52,12 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 				setTheme(R.style.AppThemeDynamicColors);
 				break;
 			case 4:
-				setTheme(R.style.AppThemeOcean);
-				break;
-			case 5:
-				setTheme(R.style.AppThemeForest);
-				break;
-			case 4:
 				setTheme(R.style.AppThemeMidnight);
 				break;
 			case 5:

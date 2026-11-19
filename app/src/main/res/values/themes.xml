@@ -249,39 +249,6 @@
         <item name="checkedIconTint">?attr/textColor</item>
     </style>
 
-    <style name="AppThemeOcean" parent="AppThemeDark">
-        <item name="colorPrimary">#83D8FF</item>
-        <item name="colorOnPrimary">#003548</item>
-        <item name="colorPrimaryContainer">#004D66</item>
-        <item name="colorOnPrimaryContainer">#C4EDFF</item>
-        <item name="colorSecondary">#A9D5E8</item>
-        <item name="colorSecondaryContainer">#234956</item>
-        <item name="colorSurface">#0C1825</item>
-        <item name="colorSurfaceContainerLow">#142535</item>
-        <item name="colorSurfaceContainer">#1A2C3D</item>
-        <item name="colorSurfaceContainerHigh">#24384A</item>
-        <item name="android:colorBackground">#0C1825</item>
-        <item name="android:statusBarColor">#0C1825</item>
-        <item name="colorOnSurface">#E4F2FA</item>
-        <item name="colorOnBackground">#E4F2FA</item>
-    </style>
-    <style name="AppThemeForest" parent="AppThemeDark">
-        <item name="colorPrimary">#A6E5B6</item>
-        <item name="colorOnPrimary">#123B25</item>
-        <item name="colorPrimaryContainer">#28573B</item>
-        <item name="colorOnPrimaryContainer">#C7F5D1</item>
-        <item name="colorSecondary">#BEDDBE</item>
-        <item name="colorSecondaryContainer">#36513D</item>
-        <item name="colorSurface">#111C17</item>
-        <item name="colorSurfaceContainerLow">#1A2920</item>
-        <item name="colorSurfaceContainer">#213126</item>
-        <item name="colorSurfaceContainerHigh">#2B3D30</item>
-        <item name="android:colorBackground">#111C17</item>
-        <item name="android:statusBarColor">#111C17</item>
-        <item name="colorOnSurface">#E4F1E6</item>
-        <item name="colorOnBackground">#E4F1E6</item>
-    </style>
-
     <!-- Additional high-contrast dark palettes for the Turkish edition. -->
     <style name="AppThemeMidnight" parent="AppThemeDark">
         <item name="colorPrimary">#A7B8FF</item>
