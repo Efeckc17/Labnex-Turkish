@@ -4,12 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches: [main, feat/turkish-localization]
+    tags: ["v*-tr.*"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -39,13 +40,27 @@ jobs:
         run: |
           "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" --install 'platforms;android-37.2' 'build-tools;36.0.0'
 
-      - name: Build free and premium debug APKs
-        run: ./gradlew --no-daemon :app:assembleFreeDebug :app:assemblePremiumDebug
+      - name: Build Turkish free debug APK
+        run: ./gradlew --no-daemon :app:assembleFreeDebug
 
       - name: Upload debug APKs
         uses: actions/upload-artifact@v4
         with:
           name: LabNex-Turkish-debug-APKs
-          path: app/build/outputs/apk/*/debug/*.apk
+          path: app/build/outputs/apk/free/debug/*.apk
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish tagged APK to GitHub Releases
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t apks < <(find app/build/outputs/apk/free/debug -maxdepth 1 -type f -name '*.apk' | sort)
+          test "${#apks[@]}" -eq 1
+          gh release create "${GITHUB_REF_NAME}" "${apks[0]}#LabNex-Turkish-free-debug.apk" \
+            --title "LabNex Türkçe 9.0.0 (Test)" \
+            --notes "Türkçe çeviri içeren test APK'sı. Debug imzalıdır; resmi yayın sürümü değildir. Android cihazda kurulup test edilmesi amaçlanır." \
+            --prerelease
